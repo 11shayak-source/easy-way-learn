@@ -527,9 +527,10 @@
         </div>
     </footer>
 
-    <!-- INTERACTIVE AI CHATBOT (Light Theme & Mobile Optimized) -->
+    <!-- INTERACTIVE AI CHATBOT (Hidden on load, Enroll link appended on reply) -->
     <div class="bot-container">
-        <div class="bot-window flex" id="botWindow">
+        <!-- Changed to style="display: none;" so it stays hidden until clicked -->
+        <div class="bot-window" id="botWindow" style="display: none;">
             <div class="bg-[var(--navy)] p-4 font-bold flex justify-between items-center shadow-md">
                 <div class="flex items-center gap-3">
                     <span class="relative flex h-3 w-3">
@@ -594,7 +595,7 @@
             });
         });
 
-        // Extreme Bouncy Intersection Observer (Adjusted threshold for mobile)
+        // Extreme Bouncy Intersection Observer
         const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
@@ -608,27 +609,23 @@
 
         document.querySelectorAll('.reveal-up, .reveal-left').forEach(el => observer.observe(el));
 
-        // Dark Canvas Particles for Light Background
+        // Ambient Canvas
         const canvas = document.getElementById('ambient-canvas');
         const ctx = canvas.getContext('2d');
-        let width, height;
-        let particles = [];
+        let width, height, particles = [];
 
         function initCanvas() {
             width = canvas.width = window.innerWidth;
             height = canvas.height = window.innerHeight;
             particles = [];
-            // Reduce particle count on very small screens for performance
             const particleCount = width < 768 ? 20 : 45; 
             const colors = ['rgba(0, 0, 128, 0.25)', 'rgba(255, 153, 51, 0.3)', 'rgba(19, 136, 8, 0.25)'];
             for(let i=0; i<particleCount; i++) {
                 particles.push({
-                    x: Math.random() * width,
-                    y: Math.random() * height,
-                    radius: Math.random() * 60 + 30, // Smaller particles on mobile
+                    x: Math.random() * width, y: Math.random() * height,
+                    radius: Math.random() * 60 + 30,
                     color: colors[Math.floor(Math.random() * colors.length)],
-                    vx: (Math.random() - 0.5) * 0.8,
-                    vy: (Math.random() - 0.5) * 0.8
+                    vx: (Math.random() - 0.5) * 0.8, vy: (Math.random() - 0.5) * 0.8
                 });
             }
         }
@@ -660,7 +657,12 @@
         const botHistory = document.getElementById('botHistory');
 
         function toggleBot() {
-            botWindow.style.display = botWindow.style.display === 'flex' ? 'none' : 'flex';
+            // Fixed toggle logic
+            if (botWindow.style.display === 'none' || botWindow.style.display === '') {
+                botWindow.style.display = 'flex';
+            } else {
+                botWindow.style.display = 'none';
+            }
         }
 
         function sendMsg(msg) {
@@ -685,7 +687,12 @@
                     reply = "Our basic models start at ₹299 and ₹499. Premium starts from ₹2,999 and ₹5,999. These models include full e-commerce and UPI integration! 🚀";
                 } else if(msg.includes('started')) {
                     reply = "You can get started right away! Please mention this number <strong>7596 909 888</strong> to call or WhatsApp our counselors. 📞";
+                } else {
+                    reply = "I'm here to help! You can check our course fees or contact us directly at 7596 909 888.";
                 }
+
+                // Add direct enroll link after every bot response
+                reply += `<br><br><a href="courses.html" class="inline-block bg-[var(--green)] text-white px-4 py-2 rounded-full font-bold text-xs shadow-md hover:bg-green-700 transition">Click here to Enroll &rarr;</a>`;
 
                 botHistory.innerHTML += `
                     <div class="bg-white border border-gray-200 p-3 md:p-4 rounded-2xl rounded-tl-sm text-xs md:text-sm text-gray-800 mr-8 shadow-md font-semibold">
