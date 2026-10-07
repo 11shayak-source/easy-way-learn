@@ -76,7 +76,7 @@
 
         /* --- CHATBOT --- */
         .bot-container { position: fixed; bottom: 20px; right: 20px; z-index: 100; }
-        .bot-window { display: none; width: calc(100vw - 40px); max-width: 360px; height: 450px; background: rgba(255, 255, 255, 0.98); border: 2px solid var(--saffron); border-radius: 1.5rem; box-shadow: 0 25px 50px rgba(0,0,0,0.2); flex-direction: column; overflow: hidden; transform-origin: bottom right; animation: popIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+        .bot-window { width: calc(100vw - 40px); max-width: 360px; height: 450px; background: rgba(255, 255, 255, 0.98); border: 2px solid var(--saffron); border-radius: 1.5rem; box-shadow: 0 25px 50px rgba(0,0,0,0.2); flex-direction: column; overflow: hidden; transform-origin: bottom right; animation: popIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
         @keyframes popIn { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
         .bot-trigger { background: linear-gradient(135deg, var(--saffron), var(--green)); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; margin-left: auto; margin-top: 16px; box-shadow: 0 0 25px rgba(255, 153, 51, 0.6); animation: pulseShadow 2s infinite; }
     </style>
@@ -156,9 +156,7 @@
                 <p class="text-sm md:text-base text-gray-600 mt-4 font-semibold max-w-2xl mx-auto px-2">Verified documentation, structural blueprints, and official letterheads. Click to instantly download and review our operational integrity.</p>
             </div>
 
-            <!-- Downloadable Cards Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
-                
                 <!-- Card 1: Letterhead -->
                 <div class="glass-panel p-6 md:p-8 flex flex-col items-center text-center reveal-up border-b-4 border-b-[var(--navy)]">
                     <div class="text-5xl md:text-6xl mb-4 text-[var(--navy)]">📄</div>
@@ -212,7 +210,6 @@
                     <p class="text-xs md:text-sm text-gray-600 mb-6 flex-grow">Archived official invitation representing our cultural outreach.</p>
                     <a href="Kalyan_Sir_Files/HH_Buddha_Invitation Card..docx" download class="w-full border-2 border-[var(--navy)] text-[var(--navy)] py-3 rounded-lg font-bold text-sm hover:bg-[rgba(0,0,128,0.05)] transition">Download File</a>
                 </div>
-
             </div>
         </div>
     </section>
@@ -222,24 +219,24 @@
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-12 md:mb-16 reveal-up">
                 <h3 class="text-3xl md:text-5xl font-bold text-[var(--navy)]">Media & <span class="text-[var(--green)]">Video Archives</span></h3>
-                <p class="text-sm md:text-base text-gray-600 mt-4 font-semibold max-w-2xl mx-auto px-2">High-definition lectures, television interviews, and seminar coverages. Play directly below.</p>
+                <p class="text-sm md:text-base text-gray-600 mt-4 font-semibold max-w-2xl mx-auto px-2">High-definition lectures, cultural presentations, and seminar coverages. Play directly below.</p>
             </div>
 
-            <!-- Removed Video 4 per client request. Changed grid to fit 3 items beautifully. -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
                 
-                <!-- Video 1 -->
+                <!-- Video 1 (Updated per user request) -->
                 <div class="reveal-up w-full">
                     <div class="video-container shadow-xl mb-4">
                         <video controls preload="metadata">
+                            <!-- Ensure file extension matches your .mov source -->
                             <source src="Kalyan_Sir_Files/kalyan-sir-2-new-compressed.mov" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     </div>
                     <div class="pl-2">
-                        <div class="text-[var(--saffron)] text-[10px] md:text-xs font-bold tracking-widest mb-1">NATIONAL TELEVISION</div>
-                        <h4 class="text-lg md:text-xl font-bold text-[var(--navy)] mb-1">Exclusive TV Interview</h4>
-                        <p class="text-xs md:text-sm text-gray-600 font-medium">A comprehensive breakdown of our pedagogical methods broadcasted live.</p>
+                        <div class="text-[var(--saffron)] text-[10px] md:text-xs font-bold tracking-widest mb-1">CULTURAL PRESENTATION</div>
+                        <h4 class="text-lg md:text-xl font-bold text-[var(--navy)] mb-1">Special Recitation</h4>
+                        <p class="text-xs md:text-sm text-gray-600 font-medium">A profound literary recitation delivered by the founder, showcasing deep cultural appreciation.</p>
                     </div>
                 </div>
 
@@ -333,9 +330,10 @@
         </div>
     </footer>
 
-    <!-- INTERACTIVE AI CHATBOT -->
+    <!-- INTERACTIVE AI CHATBOT (Hidden on Load, Link injected) -->
     <div class="bot-container">
-        <div class="bot-window flex" id="botWindow">
+        <!-- Kept display none so it stays hidden on page load until triggered -->
+        <div class="bot-window" id="botWindow" style="display: none;">
             <div class="bg-[var(--navy)] p-4 font-bold flex justify-between items-center shadow-md">
                 <div class="flex items-center gap-3">
                     <span class="relative flex h-3 w-3">
@@ -383,7 +381,6 @@
             }
         });
 
-        // Close menu when a link is clicked
         const mobileLinks = mobileMenu.querySelectorAll('a');
         mobileLinks.forEach(link => {
             link.addEventListener('click', () => {
@@ -395,7 +392,7 @@
         });
 
         // Intersection Observer
-        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 }; // Lowered threshold for mobile
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 }; 
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) { entry.target.classList.add('active'); } 
@@ -413,13 +410,12 @@
             width = canvas.width = window.innerWidth;
             height = canvas.height = window.innerHeight;
             particles = [];
-            // Reduce particle count on very small screens for performance
             const particleCount = width < 768 ? 20 : 45; 
             const colors = ['rgba(0, 0, 128, 0.25)', 'rgba(255, 153, 51, 0.3)', 'rgba(19, 136, 8, 0.25)'];
             for(let i=0; i<particleCount; i++) {
                 particles.push({
                     x: Math.random() * width, y: Math.random() * height,
-                    radius: Math.random() * 60 + 30, // Smaller particles on mobile
+                    radius: Math.random() * 60 + 30, 
                     color: colors[Math.floor(Math.random() * colors.length)],
                     vx: (Math.random() - 0.5) * 0.8, vy: (Math.random() - 0.5) * 0.8
                 });
@@ -441,10 +437,19 @@
         window.addEventListener('resize', initCanvas);
         initCanvas(); animateCanvas();
 
-        // Chatbot
+        // Chatbot 
         const botWindow = document.getElementById('botWindow');
         const botHistory = document.getElementById('botHistory');
-        function toggleBot() { botWindow.style.display = botWindow.style.display === 'flex' ? 'none' : 'flex'; }
+        
+        function toggleBot() { 
+            // Fixed toggle logic to ensure it opens cleanly
+            if(botWindow.style.display === 'none' || botWindow.style.display === '') {
+                botWindow.style.display = 'flex';
+            } else {
+                botWindow.style.display = 'none';
+            }
+        }
+        
         function sendMsg(msg) {
             botHistory.innerHTML += `<div class="bg-[var(--navy)] p-3 rounded-2xl rounded-tr-sm text-xs md:text-sm text-white ml-8 shadow-md border border-[rgba(0,0,128,0.2)]">${msg}</div>`;
             botHistory.scrollTop = botHistory.scrollHeight;
@@ -457,7 +462,11 @@
                 let reply = msg.includes('Hand') 
                     ? "The Hand in Hand initiative focuses on student support and parent guidance, backed by verified structural blueprints! 🤝" 
                     : "You can view all our credentials in the gallery above!";
-                botHistory.innerHTML += `<div class="bg-white border border-gray-200 p-3 rounded-2xl rounded-tl-sm text-xs md:text-sm text-gray-800 mr-8 shadow-md font-semibold">🤖 ${reply}</div>`;
+                
+                // Add direct enroll link after bot response
+                reply += `<br><br><a href="courses.html" class="inline-block bg-[var(--green)] text-white px-4 py-2 rounded-full font-bold text-xs shadow-md hover:bg-green-700 transition">Click here to Enroll &rarr;</a>`;
+
+                botHistory.innerHTML += `<div class="bg-white border border-gray-200 p-3 md:p-4 rounded-2xl rounded-tl-sm text-xs md:text-sm text-gray-800 mr-8 shadow-md font-semibold">🤖 ${reply}</div>`;
                 botHistory.scrollTop = botHistory.scrollHeight;
             }, 800);
         }
