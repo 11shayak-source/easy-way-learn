@@ -59,11 +59,13 @@
 
         .glass-panel:hover::before { left: 150%; }
 
-        /* 3D Tilt Hover Effect */
-        .glass-panel:hover {
-            transform: translateY(-12px) rotateX(4deg) rotateY(-4deg) scale(1.03);
-            box-shadow: -10px 25px 50px rgba(0,0,128,0.15), 10px 25px 50px rgba(255,153,51,0.15);
-            border-color: rgba(255, 153, 51, 0.5);
+        /* 3D Tilt Hover Effect (Disabled on touch devices for better UX) */
+        @media (hover: hover) {
+            .glass-panel:hover {
+                transform: translateY(-12px) rotateX(4deg) rotateY(-4deg) scale(1.03);
+                box-shadow: -10px 25px 50px rgba(0,0,128,0.15), 10px 25px 50px rgba(255,153,51,0.15);
+                border-color: rgba(255, 153, 51, 0.5);
+            }
         }
 
         /* --- TYPOGRAPHY & GRADIENTS --- */
@@ -76,11 +78,11 @@
         }
         @keyframes shineTricolor { to { background-position: 200% center; } }
 
-        /* --- EXTREME SCROLL REVEALS (Bouncy Spring) --- */
-        .reveal-up { opacity: 0; transform: translateY(80px) scale(0.95); transition: all 1s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+        /* --- EXTREME SCROLL REVEALS --- */
+        .reveal-up { opacity: 0; transform: translateY(50px) scale(0.95); transition: all 1s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
         .reveal-up.active { opacity: 1; transform: translateY(0) scale(1); }
         
-        .reveal-left { opacity: 0; transform: translateX(-80px) rotate(-3deg); transition: all 1s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+        .reveal-left { opacity: 0; transform: translateX(-50px) rotate(-2deg); transition: all 1s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
         .reveal-left.active { opacity: 1; transform: translateX(0) rotate(0); }
 
         /* --- PULSING BUTTONS --- */
@@ -88,13 +90,13 @@
         .pulse-btn:hover { transform: scale(1.05); }
         @keyframes pulseShadow {
             0% { box-shadow: 0 0 0 0 rgba(255, 153, 51, 0.6); }
-            70% { box-shadow: 0 0 0 15px rgba(255, 153, 51, 0); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 153, 51, 0); }
             100% { box-shadow: 0 0 0 0 rgba(255, 153, 51, 0); }
         }
 
         /* --- ROTATING ASHOKA CHAKRA --- */
         .chakra-spinner {
-            animation: spin 10s linear infinite;
+            animation: spin 15s linear infinite;
             opacity: 0.15; position: absolute; z-index: 1; pointer-events: none;
         }
         @keyframes spin { 100% { transform: rotate(360deg); } }
@@ -103,7 +105,7 @@
         .marquee-wrapper {
             background: rgba(255, 255, 255, 0.95);
             border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            position: fixed; top: 0; width: 100%; z-index: 50;
+            position: fixed; top: 0; width: 100%; z-index: 60;
             overflow: hidden; display: flex; align-items: center; height: 40px;
         }
         .marquee-track { display: flex; white-space: nowrap; animation: marquee 25s linear infinite; }
@@ -118,28 +120,59 @@
             background: linear-gradient(90deg, var(--saffron), var(--green));
             color: white; padding: 14px 28px; font-weight: 700;
             letter-spacing: 1px; border-radius: 12px 12px 0 0;
-            cursor: pointer; z-index: 60; box-shadow: 0 -5px 20px rgba(0,0,0,0.2);
+            cursor: pointer; z-index: 50; box-shadow: 0 -5px 20px rgba(0,0,0,0.2);
             transition: all 0.3s ease;
         }
         .sticky-cta:hover { padding-bottom: 24px; box-shadow: 0 -10px 30px rgba(255, 153, 51, 0.4); }
 
+        /* Mobile Adjustments for Sticky CTA */
+        @media (max-width: 767px) {
+            .sticky-cta {
+                top: auto; bottom: 0; right: 0; left: 0;
+                transform: none; border-radius: 12px 12px 0 0;
+                text-align: center; padding: 12px; font-size: 12px;
+                box-shadow: 0 -5px 20px rgba(0,0,0,0.15);
+            }
+            .sticky-cta:hover { padding-bottom: 12px; } /* Reset hover on mobile */
+        }
+
         /* --- LIGHT THEME AI CHATBOT --- */
-        .bot-container { position: fixed; bottom: 30px; right: 30px; z-index: 100; }
+        .bot-container { position: fixed; bottom: 30px; right: 20px; z-index: 100; }
         .bot-window {
-            display: none; width: 360px; height: 500px;
+            display: none; width: calc(100vw - 40px); max-width: 360px; height: 450px;
             background: rgba(255, 255, 255, 0.98);
             border: 2px solid var(--saffron); border-radius: 1.5rem;
             box-shadow: 0 25px 50px rgba(0,0,0,0.2);
             flex-direction: column; overflow: hidden;
             transform-origin: bottom right; animation: popIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
+        @media (min-width: 768px) {
+            .bot-container { right: 30px; }
+            .bot-window { height: 500px; }
+        }
+        @media (max-width: 767px) {
+            .bot-container { bottom: 60px; } /* Lift above mobile bottom sticky CTA */
+        }
+
         @keyframes popIn { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
         .bot-trigger {
             background: linear-gradient(135deg, var(--saffron), var(--green));
-            width: 70px; height: 70px; border-radius: 50%;
+            width: 60px; height: 60px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
             cursor: pointer; margin-left: auto; margin-top: 16px;
             box-shadow: 0 0 25px rgba(255, 153, 51, 0.6); animation: pulseShadow 2s infinite;
+        }
+        @media (min-width: 768px) {
+            .bot-trigger { width: 70px; height: 70px; }
+        }
+
+        /* Mobile Menu Setup */
+        #mobile-menu {
+            transition: transform 0.3s ease-in-out;
+            transform: translateX(100%);
+        }
+        #mobile-menu.open {
+            transform: translateX(0);
         }
     </style>
 </head>
@@ -155,16 +188,18 @@
         </div>
     </div>
 
-    <!-- Sticky Right Lead Gen CTA -->
+    <!-- Sticky Bottom/Right Lead Gen CTA -->
     <div class="sticky-cta uppercase text-xs" onclick="window.location.href='tel:7596909888'">
         Talk to our advisor for free guidance
     </div>
 
-    <!-- Main Navigation (Multi-Page Linked) -->
-    <nav class="fixed w-full top-10 z-40 px-8 py-5 flex justify-between items-center bg-[rgba(255,255,255,0.85)] backdrop-blur-xl border-b border-[rgba(0,0,0,0.05)] shadow-sm">
-        <a href="index.html" class="text-3xl font-bold tracking-tighter cursor-pointer text-[var(--navy)] hover:opacity-80 transition">
+    <!-- Main Navigation -->
+    <nav class="fixed w-full top-10 z-50 px-6 md:px-8 py-4 md:py-5 flex justify-between items-center bg-[rgba(255,255,255,0.85)] backdrop-blur-xl border-b border-[rgba(0,0,0,0.05)] shadow-sm">
+        <a href="index.html" class="text-2xl md:text-3xl font-bold tracking-tighter cursor-pointer text-[var(--navy)] hover:opacity-80 transition z-50 relative">
             EAZY<span class="neon-text-tricolor">WAY</span>LEARN
         </a>
+        
+        <!-- Desktop Links -->
         <div class="hidden lg:flex gap-8 font-bold text-xs uppercase tracking-widest text-gray-600">
             <a href="founder.html" class="hover:text-[var(--navy)] transition">Let Me Introduce Myself</a>
             <a href="wings.html" class="hover:text-[var(--saffron)] transition">Trust & Wings</a>
@@ -173,477 +208,48 @@
             <a href="abroad.html" class="hover:text-[var(--saffron)] transition">Study Abroad</a>
             <a href="story.html" class="hover:text-[var(--navy)] transition">Our Story</a>
         </div>
-        <a href="courses.html" class="bg-[var(--navy)] text-white px-6 py-2 rounded-full font-bold text-sm hover:scale-110 transition shadow-lg pulse-btn inline-block">
-            Enroll
-        </a>
+
+        <div class="flex items-center gap-4 z-50 relative">
+            <a href="courses.html" class="hidden md:inline-block bg-[var(--navy)] text-white px-6 py-2 rounded-full font-bold text-sm hover:scale-110 transition shadow-lg pulse-btn">
+                Enroll
+            </a>
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="lg:hidden text-[var(--navy)] focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
     </nav>
 
+    <!-- Mobile Menu Sidebar -->
+    <div id="mobile-menu" class="fixed inset-0 bg-white z-40 lg:hidden flex flex-col justify-center items-center gap-6 font-bold text-lg text-[var(--navy)]">
+        <a href="founder.html" class="hover:text-[var(--navy)]">Let Me Introduce Myself</a>
+        <a href="wings.html" class="hover:text-[var(--saffron)]">Trust & Wings</a>
+        <a href="courses.html" class="hover:text-[var(--green)]">Courses & Fees</a>
+        <a href="references.html" class="hover:text-[var(--navy)]">References</a>
+        <a href="abroad.html" class="hover:text-[var(--saffron)]">Study Abroad</a>
+        <a href="story.html" class="hover:text-[var(--navy)]">Our Story</a>
+        <a href="courses.html" class="bg-[var(--navy)] text-white px-8 py-3 rounded-full mt-4">Enroll Now</a>
+    </div>
+
     <!-- HERO SECTION -->
-    <main class="min-h-screen flex flex-col justify-center items-center text-center px-6 pt-32 pb-20 relative z-10">
+    <main class="min-h-screen flex flex-col justify-center items-center text-center px-6 pt-28 pb-16 md:pt-32 md:pb-20 relative z-10">
         <!-- Background Chakra Graphic -->
-        <svg class="chakra-spinner w-[600px] h-[600px] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" viewBox="0 0 100 100">
+        <svg class="chakra-spinner w-[300px] h-[300px] md:w-[600px] md:h-[600px] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" viewBox="0 0 100 100">
             <circle cx="50" cy="50" r="45" fill="none" stroke="#000080" stroke-width="2"/>
             <path d="M50 5 L50 95 M5 50 L95 50 M18 18 L82 82 M18 82 L82 18" stroke="#000080" stroke-width="1"/>
             <circle cx="50" cy="50" r="8" fill="#000080"/>
         </svg>
 
-        <div class="max-w-5xl mx-auto mt-10">
-            <h2 class="text-[var(--saffron)] font-bold tracking-[0.3em] uppercase text-sm mb-6 reveal-up">Welcome to India's Next-Gen Education Portal</h2>
-            <h1 class="text-6xl md:text-8xl font-bold mb-8 leading-tight reveal-up text-[var(--navy)]" style="animation-delay: 0.1s;">
+        <div class="max-w-5xl mx-auto mt-10 relative z-10">
+            <h2 class="text-[var(--saffron)] font-bold tracking-[0.2em] md:tracking-[0.3em] uppercase text-xs md:text-sm mb-4 md:mb-6 reveal-up">Welcome to India's Next-Gen Education Portal</h2>
+            <h1 class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold mb-6 md:mb-8 leading-tight reveal-up text-[var(--navy)]" style="animation-delay: 0.1s;">
                 Master Knowledge.<br>
                 <span class="neon-text-tricolor">Redefine Your Future.</span>
             </h1>
-            <p class="text-xl md:text-2xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed reveal-up" style="animation-delay: 0.2s;">
-                Easy Way Learn is the ultimate convergence of advanced online education, cultural heritage, and deep scientific inquiry. Massively superior in user-friendliness and aesthetic appeal compared to traditional industry benchmarks.
+            <p class="text-base sm:text-lg md:text-2xl text-gray-600 mb-10 md:mb-12 max-w-3xl mx-auto leading-relaxed reveal-up" style="animation-delay: 0.2s;">
+                Easy Way Learn is the ultimate convergence of advanced online education, cultural heritage, and deep scientific inquiry. Massively superior in user-friendliness and aesthetic appeal.
             </p>
-            <div class="flex flex-col sm:flex-row gap-6 justify-center reveal-up" style="animation-delay: 0.3s;">
-                <a href="courses.html" class="bg-[var(--navy)] text-white px-10 py-4 rounded-full font-bold text-lg hover:scale-110 transition shadow-[0_10px_30px_rgba(0,0,128,0.3)] pulse-btn">Explore Curriculum</a>
-                <a href="founder.html" class="border-2 border-[var(--navy)] text-[var(--navy)] px-10 py-4 rounded-full font-bold text-lg hover:bg-[rgba(0,0,128,0.05)] transition">Meet the Founder</a>
-            </div>
-        </div>
-    </main>
-
-    <!-- FOUNDER INTRODUCTION -->
-    <section class="py-24 px-6 md:px-20 relative z-10 border-t border-[rgba(0,0,0,0.05)] bg-gray-50">
-        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16 items-start">
-            <div class="w-full lg:w-5/12 reveal-left">
-                <!-- Video / Image Placeholder -->
-                <div class="glass-panel p-4 h-[450px] flex items-center justify-center relative mb-6 border border-gray-200">
-                    <div class="absolute inset-0 bg-gray-200 rounded-2xl flex flex-col items-center justify-center">
-                        <svg class="w-20 h-20 text-[var(--saffron)] mb-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
-                        <span class="text-[var(--navy)] font-bold tracking-widest text-sm uppercase">Founder Video Tour</span>
-                    </div>
-                </div>
-                
-                <!-- Qualifications block below photo/video -->
-                <div class="glass-panel p-6 border-l-4 border-l-[var(--saffron)]">
-                    <p class="font-bold text-lg text-[var(--saffron)] mb-2">M.Sc. UK (Engineering), Ex. CEO, Board Member UK</p>
-                    <div class="h-px bg-gray-300 my-4"></div>
-                    <p class="font-bold text-[var(--navy)] mb-3">Active member of:</p>
-                    <ul class="space-y-2 text-sm text-gray-700 font-semibold">
-                        <li class="flex gap-2"><span class="text-[var(--green)]">✓</span> International Project Management Association (IPMA) World</li>
-                        <li class="flex gap-2"><span class="text-[var(--green)]">✓</span> British Council Alumni UK</li>
-                        <li class="flex gap-2"><span class="text-[var(--green)]">✓</span> Commonwealth Foundation</li>
-                        <li class="flex gap-2"><span class="text-[var(--green)]">✓</span> Global Compassion Coalition</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="w-full lg:w-7/12 reveal-up">
-                <h2 class="text-4xl md:text-5xl font-bold mb-8 text-[var(--navy)]">Let me introduce myself. <br>I am <span class="text-[var(--saffron)]">Kalyan Bhattacharya.</span></h2>
-                <div class="space-y-6 text-gray-700 text-lg leading-relaxed">
-                    <p>
-                        Education is not merely the transfer of information; it is the ignition of potential. As the visionary behind Easy Way Learn, my goal has been to construct a platform that transcends the rigid boundaries of traditional academia. We have built an ecosystem designed specifically for the modern learner, integrating cutting-edge digital interfaces with robust, time-tested pedagogical methods.
-                    </p>
-                    <p>
-                        This platform represents a dedicated landing page highlighting my journey, achievements, and vision to build ultimate trust with our students and parents. From conceptualizing the 'Easy Learning English' framework to establishing our core trust wings, every element here is meticulously engineered for maximum conversion and student success.
-                    </p>
-                    <p class="border-l-4 border-[var(--green)] pl-6 italic text-gray-600 bg-white p-4 rounded-r-lg shadow-sm">
-                        "Our guarantee is simple: Easy Way Learn is massively better than combined industry alternatives in terms of user-friendliness, modern aesthetic appeal, and targeted outcomes."
-                    </p>
-                    <div class="pt-6">
-                        <p class="text-sm font-bold uppercase tracking-widest text-[var(--saffron)] mb-2">Connect Directly:</p>
-                        <p class="text-2xl font-bold text-[var(--navy)]">Call / WhatsApp: <a href="tel:7596909888" class="text-[var(--navy)] hover:text-[var(--green)] transition">7596 909 888</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- THE TRUST: 2 CORE WINGS -->
-    <section class="py-24 px-6 md:px-20 relative z-10 bg-white">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16 reveal-up">
-                <h2 class="text-sm font-bold tracking-[0.2em] text-[var(--green)] uppercase mb-4">Organizational Structure</h2>
-                <h3 class="text-4xl md:text-5xl font-bold text-[var(--navy)]">Our Trust: <span class="neon-text-tricolor">2 Core Wings</span></h3>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-                <!-- Wing 1 -->
-                <div class="glass-panel p-10 reveal-left flex flex-col justify-center">
-                    <div class="w-16 h-16 bg-[rgba(255,153,51,0.1)] rounded-2xl flex items-center justify-center mb-8 border border-[rgba(255,153,51,0.3)] shadow-sm">
-                        <svg class="w-8 h-8 text-[var(--saffron)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
-                    </div>
-                    <h4 class="text-3xl font-bold mb-6 text-[var(--navy)]">Education</h4>
-                    <ul class="space-y-4 text-gray-700">
-                        <li class="flex items-start gap-4">
-                            <span class="text-[var(--saffron)] font-bold mt-1 text-xl">✓</span>
-                            <div>
-                                <strong class="text-[var(--navy)] block mb-1">Easy Learning English (Online Edu)</strong>
-                                <p class="text-sm">A highly structured, interactive model designed to make mastering the English language intuitive, accessible, and deeply effective for all demographics.</p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Wing 2 -->
-                <div class="glass-panel p-10 reveal-up flex flex-col justify-center">
-                    <div class="w-16 h-16 bg-[rgba(19,136,8,0.1)] rounded-2xl flex items-center justify-center mb-8 border border-[rgba(19,136,8,0.3)] shadow-sm">
-                        <svg class="w-8 h-8 text-[var(--green)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
-                    </div>
-                    <h4 class="text-3xl font-bold mb-6 text-[var(--navy)]">Science Club</h4>
-                    <ul class="space-y-4 text-gray-700">
-                        <li class="flex items-start gap-4">
-                            <span class="text-[var(--green)] font-bold mt-1 text-xl">✓</span>
-                            <div>
-                                <strong class="text-[var(--navy)] block mb-1">The Science Club Initiative</strong>
-                                <p class="text-sm">Fostering analytical thinking, practical experiments, and theoretical sciences to prepare students for advanced academic pursuits including IIT and UPSC/IPS preparation.</p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- COURSE PORTFOLIO & PRICING -->
-    <section class="py-24 px-6 md:px-20 relative z-10 border-t border-gray-200 bg-gray-50">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16 reveal-up">
-                <h2 class="text-sm font-bold tracking-[0.2em] text-[var(--saffron)] uppercase mb-4">Investment Packages</h2>
-                <h3 class="text-4xl md:text-5xl font-bold mb-6 text-[var(--navy)]">Course Portfolio & <span class="neon-text-tricolor">Pricing</span></h3>
-                <p class="text-gray-600 max-w-2xl mx-auto">Full transactional setup allowing students to purchase courses directly on the site via UPI and secure banking transactions.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Basic 299 -->
-                <div class="glass-panel p-8 flex flex-col reveal-up bg-white border-t-4 border-t-gray-300" style="animation-delay: 0.1s;">
-                    <div class="text-gray-500 text-xs font-bold tracking-widest mb-4">STARTER TIER</div>
-                    <h4 class="text-2xl font-bold mb-2 text-[var(--navy)]">Basic Model I</h4>
-                    <p class="text-sm text-gray-600 mb-6 flex-grow">Foundation level course designed specifically for Class 8 and 10 students looking to grasp essential concepts.</p>
-                    <div class="mb-8 text-[var(--navy)]">
-                        <span class="text-4xl font-bold">₹299</span>
-                    </div>
-                    <a href="courses.html" class="w-full block text-center bg-gray-200 text-gray-800 py-3 rounded-lg font-bold hover:bg-gray-300 transition text-sm">Enroll via UPI</a>
-                </div>
-
-                <!-- Basic 499 -->
-                <div class="glass-panel p-8 flex flex-col reveal-up bg-white border-t-4 border-t-gray-500" style="animation-delay: 0.2s;">
-                    <div class="text-gray-600 text-xs font-bold tracking-widest mb-4">INTERMEDIATE TIER</div>
-                    <h4 class="text-2xl font-bold mb-2 text-[var(--navy)]">Basic Model II</h4>
-                    <p class="text-sm text-gray-600 mb-6 flex-grow">Advanced fundamentals tailored for Class 12 students transitioning to higher academics. Includes expanded syllabus.</p>
-                    <div class="mb-8 text-[var(--navy)]">
-                        <span class="text-4xl font-bold">₹499</span>
-                    </div>
-                    <a href="courses.html" class="w-full block text-center bg-gray-800 text-white py-3 rounded-lg font-bold hover:bg-black transition text-sm">Enroll via UPI</a>
-                </div>
-
-                <!-- Premium 2999 -->
-                <div class="glass-panel p-8 flex flex-col reveal-up bg-white border-t-4 border-t-[var(--saffron)] relative overflow-hidden" style="animation-delay: 0.3s;">
-                    <div class="absolute top-4 right-[-30px] bg-[var(--saffron)] text-black text-[10px] font-bold py-1 px-10 rotate-45 shadow-md">POPULAR</div>
-                    <div class="text-[var(--saffron)] text-xs font-bold tracking-widest mb-4">PRO TIER</div>
-                    <h4 class="text-2xl font-bold mb-2 text-[var(--navy)]">Premium Model I</h4>
-                    <p class="text-sm text-gray-600 mb-6 flex-grow">A robust, interactive platform designed for maximum conversion. Includes advanced animations and chatbot guidance.</p>
-                    <div class="mb-8 text-[var(--saffron)]">
-                        <span class="text-4xl font-bold">₹2,999</span>
-                    </div>
-                    <a href="courses.html" class="w-full block text-center bg-[var(--saffron)] text-white py-3 rounded-lg font-bold hover:brightness-110 transition text-sm shadow-md pulse-btn">Enroll via UPI</a>
-                </div>
-
-                <!-- Premium 5999 -->
-                <div class="glass-panel p-8 flex flex-col reveal-up bg-white border-t-4 border-t-[var(--green)] relative overflow-hidden" style="animation-delay: 0.4s;">
-                    <div class="absolute inset-0 bg-gradient-to-b from-[rgba(19,136,8,0.02)] to-transparent pointer-events-none"></div>
-                    <div class="text-[var(--green)] text-xs font-bold tracking-widest mb-4">ELITE TIER</div>
-                    <h4 class="text-2xl font-bold mb-2 text-[var(--navy)]">Premium Model II</h4>
-                    <p class="text-sm text-gray-600 mb-6 flex-grow">Dedicated pages for IITians, IPS/UPSC aspirants. Includes complete interactive experience and full e-commerce capabilities.</p>
-                    <div class="mb-8 text-[var(--green)]">
-                        <span class="text-4xl font-bold">₹5,999</span>
-                    </div>
-                    <a href="courses.html" class="w-full block text-center bg-[var(--green)] text-white py-3 rounded-lg font-bold hover:brightness-110 transition text-sm shadow-md pulse-btn">Enroll via UPI</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- REFERENCES -->
-    <section class="py-24 px-6 md:px-20 relative z-10 border-t border-gray-200 bg-white">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-4xl md:text-5xl font-bold mb-12 text-center reveal-up"><span class="neon-text-tricolor">REFERENCES</span></h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 auto-rows-fr">
-                <!-- Scott Thurston -->
-                <div class="glass-panel p-8 flex flex-col justify-center items-center text-center reveal-left min-h-[250px] bg-gray-50 border border-gray-200">
-                    <div class="w-full h-40 bg-white border border-gray-300 rounded-lg mb-6 flex items-center justify-center shadow-inner">
-                        <span class="text-gray-400 text-sm italic">[Scott Thurston Certificate Placement]</span>
-                    </div>
-                    <h3 class="text-2xl font-bold text-[var(--saffron)]">Scott Thurston</h3>
-                    <p class="text-gray-600 text-sm mt-2">[Caption will be added here]</p>
-                </div>
-
-                <!-- Pompa Kumar -->
-                <div class="glass-panel p-8 flex flex-col justify-center items-center text-center reveal-up min-h-[250px] bg-gray-50 border border-gray-200" style="animation-delay: 0.1s;">
-                    <div class="w-full h-40 bg-white border border-gray-300 rounded-lg mb-6 flex items-center justify-center shadow-inner">
-                        <span class="text-gray-400 text-sm italic">[Pompa Kumar Certificate Placement]</span>
-                    </div>
-                    <h3 class="text-2xl font-bold text-[var(--navy)]">Pompa Kumar</h3>
-                    <p class="text-gray-600 text-sm mt-2">[Caption will be added here]</p>
-                </div>
-
-                <!-- Bardhaman Science Center Lecture -->
-                <div class="glass-panel p-8 flex flex-col justify-center relative overflow-hidden reveal-left min-h-[200px] bg-gray-50 border border-gray-200">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-[var(--green)] filter blur-[80px] opacity-10"></div>
-                    <div class="text-[var(--green)] text-xs font-bold tracking-widest mb-2">LECTURE</div>
-                    <h3 class="text-2xl font-bold mb-2 text-[var(--navy)]">Bardhaman Science Center Lecture</h3>
-                    <p class="text-gray-600">Insights and educational discourse delivered directly at the Bardhaman Science Center.</p>
-                </div>
-
-                <!-- Asiatic Society Presentation -->
-                <div class="glass-panel p-8 flex flex-col justify-center reveal-up min-h-[200px] bg-gray-50 border border-gray-200" style="animation-delay: 0.2s;">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-[var(--saffron)] filter blur-[80px] opacity-10"></div>
-                    <div class="text-[var(--saffron)] text-xs font-bold tracking-widest mb-2">ACADEMIC</div>
-                    <h3 class="text-2xl font-bold mb-2 text-[var(--navy)]">Presentation of Paper in Asiatic Society</h3>
-                    <p class="text-gray-600">Formal presentation and scholarly contribution delivered at the esteemed Asiatic Society.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- COMPETITOR COMPARISON & STUDY ABROAD -->
-    <section class="py-24 px-6 md:px-20 relative z-10 border-t border-gray-200 bg-gray-50">
-        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16">
-            <!-- Competitor Comparison -->
-            <div class="w-full lg:w-1/2 reveal-left">
-                <h3 class="text-3xl font-bold mb-8 text-[var(--navy)]">Competitor <span class="text-[var(--saffron)]">Comparison</span></h3>
-                <p class="text-gray-600 mb-8">A data-backed review showing other brands' performance and demonstrating why Easy Way Learn is the superior choice.</p>
-                
-                <div class="space-y-4">
-                    <div class="glass-panel p-5 flex justify-between items-center bg-white border border-gray-200">
-                        <span class="font-bold text-[var(--navy)]">The British Institutes</span>
-                        <span class="text-[var(--green)] text-sm font-bold bg-[rgba(19,136,8,0.1)] px-3 py-1 rounded-full">Outperformed by EWL</span>
-                    </div>
-                    <div class="glass-panel p-5 flex justify-between items-center bg-white border border-gray-200">
-                        <span class="font-bold text-[var(--navy)]">Coursera</span>
-                        <span class="text-[var(--green)] text-sm font-bold bg-[rgba(19,136,8,0.1)] px-3 py-1 rounded-full">Outperformed by EWL</span>
-                    </div>
-                    <div class="glass-panel p-5 flex justify-between items-center bg-white border border-gray-200">
-                        <span class="font-bold text-[var(--navy)]">British Council (Learn English)</span>
-                        <span class="text-[var(--green)] text-sm font-bold bg-[rgba(19,136,8,0.1)] px-3 py-1 rounded-full">Outperformed by EWL</span>
-                    </div>
-                    <div class="glass-panel p-5 flex justify-between items-center bg-white border border-gray-200">
-                        <span class="font-bold text-[var(--navy)]">Aksent / National Institute of Language</span>
-                        <span class="text-[var(--green)] text-sm font-bold bg-[rgba(19,136,8,0.1)] px-3 py-1 rounded-full">Outperformed by EWL</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Study Abroad Guide -->
-            <div class="w-full lg:w-1/2 reveal-up">
-                <h3 class="text-3xl font-bold mb-8 text-[var(--navy)]">Study <span class="text-[var(--green)]">Abroad Guide</span></h3>
-                <div class="glass-panel p-10 bg-white border-l-4 border-l-[var(--green)] h-full flex flex-col justify-center">
-                    <div class="text-5xl mb-6 shadow-sm inline-block rounded-full w-16 h-16 flex items-center justify-center bg-gray-50">🌍</div>
-                    <p class="text-gray-700 text-lg leading-relaxed font-semibold">
-                        Proficiency in English opens the gateway to the entire world. It simplifies studying any course globally and allows you to easily pass standardized exams like IELTS and TOEFL with excellent scores, paving the way for a smooth and highly successful international academic journey.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- OUR STORY PAGE DETAILS -->
-    <section class="py-24 px-6 md:px-20 relative z-10 border-t border-gray-200 bg-white">
-        <div class="max-w-5xl mx-auto text-center reveal-up">
-            <h2 class="text-4xl font-bold mb-8 text-[var(--navy)]">Story Page / <span class="text-[var(--saffron)]">Details</span></h2>
-            <p class="text-lg text-gray-700 leading-relaxed mb-8">
-                The inception of Easy Way Learn was born from a singular vision by Kalyan Bhattacharya: to democratize elite education. Recognizing the gap between expensive metropolitan institutions and eager minds across districts, we established a hybrid model. Through the structural scaffolding of our "Basic Models" to the cutting-edge AI-assisted "Premium Models", our story is one of relentless innovation. By synergizing the logical rigor of our Science Club with the profound depth of our Education wing, we have built not just a website, but a movement. 
-            </p>
-            <p class="text-lg text-gray-700 leading-relaxed">
-                As detailed in our Logo Trust Fund disclosures, our operational integrity is paramount. From empowering students starting from Class 8 up to any level with Easy Learning English, to guiding UPSC/IPS aspirants, every chapter of our story is written by the success of our alumni.
-            </p>
-        </div>
-    </section>
-
-    <!-- SMART FOOTER -->
-    <footer class="border-t border-gray-200 py-16 px-6 md:px-20 relative z-10 bg-gray-50">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-            <div>
-                <div class="text-3xl font-bold tracking-tighter mb-6 text-[var(--navy)]">
-                    EAZY<span class="neon-text-tricolor">WAY</span>LEARN
-                </div>
-                <p class="text-gray-600 text-sm mb-4 leading-relaxed">
-                    Premium Interactive Experience. Hosted on high-performance infrastructure for unparalleled speed and reliability.
-                </p>
-                <div class="glass-panel p-4 bg-white border border-gray-200 inline-block">
-                    <p class="text-xs font-bold text-[var(--navy)]">LOGO TRUST FUND DETAILS</p>
-                    <p class="text-xs text-gray-500 mt-1 font-semibold">Verified & Registered Entity</p>
-                </div>
-            </div>
-
-            <div>
-                <h4 class="text-lg font-bold mb-6 text-[var(--navy)]">Course Fees</h4>
-                <ul class="space-y-3 text-sm text-gray-700 font-semibold">
-                    <li class="flex justify-between border-b border-gray-200 pb-2"><span>Basic Model I</span> <span class="text-[var(--navy)] font-bold">₹299</span></li>
-                    <li class="flex justify-between border-b border-gray-200 pb-2"><span>Basic Model II</span> <span class="text-[var(--navy)] font-bold">₹499</span></li>
-                    <li class="flex justify-between border-b border-gray-200 pb-2"><span>Premium Model I</span> <span class="text-[var(--saffron)] font-bold">₹2,999</span></li>
-                    <li class="flex justify-between"><span>Premium Model II</span> <span class="text-[var(--green)] font-bold">₹5,999</span></li>
-                </ul>
-            </div>
-
-            <div>
-                <h4 class="text-lg font-bold mb-6 text-[var(--navy)]">Quick Links</h4>
-                <ul class="space-y-3 text-sm text-gray-600 font-semibold">
-                    <li><a href="founder.html" class="hover:text-[var(--saffron)] transition">About the Founder</a></li>
-                    <li><a href="abroad.html" class="hover:text-[var(--saffron)] transition">Study Abroad Guide</a></li>
-                    <li><a href="references.html" class="hover:text-[var(--saffron)] transition">References</a></li>
-                    <li><a href="story.html" class="hover:text-[var(--saffron)] transition">Our Story Details</a></li>
-                </ul>
-            </div>
-
-            <div>
-                <h4 class="text-lg font-bold mb-6 text-[var(--navy)]">Legal & Compliance</h4>
-                <ul class="space-y-3 text-sm text-gray-600 font-semibold mb-6">
-                    <li><a href="#" class="hover:text-[var(--saffron)] transition">Privacy Policy</a></li>
-                    <li><a href="#" class="hover:text-[var(--saffron)] transition">Terms of Service</a></li>
-                </ul>
-                <h4 class="text-lg font-bold mb-2 text-[var(--navy)]">Contact Us</h4>
-                <p class="text-2xl font-bold text-[var(--saffron)]">7596 909 888</p>
-                <p class="text-xs text-gray-500 mt-1 font-semibold">Call or WhatsApp</p>
-            </div>
-        </div>
-        <div class="max-w-7xl mx-auto mt-16 pt-8 border-t border-gray-300 text-center text-xs font-bold text-gray-400 uppercase tracking-widest">
-            &copy; 2026 Easy Way Learn by Kalyan Bhattacharya. All rights reserved. E-Commerce Enabled via UPI.
-        </div>
-    </footer>
-
-    <!-- INTERACTIVE AI CHATBOT (Light Theme) -->
-    <div class="bot-container">
-        <div class="bot-window flex" id="botWindow">
-            <div class="bg-[var(--navy)] p-4 font-bold flex justify-between items-center shadow-md">
-                <div class="flex items-center gap-3">
-                    <span class="relative flex h-3 w-3">
-                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--green)] opacity-75"></span>
-                      <span class="relative inline-flex rounded-full h-3 w-3 bg-[var(--green)]"></span>
-                    </span>
-                    <span class="text-white">EazyBot AI</span>
-                </div>
-                <button onclick="toggleBot()" class="text-white hover:text-[var(--saffron)] transition text-xl font-bold">&times;</button>
-            </div>
-            
-            <div class="flex-grow p-5 overflow-y-auto space-y-4 bg-gray-50" id="botHistory">
-                <div class="bg-white border border-gray-200 p-4 rounded-2xl rounded-tl-sm text-sm text-gray-800 shadow-md font-semibold">
-                    Greetings! 🤖 I am the Easy Way Learn interactive AI chatbot. How can I assist you with Kalyan Bhattacharya's courses today?
-                </div>
-            </div>
-            
-            <div class="p-4 border-t border-gray-200 bg-white grid grid-cols-1 gap-2">
-                <button onclick="sendMsg('What is the price for the course?')" class="text-xs bg-gray-100 hover:bg-gray-200 border border-gray-300 py-3 px-4 rounded-xl transition text-left text-gray-700 font-semibold hover:text-[var(--navy)]">
-                    What is the price for the course?
-                </button>
-                <button onclick="sendMsg('When can we get started?')" class="text-xs bg-gray-100 hover:bg-gray-200 border border-gray-300 py-3 px-4 rounded-xl transition text-left text-gray-700 font-semibold hover:text-[var(--navy)]">
-                    When can we get started?
-                </button>
-            </div>
-        </div>
-        
-        <div class="bot-trigger" onclick="toggleBot()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-        </div>
-    </div>
-
-    <!-- SCRIPTS -->
-    <script>
-        // Extreme Bouncy Intersection Observer
-        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                } else {
-                    entry.target.classList.remove('active'); // Replay animation on scroll
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.reveal-up, .reveal-left').forEach(el => observer.observe(el));
-
-        // Dark Canvas Particles for Light Background
-        const canvas = document.getElementById('ambient-canvas');
-        const ctx = canvas.getContext('2d');
-        let width, height;
-        let particles = [];
-
-        function initCanvas() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-            particles = [];
-            // Navy, Saffron, Green colors
-            const colors = ['rgba(0, 0, 128, 0.25)', 'rgba(255, 153, 51, 0.3)', 'rgba(19, 136, 8, 0.25)'];
-            for(let i=0; i<45; i++) {
-                particles.push({
-                    x: Math.random() * width,
-                    y: Math.random() * height,
-                    radius: Math.random() * 90 + 40,
-                    color: colors[Math.floor(Math.random() * colors.length)],
-                    vx: (Math.random() - 0.5) * 0.8,
-                    vy: (Math.random() - 0.5) * 0.8
-                });
-            }
-        }
-
-        function animateCanvas() {
-            ctx.clearRect(0, 0, width, height);
-            particles.forEach(p => {
-                p.x += p.vx; p.y += p.vy;
-                if(p.x < -p.radius || p.x > width + p.radius) p.vx *= -1;
-                if(p.y < -p.radius || p.y > height + p.radius) p.vy *= -1;
-                
-                ctx.beginPath();
-                const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.radius);
-                gradient.addColorStop(0, p.color);
-                gradient.addColorStop(1, 'transparent');
-                ctx.fillStyle = gradient;
-                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                ctx.fill();
-            });
-            requestAnimationFrame(animateCanvas);
-        }
-
-        window.addEventListener('resize', initCanvas);
-        initCanvas();
-        animateCanvas();
-
-        // Chatbot Logic
-        const botWindow = document.getElementById('botWindow');
-        const botHistory = document.getElementById('botHistory');
-
-        function toggleBot() {
-            botWindow.style.display = botWindow.style.display === 'flex' ? 'none' : 'flex';
-        }
-
-        function sendMsg(msg) {
-            // User Message HTML (Navy bubble)
-            botHistory.innerHTML += `
-                <div class="bg-[var(--navy)] p-3 rounded-2xl rounded-tr-sm text-sm text-white ml-8 shadow-md border border-[rgba(0,0,128,0.2)]">
-                    ${msg}
-                </div>
-            `;
-            botHistory.scrollTop = botHistory.scrollHeight;
-
-            // Typing Indicator
-            const typingId = 'typing-' + Date.now();
-            botHistory.innerHTML += `
-                <div id="${typingId}" class="text-xs text-gray-500 ml-2 mt-2 italic font-semibold">EazyBot is typing...</div>
-            `;
-            botHistory.scrollTop = botHistory.scrollHeight;
-
-            // Bot Response Generation
-            setTimeout(() => {
-                document.getElementById(typingId).remove();
-                let reply = "";
-                
-                if(msg.includes('price')) {
-                    reply = "Our basic models start at ₹299 and ₹499. Premium starts from ₹2,999 and ₹5,999. These models include full e-commerce and UPI integration! 🚀";
-                } else if(msg.includes('started')) {
-                    reply = "You can get started right away! Please mention this number <strong>7596 909 888</strong> to call or WhatsApp our counselors. 📞";
-                }
-
-                botHistory.innerHTML += `
-                    <div class="bg-white border border-gray-200 p-3 rounded-2xl rounded-tl-sm text-sm text-gray-800 mr-8 shadow-md font-semibold">
-                        🤖 ${reply}
-                    </div>
-                `;
-                botHistory.scrollTop = botHistory.scrollHeight;
-            }, 800);
-        }
-    </script>
-</body>
-</html>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center reveal-up" style="animation-delay: 0.3s;">
+                <a href="courses.html" class="bg-[var(--navy)] text-white px-8 md:px-10 py-3 md:py-4 rounded-full font-bold text-base md:text-lg hover:scale-10
