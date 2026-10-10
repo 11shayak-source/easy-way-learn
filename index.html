@@ -78,10 +78,9 @@
         }
         @keyframes shineTricolor { to { background-position: 200% center; } }
 
-        /* --- EXTREME SCROLL REVEALS (Bouncy Spring) --- */
+        /* --- EXTREME SCROLL REVEALS --- */
         .reveal-up { opacity: 0; transform: translateY(60px) scale(0.95); transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
         .reveal-up.active { opacity: 1; transform: translateY(0) scale(1); }
-        
         .reveal-left { opacity: 0; transform: translateX(-60px) rotate(-3deg); transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
         .reveal-left.active { opacity: 1; transform: translateX(0) rotate(0); }
 
@@ -93,13 +92,6 @@
             70% { box-shadow: 0 0 0 15px rgba(255, 153, 51, 0); }
             100% { box-shadow: 0 0 0 0 rgba(255, 153, 51, 0); }
         }
-
-        /* --- ROTATING ASHOKA CHAKRA --- */
-        .chakra-spinner {
-            animation: spin 10s linear infinite;
-            opacity: 0.15; position: absolute; z-index: 1; pointer-events: none;
-        }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
 
         /* --- MARQUEE --- */
         .marquee-wrapper {
@@ -130,7 +122,7 @@
         .menu-open { transform: translateY(0%); }
         .menu-closed { transform: translateY(-120%); }
 
-        /* --- LIGHT THEME AI CHATBOT --- */
+        /* --- CHATBOT --- */
         .bot-container { position: fixed; bottom: 20px; right: 20px; z-index: 100; }
         .bot-window {
             display: none; width: calc(100vw - 40px); max-width: 360px; height: 450px;
@@ -148,6 +140,13 @@
             cursor: pointer; margin-left: auto; margin-top: 16px;
             box-shadow: 0 0 25px rgba(255, 153, 51, 0.6); animation: pulseShadow 2s infinite;
         }
+
+        /* Responsive Video Container */
+        .hero-video-container {
+            position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 1.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); border: 4px solid var(--navy); margin-top: 2rem;
+        }
+        .hero-video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
     </style>
 </head>
 <body>
@@ -207,27 +206,28 @@
         </div>
     </div>
 
-    <!-- HERO SECTION -->
-    <main class="min-h-[70vh] flex flex-col justify-center items-center text-center px-4 pt-32 md:pt-48 pb-16 md:pb-20 relative z-10">
-        <!-- Background Chakra Graphic (Scaled for mobile) -->
-        <svg class="chakra-spinner w-[350px] md:w-[600px] h-[350px] md:h-[600px] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="45" fill="none" stroke="#000080" stroke-width="2"/>
-            <path d="M50 5 L50 95 M5 50 L95 50 M18 18 L82 82 M18 82 L82 18" stroke="#000080" stroke-width="1"/>
-            <circle cx="50" cy="50" r="8" fill="#000080"/>
-        </svg>
-
-        <div class="max-w-5xl mx-auto mt-6 md:mt-10">
+    <!-- HERO SECTION WITH AUTO-PLAY YOUTUBE -->
+    <main class="min-h-[85vh] flex flex-col justify-center items-center text-center px-4 pt-32 md:pt-40 pb-16 md:pb-20 relative z-10">
+        <div class="max-w-5xl mx-auto mt-6 md:mt-10 w-full">
             <h2 class="text-[var(--saffron)] font-bold tracking-[0.2em] md:tracking-[0.3em] uppercase text-xs md:text-sm mb-4 md:mb-6 reveal-up">Welcome to India's Next-Gen Education Portal</h2>
-            <h1 class="text-5xl md:text-8xl font-bold mb-6 md:mb-8 leading-tight reveal-up text-[var(--navy)]" style="animation-delay: 0.1s;">
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 md:mb-8 leading-tight reveal-up text-[var(--navy)]" style="animation-delay: 0.1s;">
                 Master Knowledge.<br>
                 <span class="neon-text-tricolor">Redefine Your Future.</span>
             </h1>
-            <p class="text-base md:text-2xl text-gray-600 mb-8 md:mb-12 max-w-3xl mx-auto leading-relaxed reveal-up font-semibold px-2" style="animation-delay: 0.2s;">
-                Easy Way Learn is the ultimate convergence of advanced online education, cultural heritage, and deep scientific inquiry. Massively superior in user-friendliness and aesthetic appeal.
+            
+            <p class="text-base md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed reveal-up font-semibold px-2" style="animation-delay: 0.2s;">
+                Easy Way Learn is the ultimate convergence of advanced online education, cultural heritage, and deep scientific inquiry.
             </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center reveal-up w-full px-4" style="animation-delay: 0.3s;">
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center reveal-up w-full px-4 mb-10" style="animation-delay: 0.3s;">
                 <a href="courses.html" class="bg-[var(--navy)] text-white w-full sm:w-auto px-8 py-4 rounded-full font-bold text-sm md:text-lg hover:scale-105 transition shadow-lg pulse-btn">Explore Curriculum</a>
                 <a href="founder.html" class="border-2 border-[var(--navy)] text-[var(--navy)] w-full sm:w-auto px-8 py-4 rounded-full font-bold text-sm md:text-lg hover:bg-[rgba(0,0,128,0.05)] transition">Meet the Founder</a>
+            </div>
+
+            <!-- YouTube AutoPlay Video -->
+            <div class="hero-video-container reveal-up" style="animation-delay: 0.4s;">
+                <!-- mute=1 is required by modern browsers to allow autoplay -->
+                <iframe src="https://www.youtube.com/embed/_P1aktA1EDc?autoplay=1&mute=1&loop=1&playlist=_P1aktA1EDc&controls=1&rel=0&modestbranding=1" title="Easy Way Learn Overview" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
     </main>
@@ -236,12 +236,9 @@
     <section class="py-16 md:py-24 px-4 md:px-20 relative z-10 border-t border-[rgba(0,0,0,0.05)] bg-gray-50">
         <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-10 md:gap-16 items-start">
             <div class="w-full lg:w-5/12 reveal-left">
-                <!-- Video / Image Placeholder (Scaled for mobile) -->
-                <div class="glass-panel p-4 h-[300px] md:h-[450px] flex items-center justify-center relative mb-6 border border-gray-200">
-                    <div class="absolute inset-0 bg-gray-200 rounded-2xl flex flex-col items-center justify-center">
-                        <svg class="w-16 h-16 md:w-20 md:h-20 text-[var(--saffron)] mb-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
-                        <span class="text-[var(--navy)] font-bold tracking-widest text-xs md:text-sm uppercase">Founder Video Tour</span>
-                    </div>
+                <!-- Headshot Image Placeholder loaded from Kalyan_Sir_Files -->
+                <div class="glass-panel h-[300px] md:h-[450px] flex items-center justify-center relative mb-6 border border-gray-200 overflow-hidden" style="background: url('Kalyan_Sir_Files/kalyansir.jpeg') center/cover no-repeat; background-color: #e5e7eb;">
+                    <div class="absolute inset-0 bg-[var(--navy)] opacity-10"></div>
                 </div>
                 
                 <div class="glass-panel p-6 border-l-4 border-l-[var(--saffron)]">
@@ -249,7 +246,7 @@
                     <div class="h-px bg-gray-300 my-4"></div>
                     <p class="font-bold text-[var(--navy)] mb-3">Active member of:</p>
                     <ul class="space-y-2 text-xs md:text-sm text-gray-700 font-semibold">
-                        <li class="flex gap-2"><span class="text-[var(--green)]">✓</span> International Project Management Association (IPMA) World</li>
+                        <li class="flex gap-2"><span class="text-[var(--green)]">✓</span> IPMA World</li>
                         <li class="flex gap-2"><span class="text-[var(--green)]">✓</span> British Council Alumni UK</li>
                         <li class="flex gap-2"><span class="text-[var(--green)]">✓</span> Commonwealth Foundation</li>
                     </ul>
@@ -382,28 +379,30 @@
         </div>
     </section>
 
-    <!-- REFERENCES -->
+    <!-- REFERENCES WITH UPDATED LINKS -->
     <section class="py-16 md:py-24 px-4 md:px-20 relative z-10 border-t border-gray-200 bg-white">
         <div class="max-w-7xl mx-auto">
             <h2 class="text-3xl md:text-5xl font-bold mb-10 md:mb-12 text-center reveal-up"><span class="neon-text-tricolor">REFERENCES</span></h2>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 auto-rows-fr">
                 <!-- Scott Thurston -->
-                <div class="glass-panel p-6 md:p-8 flex flex-col justify-center items-center text-center reveal-left min-h-[200px] md:min-h-[250px] bg-gray-50 border border-gray-200">
-                    <div class="w-full h-32 md:h-40 bg-white border border-gray-300 rounded-lg mb-4 md:mb-6 flex items-center justify-center shadow-inner">
-                        <span class="text-gray-400 text-xs md:text-sm italic">[Scott Thurston Certificate Placement]</span>
+                <div class="glass-panel p-6 md:p-8 flex flex-col items-center text-center reveal-left border-t-4 border-t-[var(--navy)]">
+                    <div class="w-full h-32 bg-gray-100 rounded-lg mb-4 flex items-center justify-center border border-gray-300">
+                        <span class="text-gray-400 text-xs font-bold uppercase">Scott Thurston Document</span>
                     </div>
-                    <h3 class="text-xl md:text-2xl font-bold text-[var(--saffron)]">Scott Thurston</h3>
-                    <p class="text-gray-600 text-xs md:text-sm mt-2">[Caption will be added here]</p>
+                    <h3 class="text-xl md:text-2xl font-bold text-[var(--saffron)] mb-2">Scott Thurston</h3>
+                    <p class="text-xs md:text-sm text-gray-600 mb-4 flex-grow">Official reference detailing educational standards and global impact.</p>
+                    <a href="Kalyan_Sir_Files/Reference_Scott Thurston.docx" download class="w-full border-2 border-[var(--navy)] text-[var(--navy)] py-2 rounded-lg font-bold text-sm hover:bg-[rgba(0,0,128,0.05)] transition text-center">Download</a>
                 </div>
 
-                <!-- Pompa Kumar -->
-                <div class="glass-panel p-6 md:p-8 flex flex-col justify-center items-center text-center reveal-up min-h-[200px] md:min-h-[250px] bg-gray-50 border border-gray-200" style="animation-delay: 0.1s;">
-                    <div class="w-full h-32 md:h-40 bg-white border border-gray-300 rounded-lg mb-4 md:mb-6 flex items-center justify-center shadow-inner">
-                        <span class="text-gray-400 text-xs md:text-sm italic">[Pompa Kumar Certificate Placement]</span>
+                <!-- Pampa Kumar -->
+                <div class="glass-panel p-6 md:p-8 flex flex-col items-center text-center reveal-up border-t-4 border-t-[var(--saffron)]" style="animation-delay: 0.1s;">
+                    <div class="w-full h-32 bg-gray-100 rounded-lg mb-4 flex items-center justify-center border border-gray-300">
+                        <span class="text-gray-400 text-xs font-bold uppercase">Pampa Kumar Document</span>
                     </div>
-                    <h3 class="text-xl md:text-2xl font-bold text-[var(--navy)]">Pompa Kumar</h3>
-                    <p class="text-gray-600 text-xs md:text-sm mt-2">[Caption will be added here]</p>
+                    <h3 class="text-xl md:text-2xl font-bold text-[var(--navy)] mb-2">Pampa Kumar</h3>
+                    <p class="text-xs md:text-sm text-gray-600 mb-4 flex-grow">Verified testimonial affirming the effectiveness of our models.</p>
+                    <a href="Kalyan_Sir_Files/Pampa-kumar.docx" download class="w-full border-2 border-[var(--navy)] text-[var(--navy)] py-2 rounded-lg font-bold text-sm hover:bg-[rgba(0,0,128,0.05)] transition text-center">Download</a>
                 </div>
 
                 <!-- Bardhaman Science Center Lecture -->
@@ -527,9 +526,9 @@
         </div>
     </footer>
 
-    <!-- INTERACTIVE AI CHATBOT (Hidden on load, Enroll link appended on reply) -->
+    <!-- INTERACTIVE AI CHATBOT (Hidden on Load, Link injected) -->
     <div class="bot-container">
-        <!-- Changed to style="display: none;" so it stays hidden until clicked -->
+        <!-- Kept display none so it stays hidden on page load until triggered -->
         <div class="bot-window" id="botWindow" style="display: none;">
             <div class="bg-[var(--navy)] p-4 font-bold flex justify-between items-center shadow-md">
                 <div class="flex items-center gap-3">
@@ -623,7 +622,7 @@
             for(let i=0; i<particleCount; i++) {
                 particles.push({
                     x: Math.random() * width, y: Math.random() * height,
-                    radius: Math.random() * 60 + 30,
+                    radius: Math.random() * 60 + 30, 
                     color: colors[Math.floor(Math.random() * colors.length)],
                     vx: (Math.random() - 0.5) * 0.8, vy: (Math.random() - 0.5) * 0.8
                 });
@@ -657,7 +656,6 @@
         const botHistory = document.getElementById('botHistory');
 
         function toggleBot() {
-            // Fixed toggle logic
             if (botWindow.style.display === 'none' || botWindow.style.display === '') {
                 botWindow.style.display = 'flex';
             } else {
