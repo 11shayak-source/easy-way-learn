@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The complete story of Easy Way Learn, Kalyan Bhattacharya, and the Trust & Wings initiative.">
+    <title>Our Story | Easy Way Learn</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap'); /* Added for Book Typography */
+        
+        :root {
+            --saffron: #FF9933; --green: #138808; --navy: #000080;
+            --bg-white: #FFFFFF; --text-main: #050505; --card-light: rgba(255, 255, 255, 0.85);
+        }
+
+        body { font-family: 'Space Grotesk', sans-serif; background-color: var(--bg-white); color: var(--text-main); overflow-x: hidden; scroll-behavior: smooth; }
+
+        /* --- AMBIENT CANVAS --- */
+        #ambient-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; opacity: 0.5; }
+
+        /* --- TYPOGRAPHY & GRADIENTS --- */
+        .neon-text-tricolor { background: linear-gradient(90deg, var(--saffron) 0%, var(--navy) 50%, var(--green) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-size: 200% auto; animation: shineTricolor 4s linear infinite; }
+        @keyframes shineTricolor { to { background-position: 200% center; } }
+        .book-text { font-family: 'Playfair Display', serif; } /* For that classic book feel */
+
+        /* --- PULSING BUTTONS --- */
+        .pulse-btn { animation: pulseShadow 2s infinite; transition: all 0.3s ease; }
+        .pulse-btn:hover { transform: scale(1.05); }
+        @keyframes pulseShadow { 0% { box-shadow: 0 0 0 0 rgba(255, 153, 51, 0.6); } 70% { box-shadow: 0 0 0 15px rgba(255, 153, 51, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 153, 51, 0); } }
+
+        /* --- MARQUEE --- */
+        .marquee-wrapper { background: rgba(255, 255, 255, 0.95); border-bottom: 1px solid rgba(0, 0, 0, 0.1); position: fixed; top: 0; width: 100%; z-index: 50; overflow: hidden; display: flex; align-items: center; height: 35px; }
+        .marquee-track { display: flex; white-space: nowrap; animation: marquee 25s linear infinite; }
+        @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+
+        /* --- MOBILE MENU --- */
+        #mobile-menu { transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+        .menu-open { transform: translateY(0%); }
+        .menu-closed { transform: translateY(-120%); }
+
+        /* --- THE 3D BOOK ENGINE --- */
+        .book-container {
+            perspective: 2500px; position: relative; width: 100%; max-width: 1000px; height: 75vh; min-height: 600px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: center; z-index: 20;
+        }
+        
+        .book {
+            width: 100%; height: 100%; position: relative; transform-style: preserve-3d;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.1); border-radius: 10px; background: #fff;
+        }
+
+        /* Desktop: 2-page spread. Mobile: Single stack */
+        @media (min-width: 1024px) {
+            .book { width: 50%; left: 25%; transform-origin: left center; }
+        }
+
+        .page {
+            width: 100%; height: 100%; position: absolute; top: 0; left: 0;
+            transform-origin: left center; transform-style: preserve-3d;
+            transition: transform 1.2s cubic-bezier(0.645, 0.045, 0.355, 1), z-index 0.1s;
+            border: 1px solid rgba(0,0,0,0.05); border-radius: 4px;
+            background: #fff;
+        }
+
+        /* The flipping mechanism */
+        .page.flipped { transform: rotateY(-180deg); }
+
+        .front, .back {
+            position: absolute; width: 100%; height: 100%; top: 0; left: 0;
+            backface-visibility: hidden; -webkit-backface-visibility: hidden;
+            padding: 2.5rem; overflow-y: auto; overflow-x: hidden; background: #fff;
+        }
+
+        .back { transform: rotateY(180deg); border-right: 1px solid rgba(0,0,0,0.05); box-shadow: inset -10px 0 20px rgba(0,0,0,0.02); }
+        .front { border-left: 1px solid rgba(0,0,0,0.05); box-shadow: inset 10px 0 20px rgba(0,0,0,0.02); }
+
+        /* Custom Scrollbar for book pages */
+        .front::-webkit-scrollbar, .back::-webkit-scrollbar { width: 6px; }
+        .front::-webkit-scrollbar-thumb, .back::-webkit-scrollbar-thumb { background-color: var(--saffron); border-radius: 10px; }
+
+        /* --- MEDIA STYLES FOR THE BOOK --- */
+        .book-video { width: 100%; border-radius: 0.5rem; border: 2px solid var(--navy); margin-bottom: 1rem; }
+        .book-img { width: 100%; border-radius: 0.5rem; margin-bottom: 1rem; object-fit: cover; }
+        .book-doc-btn { display: inline-block; background: var(--navy); color: white; padding: 10px 20px; border-radius: 8px; font-weight: bold; font-family: 'Space Grotesk', sans-serif; text-transform: uppercase; letter-spacing: 1px; margin: 5px 0; font-size: 12px; }
+        
+        /* Book Controls */
+        .book-controls { display: flex; justify-content: center; gap: 20px; margin-top: 30px; position: relative; z-index: 30; }
+        .ctrl-btn { background: var(--navy); color: white; border: none; padding: 15px 30px; border-radius: 30px; font-weight: bold; cursor: pointer; transition: all 0.3s; text-transform: uppercase; letter-spacing: 2px; }
+        .ctrl-btn:hover { background: var(--saffron); transform: scale(1.05); }
+        .ctrl-btn:disabled { background: #ccc; cursor: not-allowed; transform: none; }
+
+        /* --- CHATBOT --- */
+        .bot-container { position: fixed; bottom: 20px; right: 20px; z-index: 100; }
+        .bot-window { display: none; width: calc(100vw - 40px); max-width: 360px; height: 450px; background: rgba(255, 255, 255, 0.98); border: 2px solid var(--saffron); border-radius: 1.5rem; box-shadow: 0 25px 50px rgba(0,0,0,0.2); flex-direction: column; overflow: hidden; transform-origin: bottom right; animation: popIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+        @keyframes popIn { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
+        .bot-trigger { background: linear-gradient(135deg, var(--saffron), var(--green)); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; margin-left: auto; margin-top: 16px; box-shadow: 0 0 25px rgba(255, 153, 51, 0.6); animation: pulseShadow 2s infinite; }
+    </style>
+</head>
+<body>
+
+    <!-- Ambient Canvas -->
+    <canvas id="ambient-canvas"></canvas>
+
+    <!-- Marquee -->
+    <div class="marquee-wrapper">
+        <div class="marquee-track font-bold text-xs tracking-[0.2em] text-gray-800">
+            ★ The Complete Story ★ Genesis of Easy Way Learn ★ The Hand in Hand Trust ★ Educational Revolution ★ 
+        </div>
+    </div>
+
+    <!-- Main Navigation -->
+    <nav class="fixed w-full top-8 md:top-10 z-50 px-4 md:px-8 py-4 flex justify-between items-center bg-[rgba(255,255,255,0.9)] backdrop-blur-xl border-b border-[rgba(0,0,0,0.05)] shadow-sm">
+        <a href="index.html" class="text-2xl md:text-3xl font-bold tracking-tighter cursor-pointer text-[var(--navy)] hover:opacity-80 transition z-50">
+            EAZY<span class="neon-text-tricolor">WAY</span>LEARN
+        </a>
+        
+        <div class="hidden lg:flex gap-8 font-bold text-xs uppercase tracking-widest text-gray-600">
+            <a href="founder.html" class="hover:text-[var(--navy)] transition">Let Me Introduce Myself</a>
+            <a href="wings.html" class="hover:text-[var(--saffron)] transition">Trust & Wings</a>
+            <a href="courses.html" class="hover:text-[var(--green)] transition">Courses & Fees</a>
+            <a href="references.html" class="hover:text-[var(--navy)] transition">References</a>
+            <a href="abroad.html" class="hover:text-[var(--saffron)] transition">Study Abroad</a>
+            <a href="story.html" class="text-[var(--navy)] border-b-2 border-[var(--navy)] transition">Our Story</a>
+        </div>
+
+        <div class="flex items-center gap-4 z-50">
+            <a href="courses.html" class="hidden md:inline-block bg-[var(--navy)] text-white px-6 py-2 rounded-full font-bold text-sm hover:scale-110 transition shadow-lg pulse-btn">Enroll</a>
+            <button id="menu-btn" class="lg:hidden text-[var(--navy)] focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="menu-closed fixed inset-0 z-40 bg-[rgba(255,255,255,0.95)] backdrop-blur-3xl flex flex-col justify-center items-center pt-20">
+        <div class="flex flex-col gap-6 font-bold text-lg uppercase tracking-widest text-[var(--navy)] text-center w-full px-6">
+            <a href="founder.html" class="border-b border-gray-200 pb-2">Let Me Introduce Myself</a>
+            <a href="wings.html" class="border-b border-gray-200 pb-2">Trust & Wings</a>
+            <a href="courses.html" class="border-b border-gray-200 pb-2">Courses & Fees</a>
+            <a href="references.html" class="border-b border-gray-200 pb-2">References</a>
+            <a href="abroad.html" class="border-b border-gray-200 pb-2">Study Abroad</a>
+            <a href="story.html" class="text-[var(--navy)] border-b border-[var(--navy)] pb-2">Our Story</a>
+            <a href="courses.html" class="bg-[var(--navy)] text-white px-8 py-4 rounded-full mt-4 mx-auto w-3/4 shadow-lg pulse-btn">Enroll Now</a>
+        </div>
+    </div>
+
+    <!-- BOOK HEADER -->
+    <header class="pt-40 md:pt-48 pb-10 px-6 relative z-10 flex flex-col justify-center items-center text-center">
+        <h2 class="text-[var(--saffron)] font-bold tracking-[0.2em] md:tracking-[0.3em] uppercase text-xs md:text-sm mb-4">The Complete Manuscript</h2>
+        <h1 class="text-4xl md:text-7xl font-bold mb-4 text-[var(--navy)]">
+            Our <span class="neon-text-tricolor">Story.</span>
+        </h1>
+        <p class="text-gray-600 font-semibold max-w-2xl mx-auto text-sm md:text-base">Interact with the pages below to turn through the origins, the Trust, the Science Club, and the media archives that built Easy Way Learn.</p>
+    </header>
+
+    <!-- THE 3D INTERACTIVE BOOK -->
+    <main class="pb-24 px-4 md:px-10 relative z-10">
+        <div class="book-container">
+            <div class="book" id="book">
+                
+                <!-- PAGE 1: Cover & Intro -->
+                <div class="page" id="page-1">
+                    <!-- Front of Page 1 (Cover) -->
+                    <div class="front flex flex-col items-center justify-center text-center bg-gray-50 border-4 border-[var(--navy)] m-4" style="height: calc(100% - 2rem); width: calc(100% - 2rem);">
+                        <svg class="w-24 h-24 text-[var(--saffron)] mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                        <h1 class="text-4xl font-bold text-[var(--navy)] font-serif mb-2">The Genesis</h1>
+                        <h2 class="text-xl text-[var(--saffron)] font-bold tracking-widest uppercase">Of Easy Way Learn</h2>
+                        <div class="h-px bg-gray-300 w-1/2 mx-auto my-8"></div>
+                        <p class="text-gray-500 font-bold tracking-widest text-sm">Authored by Kalyan Bhattacharya</p>
+                    </div>
+                    <!-- Back of Page 1 (Chapter 1) -->
+                    <div class="back book-text text-gray-800 text-base md:text-lg leading-relaxed">
+                        <h3 class="font-sans font-bold text-2xl text-[var(--navy)] mb-6 border-b-2 border-[var(--saffron)] pb-2">Chapter I: Let Me Introduce Myself</h3>
+                        <p class="mb-4"><span class="float-left text-6xl font-bold text-[var(--saffron)] pr-3 leading-none mt-[-10px]">E</span>ducation is not merely the transfer of information; it is the ignition of absolute potential. As the visionary behind Easy Way Learn, my goal has been to construct a platform that transcends the rigid boundaries of traditional academia.</p>
+                        <p class="mb-4">My journey did not begin with a desire to build a standard corporation, but rather from a profound observation of the educational divide. While metropolitan students had access to structured, analytical learning, eager minds across the districts were left navigating an archaic system.</p>
+                        <p class="mb-4">Earning my <strong>M.Sc. in Engineering from the UK</strong> laid the critical foundation for analytical problem-solving. This international exposure led to my roles as an Ex. CEO and Board Member in the UK, as well as active memberships with the International Project Management Association (IPMA) World, British Council Alumni UK, and the Commonwealth Foundation.</p>
+                        <p class="mb-4">These international standardizations were the exact blueprints I needed. I returned with a singular vision: to democratize elite education and bring world-class analytical frameworks to every single student, regardless of their geographical constraints.</p>
+                    </div>
+                </div>
+
+                <!-- PAGE 2: The Pedagogy & Trust -->
+                <div class="page" id="page-2">
+                    <!-- Front of Page 2 (Chapter 2) -->
+                    <div class="front book-text text-gray-800 text-base md:text-lg leading-relaxed">
+                        <h3 class="font-sans font-bold text-2xl text-[var(--navy)] mb-6 border-b-2 border-[var(--saffron)] pb-2">Chapter II: The Two Core Wings</h3>
+                        <p class="mb-4">To build an empire of knowledge, one must establish an unbreakable foundation. Thus, the Trust was divided into two Core Wings: <strong>Education</strong> and the <strong>Science Club</strong>.</p>
+                        <p class="mb-4">The Education wing focuses entirely on the <em>Easy Learning English</em> framework. It is a highly structured, interactive model designed to make mastering the English language intuitive. We bridge the gap between basic grammar and high-level academic writing, preparing students for global exams like IELTS and TOEFL.</p>
+                        <p class="mb-4">However, language is only the vessel. The substance is pure analytical thought. This birthed the <strong>Science Club Initiative</strong>. Fostering analytical thinking, practical experiments, and theoretical sciences, the Science Club is meticulously engineered to prepare students for advanced academic pursuits, including IIT and UPSC/IPS preparation.</p>
+                        <p class="mb-6 font-bold text-[var(--green)]">"We do not just teach students to memorize formulas; we teach them how to engineer solutions."</p>
+                        <!-- Image integration -->
+                        <div class="w-full bg-gray-100 p-2 rounded-lg text-center">
+                            <img src="Kalyan_Sir_Files/Gauhati_Satya_Professor.JPG" alt="Gauhati Professor" class="book-img" onerror="this.src='https://via.placeholder.com/600x400?text=Academic+Lecture'">
+                            <span class="text-xs font-sans text-gray-500 font-bold uppercase">Fig 1: Academic Discourse & Structural Planning</span>
+                        </div>
+                    </div>
+                    <!-- Back of Page 2 (Chapter 3 - Documents) -->
+                    <div class="back book-text text-gray-800 text-base md:text-lg leading-relaxed">
+                        <h3 class="font-sans font-bold text-2xl text-[var(--navy)] mb-6 border-b-2 border-[var(--saffron)] pb-2">Chapter III: The Hand in Hand Trust</h3>
+                        <p class="mb-4">Operational integrity is paramount. Behind the digital interfaces and the interactive classrooms lies a legally and ethically bound entity: The Hand in Hand Initiative.</p>
+                        <p class="mb-4">This Trust operates on complete transparency. Below are the verified operational documents, trust deeds, and cultural concept papers that legally bind our mission to our students.</p>
+                        
+                        <!-- Document Links injected into the book -->
+                        <div class="grid grid-cols-1 gap-3 mt-6 font-sans">
+                            <div class="p-4 border border-gray-200 rounded-lg bg-gray-50 flex flex-col sm:flex-row justify-between items-center gap-4">
+                                <div><p class="font-bold text-[var(--navy)] text-sm">Culture Concept Paper</p><p class="text-xs text-gray-500">Foundational philosophy</p></div>
+                                <a href="Kalyan_Sir_Files/A_Handinhand_Culture_Concept Paper.docx" download class="book-doc-btn">Download</a>
+                            </div>
+                            <div class="p-4 border border-gray-200 rounded-lg bg-gray-50 flex flex-col sm:flex-row justify-between items-center gap-4">
+                                <div><p class="font-bold text-[var(--navy)] text-sm">Trust Registration Deed</p><p class="text-xs text-gray-500">Official legal framework</p></div>
+                                <a href="Kalyan_Sir_Files/HH_Trust_Deed_09082019.doc" download class="book-doc-btn" style="background: var(--saffron);">Download</a>
+                            </div>
+                            <div class="p-4 border border-gray-200 rounded-lg bg-gray-50 flex flex-col sm:flex-row justify-between items-center gap-4">
+                                <div><p class="font-bold text-[var(--navy)] text-sm">Anti-Corruption Manifesto</p><p class="text-xs text-gray-500">Social Initiative Stance</p></div>
+                                <a href="Kalyan_Sir_Files/HH_India against corrption.docx" download class="book-doc-btn" style="background: var(--green);">Download</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PAGE 3: Media & Accolades -->
+                <div class="page" id="page-3">
+                    <!-- Front of Page 3 (Chapter 4 - Media) -->
+                    <div class="front book-text text-gray-800 text-base md:text-lg leading-relaxed">
+                        <h3 class="font-sans font-bold text-2xl text-[var(--navy)] mb-6 border-b-2 border-[var(--saffron)] pb-2">Chapter IV: The Global Voice</h3>
+                        <p class="mb-6">A framework is only as strong as its real-world application. Over the years, the methodologies of Easy Way Learn and the Trust have been broadcasted, scrutinized, and applauded across national media and historic academic halls.</p>
+                        
+                        <!-- Video Integration -->
+                        <div class="mb-8">
+                            <p class="font-sans font-bold text-[var(--saffron)] text-xs tracking-widest mb-2">CULTURAL PRESENTATION</p>
+                            <video class="book-video" controls preload="metadata">
+                                <source src="Kalyan_Sir_Files/kalyan-sir-2-new-compressed.mov" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                            <p class="text-sm font-sans text-gray-600 font-medium">A profound literary recitation and presentation showcasing our deep cultural roots.</p>
+                        </div>
+
+                        <div class="mb-6">
+                            <p class="font-sans font-bold text-[var(--green)] text-xs tracking-widest mb-2">GAUHATI SEMINAR LECTURE</p>
+                            <video class="book-video" controls preload="metadata">
+                                <source src="Kalyan_Sir_Files/KK_Lecture_Seminar-compressed-compressed.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                            <p class="text-sm font-sans text-gray-600 font-medium">Keynote address detailing structural innovations in the Science Club framework.</p>
+                        </div>
+                    </div>
+                    <!-- Back of Page 3 (Chapter 5 - Accolades & Photos) -->
+                    <div class="back book-text text-gray-800 text-base md:text-lg leading-relaxed">
+                        <h3 class="font-sans font-bold text-2xl text-[var(--navy)] mb-6 border-b-2 border-[var(--saffron)] pb-2">Chapter V: Impact & Accolades</h3>
+                        <p class="mb-4">From presenting scholarly papers at the historic <strong>Asiatic Society</strong> to delivering guest lectures at the <strong>Bardhaman Science Centre</strong>, the educational models we utilize have withstood the rigorous evaluation of academic elites.</p>
+                        <p class="mb-6">Furthermore, international endorsements from scholars like <em>Scott Thurston</em> and academic peers like <em>Debjani</em> and <em>Pompa Kumar</em> solidify the global relevance of our curriculum.</p>
+                        
+                        <h4 class="font-sans font-bold text-xl text-[var(--navy)] mt-8 mb-4">The Journey in Frames</h4>
+                        <!-- Photo Gallery inside the book -->
+                        <div class="grid grid-cols-2 gap-3 mb-6">
+                            <img src="Kalyan_Sir_Files/DSC00017.JPG" class="w-full h-32 object-cover rounded shadow-sm border border-gray-200" onerror="this.src='https://via.placeholder.com/300'">
+                            <img src="Kalyan_Sir_Files/DSC00028.JPG" class="w-full h-32 object-cover rounded shadow-sm border border-gray-200" onerror="this.src='https://via.placeholder.com/300'">
+                            <img src="Kalyan_Sir_Files/Himalays_Bhutan.JPG" class="w-full h-32 object-cover rounded shadow-sm border border-gray-200 col-span-2" onerror="this.src='https://via.placeholder.com/600x300'">
+                        </div>
+                        <p class="text-sm font-sans text-gray-600 font-medium italic text-center">Moments captured during our seminars and extensive travels across the Himalayas.</p>
+                    </div>
+                </div>
+
+                <!-- PAGE 4: The Conclusion -->
+                <div class="page" id="page-4">
+                    <!-- Front of Page 4 -->
+                    <div class="front flex flex-col items-center justify-center text-center">
+                        <div class="text-6xl mb-6">🎓</div>
+                        <h3 class="text-3xl md:text-5xl font-bold text-[var(--navy)] mb-6 font-serif">The Next Chapter<br>Is Yours.</h3>
+                        <p class="text-gray-600 font-medium mb-10 max-w-md mx-auto">You have read the history, seen the verified credentials, and understood the philosophy. Now, it is time to write your own success story.</p>
+                        <a href="courses.html" class="bg-[var(--green)] text-white px-10 py-4 rounded-full font-bold text-lg shadow-xl hover:scale-105 transition pulse-btn font-sans uppercase tracking-widest">Enroll Today</a>
+                    </div>
+                    <!-- Back of Page 4 (Blank / End Cover) -->
+                    <div class="back bg-gray-50 flex items-center justify-center border-4 border-gray-200 m-4" style="height: calc(100% - 2rem); width: calc(100% - 2rem);">
+                        <p class="text-gray-400 font-bold tracking-[0.5em] uppercase text-sm">The End</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Book Navigation Controls -->
+        <div class="book-controls">
+            <button id="prev-btn" class="ctrl-btn" disabled>&larr; Previous Page</button>
+            <button id="next-btn" class="ctrl-btn">Next Page &rarr;</button>
+        </div>
+    </main>
+
+    <!-- SMART FOOTER -->
+    <footer class="border-t border-gray-200 py-12 md:py-16 px-6 md:px-20 relative z-10 bg-gray-50">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-12 text-center sm:text-left">
+            <div>
+                <div class="text-2xl md:text-3xl font-bold tracking-tighter mb-4 text-[var(--navy)]">EAZY<span class="neon-text-tricolor">WAY</span>LEARN</div>
+                <p class="text-gray-600 text-xs md:text-sm mb-4 leading-relaxed mx-auto sm:mx-0 max-w-[250px]">Premium Interactive Experience. Hosted on high-performance infrastructure for unparalleled speed and reliability.</p>
+            </div>
+            <div>
+                <h4 class="text-base md:text-lg font-bold mb-4 md:mb-6 text-[var(--navy)]">Course Fees</h4>
+                <ul class="space-y-2 md:space-y-3 text-xs md:text-sm text-gray-700 font-semibold max-w-[250px] mx-auto sm:mx-0">
+                    <li class="flex justify-between border-b border-gray-200 pb-2"><span>Basic Model I</span> <span class="text-[var(--navy)] font-bold">₹299</span></li>
+                    <li class="flex justify-between border-b border-gray-200 pb-2"><span>Premium Model I</span> <span class="text-[var(--saffron)] font-bold">₹2,999</span></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-base md:text-lg font-bold mb-4 md:mb-6 text-[var(--navy)]">Quick Links</h4>
+                <ul class="space-y-2 md:space-y-3 text-xs md:text-sm text-gray-600 font-semibold">
+                    <li><a href="founder.html" class="hover:text-[var(--saffron)] transition">About the Founder</a></li>
+                    <li><a href="wings.html" class="hover:text-[var(--saffron)] transition">Trust & Wings</a></li>
+                </ul>
+            </div>
+            <div class="sm:col-span-2 lg:col-span-1">
+                <h4 class="text-base md:text-lg font-bold mb-2 md:mb-4 text-[var(--navy)]">Contact Us</h4>
+                <p class="text-xl md:text-2xl font-bold text-[var(--saffron)]">7596 909 888</p>
+                <p class="text-[10px] md:text-xs text-gray-500 mt-1 font-semibold mb-6">Call or WhatsApp</p>
+                <a href="courses.html" class="bg-[var(--green)] text-white px-6 py-3 rounded-full font-bold text-sm shadow-md hover:bg-green-700 transition pulse-btn inline-block">Enroll Now</a>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto mt-12 md:mt-16 pt-6 md:pt-8 border-t border-gray-300 text-center text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-widest">
+            &copy; 2026 Easy Way Learn Trust. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE AI CHATBOT -->
+    <div class="bot-container">
+        <div class="bot-window" id="botWindow" style="display: none;">
+            <div class="bg-[var(--navy)] p-4 font-bold flex justify-between items-center shadow-md">
+                <div class="flex items-center gap-3">
+                    <span class="relative flex h-3 w-3"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--green)] opacity-75"></span><span class="relative inline-flex rounded-full h-3 w-3 bg-[var(--green)]"></span></span>
+                    <span class="text-white text-sm">EazyBot AI</span>
+                </div>
+                <button onclick="toggleBot()" class="text-white hover:text-[var(--saffron)] transition text-xl font-bold">&times;</button>
+            </div>
+            <div class="flex-grow p-4 md:p-5 overflow-y-auto space-y-4 bg-gray-50" id="botHistory">
+                <div class="bg-white border border-gray-200 p-3 md:p-4 rounded-2xl rounded-tl-sm text-xs md:text-sm text-gray-800 shadow-md font-semibold">
+                    Greetings! 🤖 Enjoy reading Our Story. Do you have any questions about the history of Easy Way Learn?
+                </div>
+            </div>
+            <div class="p-3 md:p-4 border-t border-gray-200 bg-white grid grid-cols-1 gap-2">
+                <button onclick="sendMsg('How did this all start?')" class="text-xs bg-gray-100 hover:bg-gray-200 border border-gray-300 py-2.5 md:py-3 px-4 rounded-xl transition text-left text-gray-700 font-semibold hover:text-[var(--navy)]">
+                    How did this all start?
+                </button>
+            </div>
+        </div>
+        <div class="bot-trigger" onclick="toggleBot()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        let menuOpen = false;
+
+        menuBtn.addEventListener('click', () => {
+            menuOpen = !menuOpen;
+            if(menuOpen) {
+                mobileMenu.classList.remove('menu-closed'); mobileMenu.classList.add('menu-open');
+                menuIcon.setAttribute('d', 'M6 18L18 6M6 6l12 12');
+            } else {
+                mobileMenu.classList.remove('menu-open'); mobileMenu.classList.add('menu-closed');
+                menuIcon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
+            }
+        });
+
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menuOpen = false; mobileMenu.classList.remove('menu-open'); mobileMenu.classList.add('menu-closed');
+                menuIcon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
+            });
+        });
+
+        // Ambient Canvas
+        const canvas = document.getElementById('ambient-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height, particles = [];
+
+        function initCanvas() {
+            width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; particles = [];
+            const particleCount = width < 768 ? 20 : 45; 
+            const colors = ['rgba(0, 0, 128, 0.25)', 'rgba(255, 153, 51, 0.3)', 'rgba(19, 136, 8, 0.25)'];
+            for(let i=0; i<particleCount; i++) {
+                particles.push({
+                    x: Math.random() * width, y: Math.random() * height, radius: Math.random() * 60 + 30, 
+                    color: colors[Math.floor(Math.random() * colors.length)], vx: (Math.random() - 0.5) * 0.8, vy: (Math.random() - 0.5) * 0.8
+                });
+            }
+        }
+        function animateCanvas() {
+            ctx.clearRect(0, 0, width, height);
+            particles.forEach(p => {
+                p.x += p.vx; p.y += p.vy;
+                if(p.x < -p.radius || p.x > width + p.radius) p.vx *= -1;
+                if(p.y < -p.radius || p.y > height + p.radius) p.vy *= -1;
+                ctx.beginPath();
+                const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.radius);
+                gradient.addColorStop(0, p.color); gradient.addColorStop(1, 'transparent');
+                ctx.fillStyle = gradient; ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2); ctx.fill();
+            });
+            requestAnimationFrame(animateCanvas);
+        }
+        window.addEventListener('resize', initCanvas); initCanvas(); animateCanvas();
+
+        // Chatbot 
+        const botWindow = document.getElementById('botWindow');
+        const botHistory = document.getElementById('botHistory');
+        function toggleBot() { 
+            if(botWindow.style.display === 'none' || botWindow.style.display === '') { botWindow.style.display = 'flex'; } 
+            else { botWindow.style.display = 'none'; }
+        }
+        function sendMsg(msg) {
+            botHistory.innerHTML += `<div class="bg-[var(--navy)] p-3 rounded-2xl rounded-tr-sm text-xs md:text-sm text-white ml-8 shadow-md border border-[rgba(0,0,128,0.2)]">${msg}</div>`;
+            botHistory.scrollTop = botHistory.scrollHeight;
+            const typingId = 'typing-' + Date.now();
+            botHistory.innerHTML += `<div id="${typingId}" class="text-[10px] md:text-xs text-gray-500 ml-2 mt-2 italic font-semibold">EazyBot is typing...</div>`;
+            botHistory.scrollTop = botHistory.scrollHeight;
+
+            setTimeout(() => {
+                document.getElementById(typingId).remove();
+                let reply = msg.includes('start') 
+                    ? "It started with a vision to bridge the educational divide, combining Kalyan Bhattacharya's UK Engineering background with local grassroots initiatives. 📖" 
+                    : "The story is vast, but our mission remains simple: premium education for all.";
+                
+                reply += `<br><br><a href="courses.html" class="inline-block bg-[var(--green)] text-white px-4 py-2 rounded-full font-bold text-xs shadow-md hover:bg-green-700 transition">Click here to Enroll &rarr;</a>`;
+
+                botHistory.innerHTML += `<div class="bg-white border border-gray-200 p-3 md:p-4 rounded-2xl rounded-tl-sm text-xs md:text-sm text-gray-800 mr-8 shadow-md font-semibold">🤖 ${reply}</div>`;
+                botHistory.scrollTop = botHistory.scrollHeight;
+            }, 800);
+        }
+
+        // --- 3D BOOK ENGINE LOGIC ---
+        let currentPage = 1;
+        const totalPages = 4; // Number of page elements
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+
+        // Initialize Z-indexes (Top page has highest z-index)
+        function initBook() {
+            for(let i = 1; i <= totalPages; i++) {
+                const page = document.getElementById('page-' + i);
+                page.style.zIndex = totalPages - i + 1;
+            }
+        }
+
+        function updateButtons() {
+            prevBtn.disabled = currentPage === 1;
+            nextBtn.disabled = currentPage === totalPages;
+        }
+
+        nextBtn.addEventListener('click', () => {
+            if(currentPage < totalPages) {
+                const pageToFlip = document.getElementById('page-' + currentPage);
+                pageToFlip.classList.add('flipped');
+                // Adjust z-index after flip so the back of the flipped page shows correctly on the left
+                setTimeout(() => {
+                    pageToFlip.style.zIndex = currentPage;
+                    currentPage++;
+                    updateButtons();
+                }, 300); // Wait until rotation passes 90deg to swap z-index
+            }
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if(currentPage > 1) {
+                currentPage--;
+                const pageToFlipBack = document.getElementById('page-' + currentPage);
+                // Reset z-index so it slides back on top of the right stack
+                pageToFlipBack.style.zIndex = totalPages - currentPage + 1;
+                pageToFlipBack.classList.remove('flipped');
+                updateButtons();
+            }
+        });
+
+        initBook();
+    </script>
+</body>
+</html>
