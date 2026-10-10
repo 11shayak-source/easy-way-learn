@@ -52,24 +52,22 @@
         .story-page {
             position: absolute; top: 0; left: 0; width: 100%;
             opacity: 0; visibility: hidden; pointer-events: none;
-            /* 3D Slide in from the right */
             transform: rotateY(15deg) translateX(50px) scale(0.95);
             transition: all 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
             background: #fff; border-radius: 1rem;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
             border: 1px solid rgba(0,0,0,0.05);
-            border-left: 6px solid var(--navy); /* Book spine effect */
+            border-left: 6px solid var(--navy); 
         }
 
         .story-page.active {
-            position: relative; /* This forces the wrapper to stretch to the content height automatically! */
+            position: relative; 
             opacity: 1; visibility: visible; pointer-events: auto;
             transform: rotateY(0) translateX(0) scale(1);
             z-index: 10;
         }
 
         .story-page.flipped {
-            /* 3D Slide out to the left */
             transform: rotateY(-15deg) translateX(-50px) scale(0.95);
         }
 
@@ -161,10 +159,14 @@
                     <h2 class="text-[var(--saffron)] font-bold tracking-widest text-xs mb-2 uppercase">Chapter I</h2>
                     <h3 class="font-sans font-bold text-3xl md:text-5xl text-[var(--navy)] mb-8 border-b-2 border-gray-100 pb-6">Let Me Introduce Myself</h3>
                     
-                    <div class="book-text text-gray-800 text-lg md:text-xl leading-relaxed space-y-6">
+                    <div class="book-text text-gray-800 text-lg md:text-xl leading-relaxed space-y-6 overflow-hidden">
+                        
+                        <!-- ADDED KALYAN SIR PORTRAIT IMAGE HERE -->
+                        <img src="Kalyan_Sir_Files/kalyansir.jpeg" alt="Kalyan Bhattacharya" class="w-1/2 md:w-1/3 float-right ml-6 mb-4 rounded-xl shadow-lg border-4 border-[var(--navy)] object-cover" onerror="this.src='https://via.placeholder.com/300'">
+
                         <p><span class="float-left text-6xl md:text-7xl font-bold text-[var(--saffron)] pr-3 leading-none mt-[-5px] md:mt-[-10px]">E</span>ducation is not merely the transfer of information; it is the ignition of absolute potential. As the visionary behind Easy Way Learn, my goal has been to construct a platform that transcends the rigid boundaries of traditional academia.</p>
                         
-                        <div class="my-10 p-6 bg-gray-50 border-l-4 border-[var(--navy)] rounded-r-xl">
+                        <div class="my-10 p-6 bg-gray-50 border-l-4 border-[var(--navy)] rounded-r-xl clear-none">
                             <p class="font-sans font-bold text-[var(--navy)] text-lg mb-2">Kalyan Bhattacharya</p>
                             <p class="font-sans text-sm text-gray-600">M.Sc. UK (Engineering), Ex. CEO, Board Member UK</p>
                             <div class="mt-4 flex flex-wrap gap-2 font-sans text-xs">
@@ -289,13 +291,21 @@
                 </div>
             </div>
 
-            <!-- CHAPTER 5: Photo Archives -->
+            <!-- CHAPTER 5: Photo Archives & Global References -->
             <div class="story-page p-6 md:p-16" id="chapter-5">
                 <div class="max-w-4xl mx-auto">
                     <h2 class="text-[var(--navy)] font-bold tracking-widest text-xs mb-2 uppercase">Chapter V</h2>
-                    <h3 class="font-sans font-bold text-3xl md:text-5xl text-[var(--navy)] mb-8 border-b-2 border-gray-100 pb-6">The Journey in Frames</h3>
+                    <h3 class="font-sans font-bold text-3xl md:text-5xl text-[var(--navy)] mb-8 border-b-2 border-gray-100 pb-6">Impact & Accolades</h3>
                     
                     <div class="book-text text-gray-800 text-lg md:text-xl leading-relaxed space-y-6">
+                        <p>Furthermore, international endorsements from scholars like <em>Scott Thurston</em> and academic peers like <em>Pampa Kumar</em> solidify the global relevance of our curriculum.</p>
+                        
+                        <!-- ADDED SCOTT THURSTON AND PAMPA KUMAR REFERENCE DOCUMENTS -->
+                        <div class="flex flex-col sm:flex-row gap-4 my-8 font-sans">
+                            <a href="Kalyan_Sir_Files/Reference_Scott Thurston.docx" download class="book-doc-btn flex-1 text-center bg-[var(--navy)] text-white py-3 rounded-lg hover:bg-blue-800 shadow-md">Download Scott Thurston Ref</a>
+                            <a href="Kalyan_Sir_Files/Pampa-kumar.docx" download class="book-doc-btn flex-1 text-center bg-[var(--saffron)] text-white py-3 rounded-lg hover:brightness-110 shadow-md">Download Pampa Kumar Ref</a>
+                        </div>
+
                         <p>Moments captured during our seminars, extensive travels across the Himalayas, and on-ground cultural impacts. These images represent the physical embodiment of the Easy Way Learn philosophy.</p>
                         
                         <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 my-8 font-sans">
@@ -400,6 +410,14 @@
                 mobileMenu.classList.remove('menu-open'); mobileMenu.classList.add('menu-closed');
                 menuIcon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
             }
+        });
+
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menuOpen = false; mobileMenu.classList.remove('menu-open'); mobileMenu.classList.add('menu-closed');
+                menuIcon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
+            });
         });
 
         // Ambient Canvas
