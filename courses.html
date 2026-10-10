@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Easy Way Learn - Course Fees and Enrollment. Master English and Science with our premium models.">
-    <title>Courses & Fees | Easy Way Learn</title>
+    <title>Courses, Fees & Enrollment | Easy Way Learn</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&display=swap');
@@ -69,9 +69,11 @@
         @keyframes popIn { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
         .bot-trigger { background: linear-gradient(135deg, var(--saffron), var(--green)); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; margin-left: auto; margin-top: 16px; box-shadow: 0 0 25px rgba(255, 153, 51, 0.6); animation: pulseShadow 2s infinite; }
 
-        /* --- UPI MODAL --- */
-        #upi-modal { transition: opacity 0.3s ease; }
-        .loader { border: 4px solid #f3f3f3; border-top: 4px solid var(--saffron); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto; }
+        /* --- CUSTOM CHECKOUT MODAL --- */
+        #checkout-modal { transition: opacity 0.4s ease; }
+        .upload-label { border: 2px dashed var(--navy); transition: 0.3s; cursor: pointer; }
+        .upload-label:hover, .upload-label.has-file { background: rgba(0,0,128,0.05); border-style: solid; border-color: var(--green); }
+        .loader { border: 4px solid #f3f3f3; border-top: 4px solid var(--saffron); border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; display: none; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
@@ -80,15 +82,15 @@
     <!-- Ambient Canvas -->
     <canvas id="ambient-canvas"></canvas>
 
-    <!-- Marquee Ticker -->
+    <!-- Marquee -->
     <div class="marquee-wrapper">
         <div class="marquee-track font-bold text-xs tracking-[0.2em] text-gray-800">
-            ★ Easy Learning English Basic Models Starting at ₹299 ★ Premium Models with UPI Integration Starting at ₹2999 ★ Book Fair Details Revealed - Visit Our Stall! ★ 
+            ★ Secure UPI & Bank Transfer Enabled ★ Submit Screenshot to Unlock Premium Content ★ Easy Learning English Basic Models Starting at ₹299 ★ 
         </div>
     </div>
 
     <!-- Main Navigation -->
-    <nav class="fixed w-full top-8 md:top-10 z-50 px-4 md:px-8 py-4 flex justify-between items-center bg-[rgba(255,255,255,0.9)] backdrop-blur-xl border-b border-[rgba(0,0,0,0.05)] shadow-sm">
+    <nav class="fixed w-full top-8 md:top-10 z-40 px-4 md:px-8 py-4 flex justify-between items-center bg-[rgba(255,255,255,0.9)] backdrop-blur-xl border-b border-[rgba(0,0,0,0.05)] shadow-sm">
         <a href="index.html" class="text-2xl md:text-3xl font-bold tracking-tighter cursor-pointer text-[var(--navy)] hover:opacity-80 transition z-50">
             EAZY<span class="neon-text-tricolor">WAY</span>LEARN
         </a>
@@ -108,7 +110,7 @@
     </nav>
 
     <!-- Mobile Menu -->
-    <div id="mobile-menu" class="menu-closed fixed inset-0 z-40 bg-[rgba(255,255,255,0.95)] backdrop-blur-3xl flex flex-col justify-center items-center pt-20">
+    <div id="mobile-menu" class="menu-closed fixed inset-0 z-30 bg-[rgba(255,255,255,0.95)] backdrop-blur-3xl flex flex-col justify-center items-center pt-20">
         <div class="flex flex-col gap-6 font-bold text-lg uppercase tracking-widest text-[var(--navy)] text-center w-full px-6">
             <a href="founder.html" class="border-b border-gray-200 pb-2">Let Me Introduce Myself</a>
             <a href="wings.html" class="border-b border-gray-200 pb-2">Trust & Wings</a>
@@ -127,7 +129,7 @@
                 Course Portfolio <br class="hidden md:block">& <span class="neon-text-tricolor">Pricing.</span>
             </h1>
             <p class="text-lg md:text-xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed reveal-up font-semibold" style="animation-delay: 0.2s;">
-                Select your desired educational tier below. Our full transactional setup allows you to enroll directly via secure UPI mapping.
+                Select your desired educational tier below. Proceed through our secure gateway to finalize your registration and instantly unlock your curriculum.
             </p>
         </div>
     </header>
@@ -145,7 +147,7 @@
                     <div class="mb-6 md:mb-8 text-[var(--navy)]">
                         <span class="text-3xl md:text-4xl font-bold">₹299</span>
                     </div>
-                    <button onclick="initiatePayment('Basic Model I', 299)" class="w-full bg-gray-200 text-gray-800 py-3 rounded-lg font-bold hover:bg-gray-300 transition text-sm">Enroll via UPI</button>
+                    <button onclick="openCheckout('Basic Model I', 299)" class="w-full bg-gray-200 text-gray-800 py-3 rounded-lg font-bold hover:bg-gray-300 transition text-sm">Enroll Now</button>
                 </div>
 
                 <!-- Basic 499 -->
@@ -156,7 +158,7 @@
                     <div class="mb-6 md:mb-8 text-[var(--navy)]">
                         <span class="text-3xl md:text-4xl font-bold">₹499</span>
                     </div>
-                    <button onclick="initiatePayment('Basic Model II', 499)" class="w-full bg-gray-800 text-white py-3 rounded-lg font-bold hover:bg-black transition text-sm">Enroll via UPI</button>
+                    <button onclick="openCheckout('Basic Model II', 499)" class="w-full bg-gray-800 text-white py-3 rounded-lg font-bold hover:bg-black transition text-sm">Enroll Now</button>
                 </div>
 
                 <!-- Premium 2999 -->
@@ -168,7 +170,7 @@
                     <div class="mb-6 md:mb-8 text-[var(--saffron)]">
                         <span class="text-3xl md:text-4xl font-bold">₹2,999</span>
                     </div>
-                    <button onclick="initiatePayment('Premium Model I', 2999)" class="w-full bg-[var(--saffron)] text-white py-3 rounded-lg font-bold hover:brightness-110 transition text-sm shadow-md pulse-btn">Enroll via UPI</button>
+                    <button onclick="openCheckout('Premium Model I', 2999)" class="w-full bg-[var(--saffron)] text-white py-3 rounded-lg font-bold hover:brightness-110 transition text-sm shadow-md pulse-btn">Enroll Now</button>
                 </div>
 
                 <!-- Premium 5999 -->
@@ -180,7 +182,7 @@
                     <div class="mb-6 md:mb-8 text-[var(--green)]">
                         <span class="text-3xl md:text-4xl font-bold">₹5,999</span>
                     </div>
-                    <button onclick="initiatePayment('Premium Model II', 5999)" class="w-full bg-[var(--green)] text-white py-3 rounded-lg font-bold hover:brightness-110 transition text-sm shadow-md pulse-btn">Enroll via UPI</button>
+                    <button onclick="openCheckout('Premium Model II', 5999)" class="w-full bg-[var(--green)] text-white py-3 rounded-lg font-bold hover:brightness-110 transition text-sm shadow-md pulse-btn">Enroll Now</button>
                 </div>
 
             </div>
@@ -188,7 +190,7 @@
     </section>
 
     <!-- SMART FOOTER -->
-    <footer class="border-t border-gray-200 py-12 md:py-16 px-6 md:px-20 relative z-10 bg-gray-50 mt-20">
+    <footer class="border-t border-gray-200 py-12 md:py-16 px-6 md:px-20 relative z-10 bg-gray-50 mt-10">
         <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 text-center sm:text-left">
             <div>
                 <div class="text-2xl font-bold tracking-tighter mb-4 text-[var(--navy)]">EAZY<span class="neon-text-tricolor">WAY</span>LEARN</div>
@@ -209,7 +211,7 @@
             </div>
         </div>
         <div class="max-w-7xl mx-auto mt-12 pt-6 border-t border-gray-300 text-center text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-            &copy; 2026 Easy Way Learn. All rights reserved. E-Commerce Enabled via UPI.
+            &copy; 2026 Easy Way Learn. All rights reserved. E-Commerce Enabled via Secure Bank & UPI Gateway.
         </div>
     </footer>
 
@@ -225,12 +227,12 @@
             </div>
             <div class="flex-grow p-4 overflow-y-auto space-y-4 bg-gray-50" id="botHistory">
                 <div class="bg-white border border-gray-200 p-3 rounded-2xl rounded-tl-sm text-xs text-gray-800 shadow-md font-semibold">
-                    Greetings! 🤖 Having trouble picking a course or completing your UPI payment? Let me know!
+                    Greetings! 🤖 Having trouble picking a course or completing your enrollment? Let me know!
                 </div>
             </div>
             <div class="p-3 border-t border-gray-200 bg-white grid grid-cols-1 gap-2">
-                <button onclick="sendMsg('How does the WhatsApp payment work?')" class="text-xs bg-gray-100 hover:bg-gray-200 border border-gray-300 py-2.5 px-4 rounded-xl transition text-left text-gray-700 font-semibold hover:text-[var(--navy)]">
-                    How does the WhatsApp payment work?
+                <button onclick="sendMsg('How do I submit my payment screenshot?')" class="text-xs bg-gray-100 hover:bg-gray-200 border border-gray-300 py-2.5 px-4 rounded-xl transition text-left text-gray-700 font-semibold hover:text-[var(--navy)]">
+                    How do I submit my payment screenshot?
                 </button>
             </div>
         </div>
@@ -239,13 +241,77 @@
         </div>
     </div>
 
-    <!-- UPI PROCESSING MODAL -->
-    <div id="upi-modal" class="fixed inset-0 z-[100] bg-[rgba(255,255,255,0.95)] backdrop-blur-md flex flex-col justify-center items-center text-center px-6" style="display: none; opacity: 0;">
-        <div class="loader mb-6"></div>
-        <h2 class="text-2xl md:text-3xl font-bold text-[var(--navy)] mb-2">Connecting to Secure UPI Gateway...</h2>
-        <p class="text-gray-600 font-semibold mb-6">Please do not refresh the page.</p>
-        <p id="modal-course-name" class="text-lg font-bold text-[var(--saffron)]"></p>
-        <p id="modal-course-price" class="text-3xl font-bold text-[var(--green)] mt-2"></p>
+    <!-- PAYMENT & VERIFICATION CHECKOUT MODAL -->
+    <div id="checkout-modal" class="fixed inset-0 z-[100] bg-[rgba(255,255,255,0.95)] backdrop-blur-md flex flex-col justify-center items-center px-4" style="display: none; opacity: 0;">
+        
+        <div class="bg-white border-2 border-[var(--navy)] rounded-2xl shadow-2xl w-full max-w-4xl overflow-hidden flex flex-col max-h-[90vh]">
+            
+            <!-- Header -->
+            <div class="bg-[var(--navy)] text-white p-4 md:p-6 flex justify-between items-center sticky top-0 z-10">
+                <div>
+                    <h2 class="text-xl md:text-2xl font-bold">Enrollment Checkout</h2>
+                    <p class="text-xs md:text-sm text-gray-300">Complete your transaction to unlock your curriculum.</p>
+                </div>
+                <button onclick="closeCheckout()" class="text-white hover:text-[var(--saffron)] text-3xl font-bold">&times;</button>
+            </div>
+
+            <!-- Scrollable Content Body -->
+            <div class="flex-grow overflow-y-auto p-4 md:p-8 flex flex-col lg:flex-row gap-8">
+                
+                <!-- Left Col: Payment Details -->
+                <div class="w-full lg:w-1/2 flex flex-col gap-6">
+                    <div class="bg-[rgba(19,136,8,0.05)] border border-[rgba(19,136,8,0.2)] p-4 rounded-xl">
+                        <p class="text-[var(--green)] text-xs font-bold tracking-widest uppercase mb-1">Order Summary</p>
+                        <p id="modal-course-name" class="text-xl font-bold text-[var(--navy)]"></p>
+                        <p id="modal-course-price" class="text-3xl font-bold text-[var(--green)]"></p>
+                    </div>
+
+                    <div>
+                        <h3 class="font-bold text-[var(--navy)] text-lg mb-3 border-b-2 border-gray-100 pb-2">Direct Bank Transfer</h3>
+                        <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 space-y-2 text-sm text-gray-700">
+                            <p><span class="font-bold text-[var(--navy)]">Name:</span> M/S LETS WALK HAND IN HAND</p>
+                            <p><span class="font-bold text-[var(--navy)]">Address:</span> 5, CHETLA ROAD, ALIPORE HO, KOLKATA-700027, WEST BENGAL</p>
+                            <p><span class="font-bold text-[var(--navy)]">Phone:</span> 7596 909 888</p>
+                            <p><span class="font-bold text-[var(--navy)]">Account No:</span> 201 000 831 22 154</p>
+                            <p><span class="font-bold text-[var(--navy)]">IFS Code:</span> BDBL 000 1604</p>
+                            <p><span class="font-bold text-[var(--navy)]">MICR Code:</span> 700 7500 61</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Col: QR Code & Verification -->
+                <div class="w-full lg:w-1/2 flex flex-col items-center justify-start border-t lg:border-t-0 lg:border-l border-gray-200 pt-6 lg:pt-0 lg:pl-8">
+                    
+                    <h3 class="font-bold text-[var(--navy)] text-lg mb-4 text-center">Scan to Pay via UPI</h3>
+                    
+                    <!-- QR Code Display -->
+                    <div class="bg-white p-2 border border-gray-200 rounded-xl shadow-sm mb-4 w-48 h-48 flex items-center justify-center">
+                        <img src="Kalyan_Sir_Files/WhatsApp Image 2026-09-29 at 4.01.41 PM.jpeg" alt="Kalyan Bhattacharya UPI QR Code" class="max-w-full max-h-full rounded" onerror="this.src='https://via.placeholder.com/200?text=QR+Code'">
+                    </div>
+                    <p class="text-sm font-bold text-gray-600 mb-8 bg-gray-100 px-4 py-2 rounded-full">UPI ID: kalbhatta-2@oksbi</p>
+
+                    <!-- Upload Proof System -->
+                    <div class="w-full">
+                        <h4 class="font-bold text-sm text-center text-[var(--navy)] mb-2">Step 2: Upload Payment Proof</h4>
+                        <p class="text-xs text-center text-gray-500 mb-4">You must attach a screenshot of your successful transaction to proceed.</p>
+                        
+                        <input type="file" id="screenshot-upload" class="hidden" accept="image/*" onchange="handleFileUpload()">
+                        <label for="screenshot-upload" id="upload-label" class="upload-label w-full flex flex-col items-center justify-center p-6 bg-gray-50 rounded-xl mb-4 text-gray-600">
+                            <span class="text-2xl mb-2">📸</span>
+                            <span id="upload-text" class="font-bold text-sm">Click to Select Screenshot</span>
+                        </label>
+
+                        <div class="flex items-center justify-center gap-3">
+                            <div id="loading-spinner" class="loader"></div>
+                            <button id="submit-verification-btn" onclick="submitAndRedirect()" class="w-full bg-[var(--green)] text-white py-4 rounded-xl font-bold text-lg hover:bg-green-700 transition opacity-50 cursor-not-allowed" disabled>
+                                Complete Enrollment
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- SCRIPTS -->
@@ -265,6 +331,14 @@
                 mobileMenu.classList.remove('menu-open'); mobileMenu.classList.add('menu-closed');
                 menuIcon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
             }
+        });
+
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menuOpen = false; mobileMenu.classList.remove('menu-open'); mobileMenu.classList.add('menu-closed');
+                menuIcon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
+            });
         });
 
         // Intersection Observer
@@ -311,25 +385,58 @@
         window.addEventListener('resize', initCanvas);
         initCanvas(); animateCanvas();
 
-        // UPI TO WHATSAPP REDIRECTION LOGIC
-        function initiatePayment(courseName, price) {
-            const modal = document.getElementById('upi-modal');
+        // --- PAYMENT GATEWAY SYSTEM LOGIC ---
+        const modal = document.getElementById('checkout-modal');
+        const fileInput = document.getElementById('screenshot-upload');
+        const uploadLabel = document.getElementById('upload-label');
+        const uploadText = document.getElementById('upload-text');
+        const submitBtn = document.getElementById('submit-verification-btn');
+        const spinner = document.getElementById('loading-spinner');
+
+        function openCheckout(courseName, price) {
             document.getElementById('modal-course-name').innerText = courseName;
-            document.getElementById('modal-course-price').innerText = "₹" + price;
+            document.getElementById('modal-course-price').innerText = "Total: ₹" + price;
             
-            // Show modal and fade in
+            // Reset state
+            fileInput.value = "";
+            uploadLabel.classList.remove('has-file');
+            uploadText.innerHTML = "Click to Select Screenshot";
+            submitBtn.disabled = true;
+            submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            spinner.style.display = 'none';
+            submitBtn.style.display = 'block';
+
             modal.style.display = 'flex';
-            setTimeout(() => { modal.style.opacity = '1'; }, 50);
+            setTimeout(() => { modal.style.opacity = '1'; }, 10);
+        }
 
-            // Create pre-filled WhatsApp message
-            const phoneNumber = "917596909888";
-            const message = `Hello, I would like to enroll in the *${courseName}* (₹${price}). I am ready to process my UPI payment!`;
-            const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+        function closeCheckout() {
+            modal.style.opacity = '0';
+            setTimeout(() => { modal.style.display = 'none'; }, 400);
+        }
 
-            // Simulate gateway loading for 2.5 seconds, then redirect
+        function handleFileUpload() {
+            if(fileInput.files.length > 0) {
+                // File selected successfully
+                const fileName = fileInput.files[0].name;
+                uploadLabel.classList.add('has-file');
+                uploadText.innerHTML = `<span class="text-[var(--green)]">✅ Proof Attached: ${fileName}</span>`;
+                
+                // Enable Submit Button
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+        }
+
+        function submitAndRedirect() {
+            // Hide button, show spinner
+            submitBtn.style.display = 'none';
+            spinner.style.display = 'block';
+
+            // Simulate server validation processing, then redirect to the orientation video
             setTimeout(() => {
-                window.location.href = whatsappURL;
-            }, 2500);
+                window.location.href = 'https://youtu.be/2UzQeTJw18g';
+            }, 2000);
         }
 
         // Chatbot 
@@ -337,11 +444,8 @@
         const botHistory = document.getElementById('botHistory');
         
         function toggleBot() { 
-            if(botWindow.style.display === 'none' || botWindow.style.display === '') {
-                botWindow.style.display = 'flex';
-            } else {
-                botWindow.style.display = 'none';
-            }
+            if(botWindow.style.display === 'none' || botWindow.style.display === '') { botWindow.style.display = 'flex'; } 
+            else { botWindow.style.display = 'none'; }
         }
         
         function sendMsg(msg) {
@@ -353,9 +457,9 @@
 
             setTimeout(() => {
                 document.getElementById(typingId).remove();
-                let reply = msg.includes('WhatsApp') 
-                    ? "It's simple! Just click 'Enroll via UPI' on your chosen package. Our system will securely route you to our official WhatsApp with your details pre-filled so our counselors can verify your transaction instantly! 📲" 
-                    : "Select a package above and click Enroll to start the process!";
+                let reply = msg.includes('screenshot') 
+                    ? "Click the 'Enroll Now' button on your desired course to open the checkout portal. Once you make the payment via Bank Transfer or scanning the UPI QR code, simply click the 'Upload Screenshot' box, attach your proof, and hit Complete Enrollment to unlock your orientation video! 📲" 
+                    : "I can guide you through our secure checkout process!";
 
                 botHistory.innerHTML += `<div class="bg-white border border-gray-200 p-3 rounded-2xl rounded-tl-sm text-xs text-gray-800 mr-8 shadow-md font-semibold">🤖 ${reply}</div>`;
                 botHistory.scrollTop = botHistory.scrollHeight;
