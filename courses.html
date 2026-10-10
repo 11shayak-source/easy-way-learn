@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Easy Way Learn - Course Fees and Enrollment. Master English and Science with our premium models.">
+    <title>Courses & Fees | Easy Way Learn</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&display=swap');
+        
+        :root {
+            --saffron: #FF9933; --green: #138808; --navy: #000080;
+            --bg-white: #FFFFFF; --text-main: #050505; --card-light: rgba(255, 255, 255, 0.85);
+        }
+
+        body { font-family: 'Space Grotesk', sans-serif; background-color: var(--bg-white); color: var(--text-main); overflow-x: hidden; scroll-behavior: smooth; }
+
+        /* --- AMBIENT CANVAS --- */
+        #ambient-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; opacity: 0.6; }
+
+        /* --- EXTREME 3D GLASSMORPHISM --- */
+        .glass-panel {
+            background: var(--card-light); backdrop-filter: blur(25px); border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 1.5rem; position: relative; z-index: 10; box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1); transform-style: preserve-3d; perspective: 1000px; overflow: hidden;
+        }
+        .glass-panel::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.8), transparent);
+            transform: skewX(-20deg); transition: 0.7s; z-index: 1;
+        }
+        .glass-panel:hover::before { left: 150%; }
+        @media (min-width: 768px) {
+            .glass-panel:hover {
+                transform: translateY(-12px) rotateX(4deg) rotateY(-4deg) scale(1.03);
+                box-shadow: -10px 25px 50px rgba(0,0,128,0.15), 10px 25px 50px rgba(255,153,51,0.15); border-color: rgba(255, 153, 51, 0.5);
+            }
+        }
+
+        /* --- TYPOGRAPHY & GRADIENTS --- */
+        .neon-text-tricolor {
+            background: linear-gradient(90deg, var(--saffron) 0%, var(--navy) 50%, var(--green) 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-size: 200% auto; animation: shineTricolor 4s linear infinite;
+        }
+        @keyframes shineTricolor { to { background-position: 200% center; } }
+
+        /* --- EXTREME SCROLL REVEALS --- */
+        .reveal-up { opacity: 0; transform: translateY(60px) scale(0.95); transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+        .reveal-up.active { opacity: 1; transform: translateY(0) scale(1); }
+        
+        /* --- PULSING BUTTONS --- */
+        .pulse-btn { animation: pulseShadow 2s infinite; transition: all 0.3s ease; }
+        .pulse-btn:hover { transform: scale(1.05); }
+        @keyframes pulseShadow { 0% { box-shadow: 0 0 0 0 rgba(255, 153, 51, 0.6); } 70% { box-shadow: 0 0 0 15px rgba(255, 153, 51, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 153, 51, 0); } }
+
+        /* --- MARQUEE --- */
+        .marquee-wrapper { background: rgba(255, 255, 255, 0.95); border-bottom: 1px solid rgba(0, 0, 0, 0.1); position: fixed; top: 0; width: 100%; z-index: 50; overflow: hidden; display: flex; align-items: center; height: 35px; }
+        .marquee-track { display: flex; white-space: nowrap; animation: marquee 20s linear infinite; }
+
+        /* --- MOBILE MENU --- */
+        #mobile-menu { transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+        .menu-open { transform: translateY(0%); }
+        .menu-closed { transform: translateY(-120%); }
+
+        /* --- CHATBOT --- */
+        .bot-container { position: fixed; bottom: 20px; right: 20px; z-index: 100; }
+        .bot-window { display: none; width: calc(100vw - 40px); max-width: 360px; height: 450px; background: rgba(255, 255, 255, 0.98); border: 2px solid var(--saffron); border-radius: 1.5rem; box-shadow: 0 25px 50px rgba(0,0,0,0.2); flex-direction: column; overflow: hidden; transform-origin: bottom right; animation: popIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+        @keyframes popIn { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
+        .bot-trigger { background: linear-gradient(135deg, var(--saffron), var(--green)); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; margin-left: auto; margin-top: 16px; box-shadow: 0 0 25px rgba(255, 153, 51, 0.6); animation: pulseShadow 2s infinite; }
+
+        /* --- UPI MODAL --- */
+        #upi-modal { transition: opacity 0.3s ease; }
+        .loader { border: 4px solid #f3f3f3; border-top: 4px solid var(--saffron); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <!-- Ambient Canvas -->
+    <canvas id="ambient-canvas"></canvas>
+
+    <!-- Marquee Ticker -->
+    <div class="marquee-wrapper">
+        <div class="marquee-track font-bold text-xs tracking-[0.2em] text-gray-800">
+            ★ Easy Learning English Basic Models Starting at ₹299 ★ Premium Models with UPI Integration Starting at ₹2999 ★ Book Fair Details Revealed - Visit Our Stall! ★ 
+        </div>
+    </div>
+
+    <!-- Main Navigation -->
+    <nav class="fixed w-full top-8 md:top-10 z-50 px-4 md:px-8 py-4 flex justify-between items-center bg-[rgba(255,255,255,0.9)] backdrop-blur-xl border-b border-[rgba(0,0,0,0.05)] shadow-sm">
+        <a href="index.html" class="text-2xl md:text-3xl font-bold tracking-tighter cursor-pointer text-[var(--navy)] hover:opacity-80 transition z-50">
+            EAZY<span class="neon-text-tricolor">WAY</span>LEARN
+        </a>
+        <div class="hidden lg:flex gap-8 font-bold text-xs uppercase tracking-widest text-gray-600">
+            <a href="founder.html" class="hover:text-[var(--navy)] transition">Let Me Introduce Myself</a>
+            <a href="wings.html" class="hover:text-[var(--saffron)] transition">Trust & Wings</a>
+            <a href="courses.html" class="text-[var(--green)] transition border-b-2 border-[var(--green)]">Courses & Fees</a>
+            <a href="references.html" class="hover:text-[var(--navy)] transition">References</a>
+            <a href="abroad.html" class="hover:text-[var(--saffron)] transition">Study Abroad</a>
+            <a href="story.html" class="hover:text-[var(--navy)] transition">Our Story</a>
+        </div>
+        <div class="flex items-center gap-4 z-50">
+            <button id="menu-btn" class="lg:hidden text-[var(--navy)] focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="menu-closed fixed inset-0 z-40 bg-[rgba(255,255,255,0.95)] backdrop-blur-3xl flex flex-col justify-center items-center pt-20">
+        <div class="flex flex-col gap-6 font-bold text-lg uppercase tracking-widest text-[var(--navy)] text-center w-full px-6">
+            <a href="founder.html" class="border-b border-gray-200 pb-2">Let Me Introduce Myself</a>
+            <a href="wings.html" class="border-b border-gray-200 pb-2">Trust & Wings</a>
+            <a href="courses.html" class="text-[var(--green)] border-b border-[var(--green)] pb-2">Courses & Fees</a>
+            <a href="references.html" class="border-b border-gray-200 pb-2">References</a>
+            <a href="abroad.html" class="border-b border-gray-200 pb-2">Study Abroad</a>
+            <a href="story.html" class="border-b border-gray-200 pb-2">Our Story</a>
+        </div>
+    </div>
+
+    <!-- HERO SECTION -->
+    <header class="pt-40 pb-16 md:pt-48 md:pb-20 px-6 md:px-20 relative z-10 flex flex-col justify-center items-center text-center">
+        <div class="max-w-4xl mx-auto w-full">
+            <h2 class="text-[var(--saffron)] font-bold tracking-[0.2em] md:tracking-[0.3em] uppercase text-xs md:text-sm mb-4 md:mb-6 reveal-up">Direct Enrollment Portal</h2>
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 md:mb-8 leading-tight reveal-up text-[var(--navy)]" style="animation-delay: 0.1s;">
+                Course Portfolio <br class="hidden md:block">& <span class="neon-text-tricolor">Pricing.</span>
+            </h1>
+            <p class="text-lg md:text-xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed reveal-up font-semibold" style="animation-delay: 0.2s;">
+                Select your desired educational tier below. Our full transactional setup allows you to enroll directly via secure UPI mapping.
+            </p>
+        </div>
+    </header>
+
+    <!-- PRICING PACKAGES -->
+    <section class="py-16 px-4 md:px-20 relative z-10" id="packages">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                
+                <!-- Basic 299 -->
+                <div class="glass-panel p-6 md:p-8 flex flex-col reveal-up bg-white border-t-4 border-t-gray-400">
+                    <div class="text-gray-500 text-[10px] md:text-xs font-bold tracking-widest mb-4">STARTER TIER</div>
+                    <h4 class="text-xl md:text-2xl font-bold mb-2 text-[var(--navy)]">Basic Model I</h4>
+                    <p class="text-xs md:text-sm text-gray-600 mb-6 flex-grow">Foundation level course designed specifically for Class 8 and 10 students looking to grasp essential concepts.</p>
+                    <div class="mb-6 md:mb-8 text-[var(--navy)]">
+                        <span class="text-3xl md:text-4xl font-bold">₹299</span>
+                    </div>
+                    <button onclick="initiatePayment('Basic Model I', 299)" class="w-full bg-gray-200 text-gray-800 py-3 rounded-lg font-bold hover:bg-gray-300 transition text-sm">Enroll via UPI</button>
+                </div>
+
+                <!-- Basic 499 -->
+                <div class="glass-panel p-6 md:p-8 flex flex-col reveal-up bg-white border-t-4 border-t-gray-600" style="animation-delay: 0.1s;">
+                    <div class="text-gray-600 text-[10px] md:text-xs font-bold tracking-widest mb-4">INTERMEDIATE TIER</div>
+                    <h4 class="text-xl md:text-2xl font-bold mb-2 text-[var(--navy)]">Basic Model II</h4>
+                    <p class="text-xs md:text-sm text-gray-600 mb-6 flex-grow">Advanced fundamentals tailored for Class 12 students transitioning to higher academics.</p>
+                    <div class="mb-6 md:mb-8 text-[var(--navy)]">
+                        <span class="text-3xl md:text-4xl font-bold">₹499</span>
+                    </div>
+                    <button onclick="initiatePayment('Basic Model II', 499)" class="w-full bg-gray-800 text-white py-3 rounded-lg font-bold hover:bg-black transition text-sm">Enroll via UPI</button>
+                </div>
+
+                <!-- Premium 2999 -->
+                <div class="glass-panel p-6 md:p-8 flex flex-col reveal-up bg-white border-t-4 border-t-[var(--saffron)] relative overflow-hidden" style="animation-delay: 0.2s;">
+                    <div class="absolute top-4 right-[-30px] bg-[var(--saffron)] text-black text-[10px] font-bold py-1 px-10 rotate-45 shadow-md">POPULAR</div>
+                    <div class="text-[var(--saffron)] text-[10px] md:text-xs font-bold tracking-widest mb-4">PRO TIER</div>
+                    <h4 class="text-xl md:text-2xl font-bold mb-2 text-[var(--navy)]">Premium Model I</h4>
+                    <p class="text-xs md:text-sm text-gray-600 mb-6 flex-grow">A robust, interactive platform designed for maximum conversion. Includes advanced animations and chatbot guidance.</p>
+                    <div class="mb-6 md:mb-8 text-[var(--saffron)]">
+                        <span class="text-3xl md:text-4xl font-bold">₹2,999</span>
+                    </div>
+                    <button onclick="initiatePayment('Premium Model I', 2999)" class="w-full bg-[var(--saffron)] text-white py-3 rounded-lg font-bold hover:brightness-110 transition text-sm shadow-md pulse-btn">Enroll via UPI</button>
+                </div>
+
+                <!-- Premium 5999 -->
+                <div class="glass-panel p-6 md:p-8 flex flex-col reveal-up bg-white border-t-4 border-t-[var(--green)] relative overflow-hidden" style="animation-delay: 0.3s;">
+                    <div class="absolute inset-0 bg-gradient-to-b from-[rgba(19,136,8,0.02)] to-transparent pointer-events-none"></div>
+                    <div class="text-[var(--green)] text-[10px] md:text-xs font-bold tracking-widest mb-4">ELITE TIER</div>
+                    <h4 class="text-xl md:text-2xl font-bold mb-2 text-[var(--navy)]">Premium Model II</h4>
+                    <p class="text-xs md:text-sm text-gray-600 mb-6 flex-grow">Dedicated pages for IITians, IPS/UPSC aspirants. Includes complete interactive experience and full e-commerce capabilities.</p>
+                    <div class="mb-6 md:mb-8 text-[var(--green)]">
+                        <span class="text-3xl md:text-4xl font-bold">₹5,999</span>
+                    </div>
+                    <button onclick="initiatePayment('Premium Model II', 5999)" class="w-full bg-[var(--green)] text-white py-3 rounded-lg font-bold hover:brightness-110 transition text-sm shadow-md pulse-btn">Enroll via UPI</button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SMART FOOTER -->
+    <footer class="border-t border-gray-200 py-12 md:py-16 px-6 md:px-20 relative z-10 bg-gray-50 mt-20">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 text-center sm:text-left">
+            <div>
+                <div class="text-2xl font-bold tracking-tighter mb-4 text-[var(--navy)]">EAZY<span class="neon-text-tricolor">WAY</span>LEARN</div>
+                <p class="text-gray-600 text-xs mb-4 max-w-[250px] mx-auto sm:mx-0">Premium Interactive Experience. Hosted on high-performance infrastructure.</p>
+            </div>
+            <div>
+                <h4 class="text-base font-bold mb-4 text-[var(--navy)]">Quick Links</h4>
+                <ul class="space-y-2 text-xs text-gray-600 font-semibold">
+                    <li><a href="founder.html" class="hover:text-[var(--saffron)] transition">About the Founder</a></li>
+                    <li><a href="wings.html" class="hover:text-[var(--saffron)] transition">Trust & Wings</a></li>
+                    <li><a href="abroad.html" class="hover:text-[var(--saffron)] transition">Study Abroad</a></li>
+                </ul>
+            </div>
+            <div class="sm:col-span-2 lg:col-span-1">
+                <h4 class="text-base font-bold mb-4 text-[var(--navy)]">Need Help?</h4>
+                <p class="text-xl font-bold text-[var(--saffron)]">7596 909 888</p>
+                <p class="text-[10px] text-gray-500 mt-1 font-semibold mb-6">Call or WhatsApp</p>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto mt-12 pt-6 border-t border-gray-300 text-center text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+            &copy; 2026 Easy Way Learn. All rights reserved. E-Commerce Enabled via UPI.
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE AI CHATBOT -->
+    <div class="bot-container">
+        <div class="bot-window" id="botWindow" style="display: none;">
+            <div class="bg-[var(--navy)] p-4 font-bold flex justify-between items-center shadow-md">
+                <div class="flex items-center gap-3">
+                    <span class="relative flex h-3 w-3"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--green)] opacity-75"></span><span class="relative inline-flex rounded-full h-3 w-3 bg-[var(--green)]"></span></span>
+                    <span class="text-white text-sm">EazyBot AI</span>
+                </div>
+                <button onclick="toggleBot()" class="text-white hover:text-[var(--saffron)] transition text-xl font-bold">&times;</button>
+            </div>
+            <div class="flex-grow p-4 overflow-y-auto space-y-4 bg-gray-50" id="botHistory">
+                <div class="bg-white border border-gray-200 p-3 rounded-2xl rounded-tl-sm text-xs text-gray-800 shadow-md font-semibold">
+                    Greetings! 🤖 Having trouble picking a course or completing your UPI payment? Let me know!
+                </div>
+            </div>
+            <div class="p-3 border-t border-gray-200 bg-white grid grid-cols-1 gap-2">
+                <button onclick="sendMsg('How does the WhatsApp payment work?')" class="text-xs bg-gray-100 hover:bg-gray-200 border border-gray-300 py-2.5 px-4 rounded-xl transition text-left text-gray-700 font-semibold hover:text-[var(--navy)]">
+                    How does the WhatsApp payment work?
+                </button>
+            </div>
+        </div>
+        <div class="bot-trigger" onclick="toggleBot()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        </div>
+    </div>
+
+    <!-- UPI PROCESSING MODAL -->
+    <div id="upi-modal" class="fixed inset-0 z-[100] bg-[rgba(255,255,255,0.95)] backdrop-blur-md flex flex-col justify-center items-center text-center px-6" style="display: none; opacity: 0;">
+        <div class="loader mb-6"></div>
+        <h2 class="text-2xl md:text-3xl font-bold text-[var(--navy)] mb-2">Connecting to Secure UPI Gateway...</h2>
+        <p class="text-gray-600 font-semibold mb-6">Please do not refresh the page.</p>
+        <p id="modal-course-name" class="text-lg font-bold text-[var(--saffron)]"></p>
+        <p id="modal-course-price" class="text-3xl font-bold text-[var(--green)] mt-2"></p>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        let menuOpen = false;
+
+        menuBtn.addEventListener('click', () => {
+            menuOpen = !menuOpen;
+            if(menuOpen) {
+                mobileMenu.classList.remove('menu-closed'); mobileMenu.classList.add('menu-open');
+                menuIcon.setAttribute('d', 'M6 18L18 6M6 6l12 12');
+            } else {
+                mobileMenu.classList.remove('menu-open'); mobileMenu.classList.add('menu-closed');
+                menuIcon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
+            }
+        });
+
+        // Intersection Observer
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) { entry.target.classList.add('active'); } 
+                else { entry.target.classList.remove('active'); }
+            });
+        }, observerOptions);
+        document.querySelectorAll('.reveal-up, .reveal-left').forEach(el => observer.observe(el));
+
+        // Ambient Canvas
+        const canvas = document.getElementById('ambient-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height, particles = [];
+
+        function initCanvas() {
+            width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight;
+            particles = [];
+            const particleCount = width < 768 ? 20 : 45; 
+            const colors = ['rgba(0, 0, 128, 0.25)', 'rgba(255, 153, 51, 0.3)', 'rgba(19, 136, 8, 0.25)'];
+            for(let i=0; i<particleCount; i++) {
+                particles.push({
+                    x: Math.random() * width, y: Math.random() * height,
+                    radius: Math.random() * 60 + 30, color: colors[Math.floor(Math.random() * colors.length)],
+                    vx: (Math.random() - 0.5) * 0.8, vy: (Math.random() - 0.5) * 0.8
+                });
+            }
+        }
+        function animateCanvas() {
+            ctx.clearRect(0, 0, width, height);
+            particles.forEach(p => {
+                p.x += p.vx; p.y += p.vy;
+                if(p.x < -p.radius || p.x > width + p.radius) p.vx *= -1;
+                if(p.y < -p.radius || p.y > height + p.radius) p.vy *= -1;
+                ctx.beginPath();
+                const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.radius);
+                gradient.addColorStop(0, p.color); gradient.addColorStop(1, 'transparent');
+                ctx.fillStyle = gradient; ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2); ctx.fill();
+            });
+            requestAnimationFrame(animateCanvas);
+        }
+        window.addEventListener('resize', initCanvas);
+        initCanvas(); animateCanvas();
+
+        // UPI TO WHATSAPP REDIRECTION LOGIC
+        function initiatePayment(courseName, price) {
+            const modal = document.getElementById('upi-modal');
+            document.getElementById('modal-course-name').innerText = courseName;
+            document.getElementById('modal-course-price').innerText = "₹" + price;
+            
+            // Show modal and fade in
+            modal.style.display = 'flex';
+            setTimeout(() => { modal.style.opacity = '1'; }, 50);
+
+            // Create pre-filled WhatsApp message
+            const phoneNumber = "917596909888";
+            const message = `Hello, I would like to enroll in the *${courseName}* (₹${price}). I am ready to process my UPI payment!`;
+            const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+            // Simulate gateway loading for 2.5 seconds, then redirect
+            setTimeout(() => {
+                window.location.href = whatsappURL;
+            }, 2500);
+        }
+
+        // Chatbot 
+        const botWindow = document.getElementById('botWindow');
+        const botHistory = document.getElementById('botHistory');
+        
+        function toggleBot() { 
+            if(botWindow.style.display === 'none' || botWindow.style.display === '') {
+                botWindow.style.display = 'flex';
+            } else {
+                botWindow.style.display = 'none';
+            }
+        }
+        
+        function sendMsg(msg) {
+            botHistory.innerHTML += `<div class="bg-[var(--navy)] p-3 rounded-2xl rounded-tr-sm text-xs text-white ml-8 shadow-md border border-[rgba(0,0,128,0.2)]">${msg}</div>`;
+            botHistory.scrollTop = botHistory.scrollHeight;
+            const typingId = 'typing-' + Date.now();
+            botHistory.innerHTML += `<div id="${typingId}" class="text-[10px] text-gray-500 ml-2 mt-2 italic font-semibold">EazyBot is typing...</div>`;
+            botHistory.scrollTop = botHistory.scrollHeight;
+
+            setTimeout(() => {
+                document.getElementById(typingId).remove();
+                let reply = msg.includes('WhatsApp') 
+                    ? "It's simple! Just click 'Enroll via UPI' on your chosen package. Our system will securely route you to our official WhatsApp with your details pre-filled so our counselors can verify your transaction instantly! 📲" 
+                    : "Select a package above and click Enroll to start the process!";
+
+                botHistory.innerHTML += `<div class="bg-white border border-gray-200 p-3 rounded-2xl rounded-tl-sm text-xs text-gray-800 mr-8 shadow-md font-semibold">🤖 ${reply}</div>`;
+                botHistory.scrollTop = botHistory.scrollHeight;
+            }, 800);
+        }
+    </script>
+</body>
+</html>
