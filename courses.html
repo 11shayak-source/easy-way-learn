@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Easy Way Learn - Course Fees and Enrollment. Master English and Science with our premium models.">
-    <title>Courses, Fees & Enrollment | Easy Way Learn</title>
+    <meta name="description" content="Easy Learning - Course Fees and Enrollment. Master English and Science with our premium models.">
+    <title>Courses, Fees & Enrollment | Easy Learning</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&display=swap');
@@ -91,9 +91,16 @@
 
     <!-- Main Navigation -->
     <nav class="fixed w-full top-8 md:top-10 z-40 px-4 md:px-8 py-4 flex justify-between items-center bg-[rgba(255,255,255,0.9)] backdrop-blur-xl border-b border-[rgba(0,0,0,0.05)] shadow-sm">
-        <a href="index.html" class="text-2xl md:text-3xl font-bold tracking-tighter cursor-pointer text-[var(--navy)] hover:opacity-80 transition z-50">
-            EAZY<span class="neon-text-tricolor">WAY</span>LEARN
+        
+        <!-- Updated Logo -->
+        <a href="index.html" class="text-xl md:text-2xl font-bold tracking-tighter cursor-pointer text-[var(--navy)] hover:opacity-80 transition z-50 flex flex-col">
+            <div class="flex items-center gap-2">
+                <span class="text-2xl md:text-3xl">✏️</span>
+                <span>EASY</span> <span class="neon-text-tricolor">LEARNING</span>
+            </div>
+            <span class="text-[10px] text-gray-500 tracking-normal normal-case leading-none mt-1">easywaytolearn.online</span>
         </a>
+
         <div class="hidden lg:flex gap-8 font-bold text-xs uppercase tracking-widest text-gray-600">
             <a href="founder.html" class="hover:text-[var(--navy)] transition">Let Me Introduce Myself</a>
             <a href="wings.html" class="hover:text-[var(--saffron)] transition">Trust & Wings</a>
@@ -193,7 +200,12 @@
     <footer class="border-t border-gray-200 py-12 md:py-16 px-6 md:px-20 relative z-10 bg-gray-50 mt-10">
         <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 text-center sm:text-left">
             <div>
-                <div class="text-2xl font-bold tracking-tighter mb-4 text-[var(--navy)]">EAZY<span class="neon-text-tricolor">WAY</span>LEARN</div>
+                <!-- Updated Footer Logo -->
+                <div class="flex items-center gap-2 justify-center sm:justify-start mb-4">
+                    <span class="text-2xl md:text-3xl">✏️</span>
+                    <span class="text-xl md:text-2xl font-bold tracking-tighter text-[var(--navy)]">EASY</span>
+                    <span class="text-xl md:text-2xl font-bold tracking-tighter neon-text-tricolor">LEARNING</span>
+                </div>
                 <p class="text-gray-600 text-xs mb-4 max-w-[250px] mx-auto sm:mx-0">Premium Interactive Experience. Hosted on high-performance infrastructure.</p>
             </div>
             <div>
@@ -211,7 +223,7 @@
             </div>
         </div>
         <div class="max-w-7xl mx-auto mt-12 pt-6 border-t border-gray-300 text-center text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-            &copy; 2026 Easy Way Learn. All rights reserved. E-Commerce Enabled via Secure Bank & UPI Gateway.
+            &copy; 2026 Easy Learning. All rights reserved. E-Commerce Enabled via Secure Bank & UPI Gateway.
         </div>
     </footer>
 
@@ -269,6 +281,7 @@
                     <div>
                         <h3 class="font-bold text-[var(--navy)] text-lg mb-3 border-b-2 border-gray-100 pb-2">Direct Bank Transfer</h3>
                         <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 space-y-2 text-sm text-gray-700">
+                            <!-- Retained exactly as requested -->
                             <p><span class="font-bold text-[var(--navy)]">Name:</span> M/S LETS WALK HAND IN HAND</p>
                             <p><span class="font-bold text-[var(--navy)]">Address:</span> 5, CHETLA ROAD, ALIPORE HO, KOLKATA-700027, WEST BENGAL</p>
                             <p><span class="font-bold text-[var(--navy)]">Phone:</span> 7596 909 888</p>
@@ -286,8 +299,10 @@
                     
                     <!-- QR Code Display -->
                     <div class="bg-white p-2 border border-gray-200 rounded-xl shadow-sm mb-4 w-48 h-48 flex items-center justify-center">
+                        <!-- Retained exactly as requested -->
                         <img src="Kalyan_Sir_Files/WhatsApp Image 2026-09-29 at 4.01.41 PM.jpeg" alt="Kalyan Bhattacharya UPI QR Code" class="max-w-full max-h-full rounded" onerror="this.src='https://via.placeholder.com/200?text=QR+Code'">
                     </div>
+                    <!-- Retained exactly as requested -->
                     <p class="text-sm font-bold text-gray-600 mb-8 bg-gray-100 px-4 py-2 rounded-full">UPI ID: kalbhatta-2@oksbi</p>
 
                     <!-- Upload Proof System -->
@@ -316,7 +331,6 @@
 
     <!-- SCRIPTS -->
     <script>
-        // Mobile Menu Toggle
         const menuBtn = document.getElementById('menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         const menuIcon = document.getElementById('menu-icon');
@@ -341,7 +355,6 @@
             });
         });
 
-        // Intersection Observer
         const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
@@ -351,7 +364,6 @@
         }, observerOptions);
         document.querySelectorAll('.reveal-up, .reveal-left').forEach(el => observer.observe(el));
 
-        // Ambient Canvas
         const canvas = document.getElementById('ambient-canvas');
         const ctx = canvas.getContext('2d');
         let width, height, particles = [];
@@ -417,29 +429,24 @@
 
         function handleFileUpload() {
             if(fileInput.files.length > 0) {
-                // File selected successfully
                 const fileName = fileInput.files[0].name;
                 uploadLabel.classList.add('has-file');
                 uploadText.innerHTML = `<span class="text-[var(--green)]">✅ Proof Attached: ${fileName}</span>`;
                 
-                // Enable Submit Button
                 submitBtn.disabled = false;
                 submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
             }
         }
 
         function submitAndRedirect() {
-            // Hide button, show spinner
             submitBtn.style.display = 'none';
             spinner.style.display = 'block';
 
-            // Simulate server validation processing, then redirect to the orientation video
             setTimeout(() => {
                 window.location.href = 'https://youtu.be/2UzQeTJw18g';
             }, 2000);
         }
 
-        // Chatbot 
         const botWindow = document.getElementById('botWindow');
         const botHistory = document.getElementById('botHistory');
         
