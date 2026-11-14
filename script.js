@@ -1,3 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animations & Interactions</title>
+</head>
+<body>
+
+<script>
 // Extreme Bouncy Intersection Observer
 const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
 const observer = new IntersectionObserver((entries, observer) => {
@@ -108,3 +118,7 @@ function sendMsg(msg) {
         botHistory.scrollTop = botHistory.scrollHeight;
     }, 800);
 }
+</script>
+
+</body>
+</html>
