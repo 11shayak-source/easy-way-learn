@@ -7,15 +7,58 @@
     <title>Our Story | Easy Learning</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap');
         
         :root {
             --saffron: #FF9933; --green: #138808; --navy: #000080;
             --bg-white: #FFFFFF; --text-main: #050505; --card-light: rgba(255, 255, 255, 0.85);
+            --body-text-color: #0b1120;
         }
 
-        body { font-family: 'Space Grotesk', sans-serif; background-color: var(--bg-white); color: var(--text-main); overflow-x: hidden; scroll-behavior: smooth; }
+        body { 
+            font-family: 'Space Grotesk', sans-serif; 
+            background-color: var(--bg-white); 
+            color: var(--body-text-color); 
+            overflow-x: hidden; 
+            scroll-behavior: smooth; 
+            font-size: 1.125rem;
+        }
+
+        p, li, span, div {
+            color: var(--body-text-color);
+            font-weight: 500;
+        }
+
+        .edwardian-font {
+            font-family: 'Pinyon Script', cursive;
+            font-size: 1.3em;
+        }
+
+        /* --- HEADER LAYOUT STYLES --- */
+        .header-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 1rem 2rem;
+            background: white;
+            border-bottom: 2px solid var(--navy);
+            margin-top: 35px;
+        }
+
+        .header-logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .header-address-section {
+            text-align: right;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--navy);
+        }
 
         /* --- AMBIENT CANVAS --- */
         #ambient-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; opacity: 0.5; }
@@ -23,7 +66,7 @@
         /* --- TYPOGRAPHY & GRADIENTS --- */
         .neon-text-tricolor { background: linear-gradient(90deg, var(--saffron) 0%, var(--navy) 50%, var(--green) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-size: 200% auto; animation: shineTricolor 4s linear infinite; }
         @keyframes shineTricolor { to { background-position: 200% center; } }
-        .book-text { font-family: 'Playfair Display', serif; }
+        .book-text { font-family: 'Playfair Display', serif; color: var(--body-text-color) !important; }
 
         /* --- EXTREME SCROLL REVEALS --- */
         .reveal-up { opacity: 0; transform: translateY(60px) scale(0.95); transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
@@ -35,7 +78,7 @@
         @keyframes pulseShadow { 0% { box-shadow: 0 0 0 0 rgba(255, 153, 51, 0.6); } 70% { box-shadow: 0 0 0 15px rgba(255, 153, 51, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 153, 51, 0); } }
 
         /* --- MARQUEE --- */
-        .marquee-wrapper { background: rgba(255, 255, 255, 0.95); border-bottom: 1px solid rgba(0, 0, 0, 0.1); position: fixed; top: 0; width: 100%; z-index: 50; overflow: hidden; display: flex; align-items: center; height: 35px; }
+        .marquee-wrapper { background: rgba(255, 255, 255, 0.95); border-bottom: 1px solid rgba(0, 0, 0, 0.1); position: fixed; top: 0; width: 100%; z-index: 60; overflow: hidden; display: flex; align-items: center; height: 35px; }
         .marquee-track { display: flex; white-space: nowrap; animation: marquee 25s linear infinite; }
 
         /* --- MOBILE MENU --- */
@@ -43,7 +86,7 @@
         .menu-open { transform: translateY(0%); }
         .menu-closed { transform: translateY(-120%); }
 
-        /* --- RE-ENGINEERED 3D BOOK ENGINE (NO SCROLL TRAPS) --- */
+        /* --- RE-ENGINEERED 3D BOOK ENGINE --- */
         .book-wrapper {
             position: relative; width: 100%; max-width: 1100px; margin: 0 auto;
             perspective: 2000px; z-index: 20;
@@ -74,14 +117,14 @@
         /* --- MEDIA STYLES FOR THE BOOK --- */
         .book-video { width: 100%; border-radius: 0.5rem; border: 2px solid var(--navy); margin-bottom: 1rem; aspect-ratio: 16/9; background: #000; }
         .book-img { width: 100%; border-radius: 0.5rem; margin-bottom: 1rem; object-fit: cover; border: 1px solid rgba(0,0,0,0.1); }
-        .book-doc-btn { display: inline-block; background: var(--navy); color: white; padding: 10px 20px; border-radius: 8px; font-weight: bold; font-family: 'Space Grotesk', sans-serif; text-transform: uppercase; letter-spacing: 1px; margin-top: 10px; font-size: 12px; transition: 0.3s; }
+        .book-doc-btn { display: inline-block; background: var(--navy); color: white !important; padding: 10px 20px; border-radius: 8px; font-weight: bold; font-family: 'Space Grotesk', sans-serif; text-transform: uppercase; letter-spacing: 1px; margin-top: 10px; font-size: 12px; transition: 0.3s; }
         .book-doc-btn:hover { background: var(--saffron); }
         
         /* Book Controls */
         .book-controls { display: flex; justify-content: center; gap: 15px; margin-top: 40px; position: relative; z-index: 30; flex-wrap: wrap; }
-        .ctrl-btn { background: var(--navy); color: white; border: none; padding: 15px 30px; border-radius: 30px; font-weight: bold; cursor: pointer; transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px; font-size: 12px; }
+        .ctrl-btn { background: var(--navy); color: white !important; border: none; padding: 15px 30px; border-radius: 30px; font-weight: bold; cursor: pointer; transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px; font-size: 12px; }
         .ctrl-btn:hover { background: var(--saffron); transform: scale(1.05); }
-        .ctrl-btn:disabled { background: #e5e7eb; color: #9ca3af; cursor: not-allowed; transform: none; box-shadow: none; }
+        .ctrl-btn:disabled { background: #e5e7eb; color: #9ca3af !important; cursor: not-allowed; transform: none; box-shadow: none; }
 
         /* --- CHATBOT --- */
         .bot-container { position: fixed; bottom: 20px; right: 20px; z-index: 100; }
@@ -102,16 +145,30 @@
         </div>
     </div>
 
-    <!-- Main Navigation -->
-    <nav class="fixed w-full top-8 md:top-10 z-50 px-4 md:px-8 py-4 flex justify-between items-center bg-[rgba(255,255,255,0.9)] backdrop-blur-xl border-b border-[rgba(0,0,0,0.05)] shadow-sm">
-        
-        <!-- Updated Logo -->
-        <a href="index.html" class="text-xl md:text-2xl font-bold tracking-tighter cursor-pointer text-[var(--navy)] hover:opacity-80 transition z-50 flex flex-col">
-            <div class="flex items-center gap-2">
-                <span class="text-2xl md:text-3xl">✏️</span>
-                <span>EASY</span> <span class="neon-text-tricolor">LEARNING</span>
+    <!-- Official Letterhead Header -->
+    <header class="header-top-bar relative z-50">
+        <div class="header-logo-section">
+            <img src="easy-learning-pencil-icon.png" alt="Easy Learning Logo" class="h-16 w-auto">
+            <div class="flex flex-col">
+                <div class="text-3xl font-bold tracking-tighter text-[var(--navy)] flex items-center gap-3">
+                    EASY LEARNING
+                    <span class="text-sm font-normal text-gray-600 tracking-normal mt-1">(Going to be registered as a unit of a charity Trust)</span>
+                </div>
+                <div class="text-lg text-[var(--green)] font-semibold italic" style="color: var(--green);">Let's walk hand in hand.</div>
+                <div class="text-xs text-gray-500 font-bold mt-1">80G Registration No: [Pending Details]</div>
             </div>
-            <span class="text-[10px] text-gray-500 tracking-normal normal-case leading-none mt-1">easywaytolearn.online</span>
+        </div>
+        <div class="header-address-section">
+            <p style="color: var(--navy);">5, Chetla Road</p>
+            <p style="color: var(--navy);">Kolkata-27</p>
+        </div>
+    </header>
+
+    <!-- Main Navigation -->
+    <nav class="sticky top-[35px] z-40 w-full px-4 md:px-8 py-4 flex justify-between items-center bg-[rgba(255,255,255,0.9)] backdrop-blur-xl border-b border-[rgba(0,0,0,0.05)] shadow-sm">
+        
+        <a href="index.html" class="edwardian-font font-bold text-[var(--navy)] hover:opacity-80 transition z-50 text-3xl" style="color: var(--navy);">
+            Easy English
         </a>
         
         <div class="hidden lg:flex gap-8 font-bold text-xs uppercase tracking-widest text-gray-600">
@@ -124,7 +181,7 @@
         </div>
 
         <div class="flex items-center gap-4 z-50">
-            <a href="courses.html" class="hidden md:inline-block bg-[var(--navy)] text-white px-6 py-2 rounded-full font-bold text-sm hover:scale-110 transition shadow-lg pulse-btn">Enroll</a>
+            <a href="courses.html" class="hidden md:inline-block bg-[var(--navy)] text-white px-6 py-2 rounded-full font-bold text-sm hover:scale-110 transition shadow-lg pulse-btn" style="color: white;">Enroll</a>
             <button id="menu-btn" class="lg:hidden text-[var(--navy)] focus:outline-none">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
             </button>
@@ -140,17 +197,17 @@
             <a href="references.html" class="border-b border-gray-200 pb-2">References</a>
             <a href="abroad.html" class="border-b border-gray-200 pb-2">Study Abroad</a>
             <a href="story.html" class="text-[var(--navy)] border-b border-[var(--navy)] pb-2">Our Story</a>
-            <a href="courses.html" class="bg-[var(--navy)] text-white px-8 py-4 rounded-full mt-4 mx-auto w-3/4 shadow-lg pulse-btn">Enroll Now</a>
+            <a href="courses.html" class="bg-[var(--navy)] text-white px-8 py-4 rounded-full mt-4 mx-auto w-3/4 shadow-lg pulse-btn" style="color: white;">Enroll Now</a>
         </div>
     </div>
 
     <!-- BOOK HEADER -->
-    <header class="pt-32 md:pt-48 pb-10 px-6 relative z-10 flex flex-col justify-center items-center text-center">
-        <h2 class="text-[var(--saffron)] font-bold tracking-[0.2em] md:tracking-[0.3em] uppercase text-xs md:text-sm mb-4 reveal-up">The Complete Manuscript</h2>
-        <h1 class="text-4xl md:text-7xl font-bold mb-4 text-[var(--navy)] reveal-up" style="animation-delay: 0.1s;">
+    <header class="pt-20 md:pt-28 pb-10 px-6 relative z-10 flex flex-col justify-center items-center text-center">
+        <h2 class="text-[var(--saffron)] font-bold tracking-[0.2em] md:tracking-[0.3em] uppercase text-xs md:text-sm mb-4 reveal-up" style="color: var(--saffron);">The Complete Manuscript</h2>
+        <h1 class="text-4xl md:text-7xl font-bold mb-4 text-[var(--navy)] reveal-up" style="animation-delay: 0.1s; color: var(--navy);">
             Our <span class="neon-text-tricolor">Story.</span>
         </h1>
-        <p class="text-gray-600 font-semibold max-w-2xl mx-auto text-sm md:text-base reveal-up" style="animation-delay: 0.2s;">
+        <p class="text-[var(--body-text-color)] font-semibold max-w-2xl mx-auto text-lg reveal-up" style="animation-delay: 0.2s;">
             Read through the origins, the Trust, the Science Club, and the media archives that built Easy Learning.
         </p>
     </header>
@@ -162,27 +219,27 @@
             <!-- CHAPTER 1: The Genesis -->
             <div class="story-page active p-6 md:p-16" id="chapter-1">
                 <div class="max-w-4xl mx-auto">
-                    <h2 class="text-[var(--saffron)] font-bold tracking-widest text-xs mb-2 uppercase">Chapter I</h2>
-                    <h3 class="font-sans font-bold text-3xl md:text-5xl text-[var(--navy)] mb-8 border-b-2 border-gray-100 pb-6">Let Me Introduce Myself</h3>
+                    <h2 class="text-[var(--saffron)] font-bold tracking-widest text-xs mb-2 uppercase" style="color: var(--saffron);">Chapter I</h2>
+                    <h3 class="font-sans font-bold text-3xl md:text-5xl text-[var(--navy)] mb-8 border-b-2 border-gray-100 pb-6" style="color: var(--navy);">Let Me Introduce Myself</h3>
                     
-                    <div class="book-text text-gray-800 text-lg md:text-xl leading-relaxed space-y-6 overflow-hidden">
+                    <div class="book-text text-lg md:text-xl leading-relaxed space-y-6 overflow-hidden">
                         
                         <img src="Kalyan_Sir_Files/kalyansir.jpeg" alt="Kalyan Bhattacharya" class="w-1/2 md:w-1/3 float-right ml-6 mb-4 rounded-xl shadow-lg border-4 border-[var(--navy)] object-cover" onerror="this.src='https://via.placeholder.com/300'">
 
-                        <p><span class="float-left text-6xl md:text-7xl font-bold text-[var(--saffron)] pr-3 leading-none mt-[-5px] md:mt-[-10px]">E</span>ducation is not merely the transfer of information; it is the ignition of absolute potential. As the visionary behind Easy Learning, my goal has been to construct a platform that transcends the rigid boundaries of traditional academia.</p>
+                        <p><span class="float-left text-6xl md:text-7xl font-bold text-[var(--saffron)] pr-3 leading-none mt-[-5px] md:mt-[-10px]" style="color: var(--saffron);">E</span>ducation is not merely the transfer of information; it is the ignition of absolute potential. As the visionary behind Easy Learning, my goal has been to construct a platform that transcends the rigid boundaries of traditional academia.</p>
                         
                         <div class="my-10 p-6 bg-gray-50 border-l-4 border-[var(--navy)] rounded-r-xl clear-none">
-                            <p class="font-sans font-bold text-[var(--navy)] text-lg mb-2">Kalyan Bhattacharya</p>
-                            <p class="font-sans text-sm text-gray-600">M.Sc. UK (Engineering), Ex. CEO, Board Member UK</p>
+                            <p class="font-sans font-bold text-[var(--navy)] text-lg mb-2" style="color: var(--navy);">Kalyan Bhattacharya</p>
+                            <p class="font-sans text-sm text-[var(--body-text-color)] font-medium">M.Sc. (UK), Ex.CEO (UK)</p>
                             <div class="mt-4 flex flex-wrap gap-2 font-sans text-xs">
-                                <span class="bg-white border border-gray-200 px-3 py-1 rounded-full text-[var(--green)]">IPMA World</span>
-                                <span class="bg-white border border-gray-200 px-3 py-1 rounded-full text-[var(--navy)]">British Council Alumni</span>
-                                <span class="bg-white border border-gray-200 px-3 py-1 rounded-full text-[var(--saffron)]">Commonwealth Foundation</span>
+                                <span class="bg-white border border-gray-200 px-3 py-1 rounded-full text-[var(--green)] font-bold">IPMA World</span>
+                                <span class="bg-white border border-gray-200 px-3 py-1 rounded-full text-[var(--navy)] font-bold">British Council Alumni</span>
+                                <span class="bg-white border border-gray-200 px-3 py-1 rounded-full text-[var(--saffron)] font-bold">Commonwealth Foundation</span>
                             </div>
                         </div>
 
                         <p>My journey did not begin with a desire to build a standard corporation, but rather from a profound observation of the educational divide. While metropolitan students had access to structured, analytical learning, eager minds across the districts were left navigating an archaic system.</p>
-                        <p>Earning my M.Sc. in Engineering from the United Kingdom laid the critical foundation for analytical problem-solving. This international exposure led to my roles as an Ex. CEO and Board Member in the UK. These international standardizations were the exact blueprints I needed. I returned with a singular vision: to democratize elite education and bring world-class analytical frameworks to every single student, regardless of their geographical constraints.</p>
+                        <p>Earning my M.Sc. from the United Kingdom laid the critical foundation for analytical problem-solving. This international exposure led to my roles as an Ex. CEO in the UK. These international standardizations were the exact blueprints I needed. I returned with a singular vision: to democratize elite education and bring world-class analytical frameworks to every single student, regardless of their geographical constraints.</p>
                     </div>
                 </div>
             </div>
@@ -190,24 +247,24 @@
             <!-- CHAPTER 2: The Two Core Wings -->
             <div class="story-page p-6 md:p-16" id="chapter-2">
                 <div class="max-w-4xl mx-auto">
-                    <h2 class="text-[var(--green)] font-bold tracking-widest text-xs mb-2 uppercase">Chapter II</h2>
-                    <h3 class="font-sans font-bold text-3xl md:text-5xl text-[var(--navy)] mb-8 border-b-2 border-gray-100 pb-6">The Two Core Wings</h3>
+                    <h2 class="text-[var(--green)] font-bold tracking-widest text-xs mb-2 uppercase" style="color: var(--green);">Chapter II</h2>
+                    <h3 class="font-sans font-bold text-3xl md:text-5xl text-[var(--navy)] mb-8 border-b-2 border-gray-100 pb-6" style="color: var(--navy);">The Two Core Wings</h3>
                     
-                    <div class="book-text text-gray-800 text-lg md:text-xl leading-relaxed space-y-6">
+                    <div class="book-text text-lg md:text-xl leading-relaxed space-y-6">
                         <p>To build an empire of knowledge, one must establish an unbreakable foundation. Thus, the organizational structure was meticulously divided into two Core Wings: <strong>Education</strong> and the <strong>Science Club</strong>.</p>
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-10 font-sans">
                             <div class="bg-[rgba(255,153,51,0.05)] p-6 rounded-xl border border-[rgba(255,153,51,0.2)]">
-                                <h4 class="font-bold text-[var(--navy)] text-xl mb-3">Education Wing</h4>
-                                <p class="text-sm text-gray-600 leading-relaxed">Focuses entirely on the <em>Easy Learning English</em> framework. A highly structured model bridging the gap between basic grammar and high-level academic writing, preparing students for global exams like IELTS and TOEFL.</p>
+                                <h4 class="font-bold text-[var(--navy)] text-xl mb-3" style="color: var(--navy);">Education Wing</h4>
+                                <p class="text-sm font-medium leading-relaxed">Focuses entirely on the <em>Easy Learning English</em> framework. A highly structured model bridging the gap between basic grammar and high-level academic writing, preparing students for global exams like IELTS and TOEFL.</p>
                             </div>
                             <div class="bg-[rgba(19,136,8,0.05)] p-6 rounded-xl border border-[rgba(19,136,8,0.2)]">
-                                <h4 class="font-bold text-[var(--navy)] text-xl mb-3">Science Club</h4>
-                                <p class="text-sm text-gray-600 leading-relaxed">Fostering analytical thinking, practical experiments, and theoretical sciences engineered to prepare students for advanced pursuits including IIT and UPSC/IPS preparation.</p>
+                                <h4 class="font-bold text-[var(--navy)] text-xl mb-3" style="color: var(--navy);">Science Club</h4>
+                                <p class="text-sm font-medium leading-relaxed">Fostering analytical thinking, practical experiments, and theoretical sciences engineered to prepare students for advanced pursuits including IIT and UPSC/IPS preparation.</p>
                             </div>
                         </div>
 
-                        <p class="font-bold text-[var(--green)] text-center text-2xl my-8">"We do not just teach students to memorize formulas; we teach them how to engineer solutions."</p>
+                        <p class="font-bold text-[var(--green)] text-center text-2xl my-8" style="color: var(--green);">"We do not just teach students to memorize formulas; we teach them how to engineer solutions."</p>
 
                         <p>This hybrid approach ensures that students are not merely bilingual, but logically profound. The fusion of language articulation with scientific rigor is what separates our alumni from the rest of the competitive field.</p>
                     </div>
@@ -217,45 +274,37 @@
             <!-- CHAPTER 3: Hand in Hand Trust (Documents) -->
             <div class="story-page p-6 md:p-16" id="chapter-3">
                 <div class="max-w-4xl mx-auto">
-                    <h2 class="text-[var(--navy)] font-bold tracking-widest text-xs mb-2 uppercase">Chapter III</h2>
-                    <h3 class="font-sans font-bold text-3xl md:text-5xl text-[var(--navy)] mb-8 border-b-2 border-gray-100 pb-6">The Hand in Hand Trust</h3>
+                    <h2 class="text-[var(--navy)] font-bold tracking-widest text-xs mb-2 uppercase" style="color: var(--navy);">Chapter III</h2>
+                    <h3 class="font-sans font-bold text-3xl md:text-5xl text-[var(--navy)] mb-8 border-b-2 border-gray-100 pb-6" style="color: var(--navy);">The Hand in Hand Trust</h3>
                     
-                    <div class="book-text text-gray-800 text-lg md:text-xl leading-relaxed space-y-6">
+                    <div class="book-text text-lg md:text-xl leading-relaxed space-y-6">
                         <p>Operational integrity is paramount. Behind the digital interfaces and the interactive classrooms lies a legally and ethically bound entity: The Hand in Hand Initiative.</p>
                         <p>This Trust operates on complete transparency. We believe that parents and students deserve absolute verification of the institution shaping their future. Below are the verified operational documents, trust deeds, and cultural concept papers.</p>
                         
-                        <!-- Embedded Document Links (Updated to target="_blank") -->
+                        <!-- Embedded Document Links -->
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-8 font-sans">
                             <div class="p-5 border border-gray-200 rounded-xl bg-gray-50 flex flex-col justify-between">
                                 <div>
-                                    <p class="font-bold text-[var(--navy)] text-lg mb-1">Culture Concept Paper</p>
-                                    <p class="text-xs text-gray-500 mb-4">Foundational philosophy detailing the integration of cultural heritage.</p>
+                                    <p class="font-bold text-[var(--navy)] text-lg mb-1" style="color: var(--navy);">Culture Concept Paper</p>
+                                    <p class="text-xs font-semibold mb-4 text-[var(--body-text-color)]">Foundational philosophy detailing the integration of cultural heritage.</p>
                                 </div>
                                 <a href="Kalyan_Sir_Files/A_Handinhand_Culture_Concept Paper.docx" target="_blank" class="book-doc-btn text-center">Read Blueprint</a>
                             </div>
                             
                             <div class="p-5 border border-gray-200 rounded-xl bg-gray-50 flex flex-col justify-between">
                                 <div>
-                                    <p class="font-bold text-[var(--navy)] text-lg mb-1">Trust Registration Deed</p>
-                                    <p class="text-xs text-gray-500 mb-4">Verified registration documents solidifying the legal framework.</p>
+                                    <p class="font-bold text-[var(--navy)] text-lg mb-1" style="color: var(--navy);">Trust Registration Deed</p>
+                                    <p class="text-xs font-semibold mb-4 text-[var(--body-text-color)]">Verified registration documents solidifying the legal framework.</p>
                                 </div>
                                 <a href="Kalyan_Sir_Files/HH_Trust_Deed_09082019.doc" target="_blank" class="book-doc-btn text-center" style="background: var(--saffron);">Read Deed</a>
                             </div>
 
                             <div class="p-5 border border-gray-200 rounded-xl bg-gray-50 flex flex-col justify-between">
                                 <div>
-                                    <p class="font-bold text-[var(--navy)] text-lg mb-1">Anti-Corruption Manifesto</p>
-                                    <p class="text-xs text-gray-500 mb-4">Documentation of our unwavering social campaigns.</p>
+                                    <p class="font-bold text-[var(--navy)] text-lg mb-1" style="color: var(--navy);">Anti-Corruption Manifesto</p>
+                                    <p class="text-xs font-semibold mb-4 text-[var(--body-text-color)]">Documentation of our unwavering social campaigns.</p>
                                 </div>
                                 <a href="Kalyan_Sir_Files/HH_India against corrption.docx" target="_blank" class="book-doc-btn text-center" style="background: var(--green);">Read Manifesto</a>
-                            </div>
-
-                            <div class="p-5 border border-gray-200 rounded-xl bg-gray-50 flex flex-col justify-between">
-                                <div>
-                                    <p class="font-bold text-[var(--navy)] text-lg mb-1">Official Letterhead</p>
-                                    <p class="text-xs text-gray-500 mb-4">The verified official letterhead for Trust communications.</p>
-                                </div>
-                                <a href="Kalyan_Sir_Files/HH_Letter Head_pdf.pdf" target="_blank" class="book-doc-btn text-center" style="background: #374151;">View PDF</a>
                             </div>
                         </div>
                     </div>
@@ -265,29 +314,29 @@
             <!-- CHAPTER 4: Media & Accolades -->
             <div class="story-page p-6 md:p-16" id="chapter-4">
                 <div class="max-w-4xl mx-auto">
-                    <h2 class="text-[var(--saffron)] font-bold tracking-widest text-xs mb-2 uppercase">Chapter IV</h2>
-                    <h3 class="font-sans font-bold text-3xl md:text-5xl text-[var(--navy)] mb-8 border-b-2 border-gray-100 pb-6">The Global Voice</h3>
+                    <h2 class="text-[var(--saffron)] font-bold tracking-widest text-xs mb-2 uppercase" style="color: var(--saffron);">Chapter IV</h2>
+                    <h3 class="font-sans font-bold text-3xl md:text-5xl text-[var(--navy)] mb-8 border-b-2 border-gray-100 pb-6" style="color: var(--navy);">The Global Voice</h3>
                     
-                    <div class="book-text text-gray-800 text-lg md:text-xl leading-relaxed space-y-6 font-sans">
+                    <div class="book-text text-lg md:text-xl leading-relaxed space-y-6 font-sans">
                         <p class="book-text">A framework is only as strong as its real-world application. Over the years, the methodologies of Easy Learning and the Trust have been broadcasted, scrutinized, and applauded across national media and historic academic halls.</p>
                         
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 my-8">
                             <div>
-                                <p class="font-bold text-[var(--saffron)] text-xs tracking-widest mb-2 uppercase">Cultural Presentation</p>
+                                <p class="font-bold text-[var(--saffron)] text-xs tracking-widest mb-2 uppercase" style="color: var(--saffron);">Cultural Presentation</p>
                                 <video class="book-video shadow-md" controls preload="metadata">
                                     <source src="Kalyan_Sir_Files/kalyan-sir-2-new-compressed.mov" type="video/mp4">
                                     Your browser does not support the video tag.
                                 </video>
-                                <p class="text-sm text-gray-600 font-medium">A profound literary recitation and presentation showcasing our deep cultural roots.</p>
+                                <p class="text-sm font-semibold text-[var(--body-text-color)]">A profound literary recitation and presentation showcasing our deep cultural roots.</p>
                             </div>
                             
                             <div>
-                                <p class="font-bold text-[var(--green)] text-xs tracking-widest mb-2 uppercase">Gauhati Seminar Lecture</p>
+                                <p class="font-bold text-[var(--green)] text-xs tracking-widest mb-2 uppercase" style="color: var(--green);">Gauhati Seminar Lecture</p>
                                 <video class="book-video shadow-md" controls preload="metadata">
                                     <source src="Kalyan_Sir_Files/KK_Lecture_Seminar-compressed-compressed.mp4" type="video/mp4">
                                     Your browser does not support the video tag.
                                 </video>
-                                <p class="text-sm text-gray-600 font-medium">Keynote address detailing structural innovations in the Science Club framework.</p>
+                                <p class="text-sm font-semibold text-[var(--body-text-color)]">Keynote address detailing structural innovations in the Science Club framework.</p>
                             </div>
                         </div>
 
@@ -299,16 +348,15 @@
             <!-- CHAPTER 5: Photo Archives & Global References -->
             <div class="story-page p-6 md:p-16" id="chapter-5">
                 <div class="max-w-4xl mx-auto">
-                    <h2 class="text-[var(--navy)] font-bold tracking-widest text-xs mb-2 uppercase">Chapter V</h2>
-                    <h3 class="font-sans font-bold text-3xl md:text-5xl text-[var(--navy)] mb-8 border-b-2 border-gray-100 pb-6">Impact & Accolades</h3>
+                    <h2 class="text-[var(--navy)] font-bold tracking-widest text-xs mb-2 uppercase" style="color: var(--navy);">Chapter V</h2>
+                    <h3 class="font-sans font-bold text-3xl md:text-5xl text-[var(--navy)] mb-8 border-b-2 border-gray-100 pb-6" style="color: var(--navy);">Impact & Accolades</h3>
                     
-                    <div class="book-text text-gray-800 text-lg md:text-xl leading-relaxed space-y-6">
+                    <div class="book-text text-lg md:text-xl leading-relaxed space-y-6">
                         <p>Furthermore, international endorsements from scholars like <em>Scott Thurston</em> and academic peers like <em>Pampa Kumar</em> solidify the global relevance of our curriculum.</p>
                         
-                        <!-- ADDED SCOTT THURSTON AND PAMPA KUMAR REFERENCE DOCUMENTS (Updated to target="_blank") -->
                         <div class="flex flex-col sm:flex-row gap-4 my-8 font-sans">
-                            <a href="Kalyan_Sir_Files/Reference_Scott Thurston.docx" target="_blank" class="book-doc-btn flex-1 text-center bg-[var(--navy)] text-white py-3 rounded-lg hover:bg-blue-800 shadow-md">Read Scott Thurston Ref</a>
-                            <a href="Kalyan_Sir_Files/Pampa-kumar.docx" target="_blank" class="book-doc-btn flex-1 text-center bg-[var(--saffron)] text-white py-3 rounded-lg hover:brightness-110 shadow-md">Read Pampa Kumar Ref</a>
+                            <a href="Kalyan_Sir_Files/Reference_Scott Thurston.docx" target="_blank" class="book-doc-btn flex-1 text-center bg-[var(--navy)] py-3 rounded-lg hover:bg-blue-800 shadow-md">Read Scott Thurston Ref</a>
+                            <a href="Kalyan_Sir_Files/Pampa-kumar.docx" target="_blank" class="book-doc-btn flex-1 text-center bg-[var(--saffron)] py-3 rounded-lg hover:brightness-110 shadow-md">Read Pampa Kumar Ref</a>
                         </div>
 
                         <p>Moments captured during our seminars, extensive travels across the Himalayas, and on-ground cultural impacts. These images represent the physical embodiment of the Easy Learning philosophy.</p>
@@ -321,9 +369,9 @@
                         </div>
 
                         <div class="text-center mt-16 font-sans">
-                            <h4 class="text-2xl font-bold text-[var(--navy)] mb-4">The Next Chapter Is Yours.</h4>
-                            <p class="text-sm text-gray-500 mb-8 max-w-md mx-auto">You have read the history, seen the verified credentials, and understood the philosophy. Now, it is time to write your own success story.</p>
-                            <a href="courses.html" class="inline-block bg-[var(--green)] text-white px-10 py-4 rounded-full font-bold text-sm md:text-lg shadow-xl hover:bg-green-700 transition pulse-btn uppercase tracking-widest">Enroll Today</a>
+                            <h4 class="text-2xl font-bold text-[var(--navy)] mb-4" style="color: var(--navy);">The Next Chapter Is Yours.</h4>
+                            <p class="text-base font-semibold mb-8 max-w-md mx-auto text-[var(--body-text-color)]">You have read the history, seen the verified credentials, and understood the philosophy. Now, it is time to write your own success story.</p>
+                            <a href="courses.html" class="inline-block bg-[var(--green)] text-white px-10 py-4 rounded-full font-bold text-sm md:text-lg shadow-xl hover:bg-green-700 transition pulse-btn uppercase tracking-widest" style="color: white;">Enroll Today</a>
                         </div>
                     </div>
                 </div>
@@ -334,7 +382,7 @@
         <!-- Book Navigation Controls -->
         <div class="book-controls">
             <button id="prev-btn" class="ctrl-btn shadow-md" disabled>&larr; Previous Chapter</button>
-            <span id="page-indicator" class="font-bold text-[var(--navy)] bg-white px-6 py-3 rounded-full shadow-sm border border-gray-200 hidden md:flex items-center">Chapter 1 of 5</span>
+            <span id="page-indicator" class="font-bold text-[var(--navy)] bg-white px-6 py-3 rounded-full shadow-sm border border-gray-200 hidden md:flex items-center" style="color: var(--navy);">Chapter 1 of 5</span>
             <button id="next-btn" class="ctrl-btn shadow-md">Next Chapter &rarr;</button>
         </div>
     </main>
@@ -343,36 +391,35 @@
     <footer class="border-t border-gray-200 py-12 md:py-16 px-6 md:px-20 relative z-10 bg-gray-50 mt-10">
         <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-12 text-center sm:text-left">
             <div>
-                <!-- Updated Footer Logo -->
                 <div class="flex items-center gap-2 justify-center sm:justify-start mb-4">
                     <span class="text-2xl md:text-3xl">✏️</span>
-                    <span class="text-xl md:text-2xl font-bold tracking-tighter text-[var(--navy)]">EASY</span>
+                    <span class="text-xl md:text-2xl font-bold tracking-tighter text-[var(--navy)]" style="color: var(--navy);">EASY</span>
                     <span class="text-xl md:text-2xl font-bold tracking-tighter neon-text-tricolor">LEARNING</span>
                 </div>
-                <p class="text-gray-600 text-xs md:text-sm mb-4 leading-relaxed mx-auto sm:mx-0 max-w-[250px]">Premium Interactive Experience. Hosted on high-performance infrastructure for unparalleled speed and reliability.</p>
+                <p class="text-sm mb-4 leading-relaxed mx-auto sm:mx-0 max-w-[250px] font-medium text-[var(--body-text-color)]">Premium Interactive Experience. Hosted on high-performance infrastructure for unparalleled speed and reliability.</p>
             </div>
             <div>
-                <h4 class="text-base md:text-lg font-bold mb-4 md:mb-6 text-[var(--navy)]">Course Fees</h4>
-                <ul class="space-y-2 md:space-y-3 text-xs md:text-sm text-gray-700 font-semibold max-w-[250px] mx-auto sm:mx-0">
-                    <li class="flex justify-between border-b border-gray-200 pb-2"><span>Basic Model I</span> <span class="text-[var(--navy)] font-bold">₹299</span></li>
-                    <li class="flex justify-between border-b border-gray-200 pb-2"><span>Premium Model I</span> <span class="text-[var(--saffron)] font-bold">₹2,999</span></li>
+                <h4 class="text-lg font-bold mb-4 md:mb-6 text-[var(--navy)]" style="color: var(--navy);">Course Fees</h4>
+                <ul class="space-y-3 text-sm font-semibold max-w-[250px] mx-auto sm:mx-0">
+                    <li class="flex justify-between border-b border-gray-200 pb-2"><span>Basic Model I</span> <span class="text-[var(--navy)] font-bold" style="color: var(--navy);">₹299</span></li>
+                    <li class="flex justify-between border-b border-gray-200 pb-2"><span>Premium Model I</span> <span class="text-[var(--saffron)] font-bold" style="color: var(--saffron);">₹2,999</span></li>
                 </ul>
             </div>
             <div>
-                <h4 class="text-base md:text-lg font-bold mb-4 md:mb-6 text-[var(--navy)]">Quick Links</h4>
-                <ul class="space-y-2 md:space-y-3 text-xs md:text-sm text-gray-600 font-semibold">
+                <h4 class="text-lg font-bold mb-4 md:mb-6 text-[var(--navy)]" style="color: var(--navy);">Quick Links</h4>
+                <ul class="space-y-3 text-sm font-semibold">
                     <li><a href="founder.html" class="hover:text-[var(--saffron)] transition">About the Founder</a></li>
                     <li><a href="wings.html" class="hover:text-[var(--saffron)] transition">Trust & Wings</a></li>
                 </ul>
             </div>
             <div class="sm:col-span-2 lg:col-span-1">
-                <h4 class="text-base md:text-lg font-bold mb-2 md:mb-4 text-[var(--navy)]">Contact Us</h4>
-                <p class="text-xl md:text-2xl font-bold text-[var(--saffron)]">7596 909 888</p>
-                <p class="text-[10px] md:text-xs text-gray-500 mt-1 font-semibold mb-6">Call or WhatsApp</p>
-                <a href="courses.html" class="bg-[var(--green)] text-white px-6 py-3 rounded-full font-bold text-sm shadow-md hover:bg-green-700 transition pulse-btn inline-block">Enroll Now</a>
+                <h4 class="text-lg font-bold mb-2 md:mb-4 text-[var(--navy)]" style="color: var(--navy);">Contact Us</h4>
+                <p class="text-2xl font-bold text-[var(--saffron)]" style="color: var(--saffron);">7596 909 888</p>
+                <p class="text-xs text-gray-500 mt-1 font-semibold mb-6">Call or WhatsApp</p>
+                <a href="courses.html" class="bg-[var(--green)] text-white px-6 py-3 rounded-full font-bold text-sm shadow-md hover:bg-green-700 transition pulse-btn inline-block" style="color: white;">Enroll Now</a>
             </div>
         </div>
-        <div class="max-w-7xl mx-auto mt-12 md:mt-16 pt-6 md:pt-8 border-t border-gray-300 text-center text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-widest">
+        <div class="max-w-7xl mx-auto mt-12 md:mt-16 pt-6 md:pt-8 border-t border-gray-300 text-center text-xs font-bold text-gray-400 uppercase tracking-widest">
             &copy; 2026 Easy Learning Trust. All rights reserved.
         </div>
     </footer>
@@ -388,12 +435,12 @@
                 <button onclick="toggleBot()" class="text-white hover:text-[var(--saffron)] transition text-xl font-bold">&times;</button>
             </div>
             <div class="flex-grow p-4 md:p-5 overflow-y-auto space-y-4 bg-gray-50" id="botHistory">
-                <div class="bg-white border border-gray-200 p-3 md:p-4 rounded-2xl rounded-tl-sm text-xs md:text-sm text-gray-800 shadow-md font-semibold">
+                <div class="bg-white border border-gray-200 p-3 md:p-4 rounded-2xl rounded-tl-sm text-sm text-[var(--body-text-color)] shadow-md font-semibold">
                     Greetings! 🤖 Enjoy reading Our Story. Do you have any questions about the history of Easy Learning?
                 </div>
             </div>
             <div class="p-3 md:p-4 border-t border-gray-200 bg-white grid grid-cols-1 gap-2">
-                <button onclick="sendMsg('How did this all start?')" class="text-xs bg-gray-100 hover:bg-gray-200 border border-gray-300 py-2.5 md:py-3 px-4 rounded-xl transition text-left text-gray-700 font-semibold hover:text-[var(--navy)]">
+                <button onclick="sendMsg('How did this all start?')" class="text-sm bg-gray-100 hover:bg-gray-200 border border-gray-300 py-2.5 md:py-3 px-4 rounded-xl transition text-left font-semibold hover:text-[var(--navy)] text-[var(--body-text-color)]">
                     How did this all start?
                 </button>
             </div>
@@ -405,7 +452,6 @@
 
     <!-- SCRIPTS -->
     <script>
-        // Mobile Menu Toggle
         const menuBtn = document.getElementById('menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         const menuIcon = document.getElementById('menu-icon');
@@ -430,7 +476,6 @@
             });
         });
 
-        // Ambient Canvas
         const canvas = document.getElementById('ambient-canvas');
         const ctx = canvas.getContext('2d');
         let width, height, particles = [];
@@ -461,7 +506,6 @@
         }
         window.addEventListener('resize', initCanvas); initCanvas(); animateCanvas();
 
-        // Chatbot 
         const botWindow = document.getElementById('botWindow');
         const botHistory = document.getElementById('botHistory');
         function toggleBot() { 
@@ -469,10 +513,10 @@
             else { botWindow.style.display = 'none'; }
         }
         function sendMsg(msg) {
-            botHistory.innerHTML += `<div class="bg-[var(--navy)] p-3 rounded-2xl rounded-tr-sm text-xs md:text-sm text-white ml-8 shadow-md border border-[rgba(0,0,128,0.2)]">${msg}</div>`;
+            botHistory.innerHTML += `<div class="bg-[var(--navy)] p-3 rounded-2xl rounded-tr-sm text-sm text-white ml-8 shadow-md border border-[rgba(0,0,128,0.2)]">${msg}</div>`;
             botHistory.scrollTop = botHistory.scrollHeight;
             const typingId = 'typing-' + Date.now();
-            botHistory.innerHTML += `<div id="${typingId}" class="text-[10px] md:text-xs text-gray-500 ml-2 mt-2 italic font-semibold">EazyBot is typing...</div>`;
+            botHistory.innerHTML += `<div id="${typingId}" class="text-xs text-gray-500 ml-2 mt-2 italic font-semibold">EazyBot is typing...</div>`;
             botHistory.scrollTop = botHistory.scrollHeight;
 
             setTimeout(() => {
@@ -481,20 +525,19 @@
                     ? "It started with a vision to bridge the educational divide, combining Kalyan Bhattacharya's UK Engineering background with local grassroots initiatives. 📖" 
                     : "The story is vast, but our mission remains simple: premium education for all.";
                 
-                reply += `<br><br><a href="courses.html" class="inline-block bg-[var(--green)] text-white px-4 py-2 rounded-full font-bold text-xs shadow-md hover:bg-green-700 transition">Click here to Enroll &rarr;</a>`;
+                reply += `<br><br><a href="courses.html" class="inline-block bg-[var(--green)] text-white px-4 py-2 rounded-full font-bold text-xs shadow-md hover:bg-green-700 transition" style="color: white;">Click here to Enroll &rarr;</a>`;
 
-                botHistory.innerHTML += `<div class="bg-white border border-gray-200 p-3 md:p-4 rounded-2xl rounded-tl-sm text-xs md:text-sm text-gray-800 mr-8 shadow-md font-semibold">🤖 ${reply}</div>`;
+                botHistory.innerHTML += `<div class="bg-white border border-gray-200 p-3 md:p-4 rounded-2xl rounded-tl-sm text-sm text-[var(--body-text-color)] mr-8 shadow-md font-semibold">🤖 ${reply}</div>`;
                 botHistory.scrollTop = botHistory.scrollHeight;
             }, 800);
         }
 
-        // --- FLAWLESS SCROLL-FRIENDLY BOOK ENGINE ---
         let currentPage = 1;
         const totalPages = 5; 
         const prevBtn = document.getElementById('prev-btn');
         const nextBtn = document.getElementById('next-btn');
         const indicator = document.getElementById('page-indicator');
-        const bookSection = document.getElementById('book-section'); // Anchor for smooth scroll
+        const bookSection = document.getElementById('book-section');
 
         function updateButtons() {
             prevBtn.disabled = currentPage === 1;
@@ -503,7 +546,6 @@
         }
 
         function scrollToBookTop() {
-            // Smoothly scrolls the window so the top of the book is always visible when changing chapters
             const offset = bookSection.getBoundingClientRect().top + window.scrollY - 100;
             window.scrollTo({ top: offset, behavior: 'smooth' });
         }
@@ -538,7 +580,6 @@
                 scrollToBookTop();
             }
         });
-
     </script>
 </body>
 </html>
