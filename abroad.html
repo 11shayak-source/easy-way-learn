@@ -7,14 +7,57 @@
     <title>Study Abroad | Easy Learning</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap'); /* Edwardian-style font approximation */
         
         :root {
             --saffron: #FF9933; --green: #138808; --navy: #000080;
             --bg-white: #FFFFFF; --text-main: #050505; --card-light: rgba(255, 255, 255, 0.85);
+            --body-text-color: #0b1120; /* Clean jet black/dark navy for better readability */
         }
 
-        body { font-family: 'Space Grotesk', sans-serif; background-color: var(--bg-white); color: var(--text-main); overflow-x: hidden; scroll-behavior: smooth; }
+        body { 
+            font-family: 'Space Grotesk', sans-serif; 
+            background-color: var(--bg-white); 
+            color: var(--body-text-color); 
+            overflow-x: hidden; 
+            scroll-behavior: smooth; 
+            font-size: 1.125rem; /* Increased base font size */
+        }
+        
+        p, li {
+            color: var(--body-text-color) !important;
+            font-weight: 500;
+        }
+
+        .edwardian-font {
+            font-family: 'Pinyon Script', cursive;
+            font-size: 1.3em;
+        }
+
+        /* --- HEADER LAYOUT STYLES --- */
+        .header-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 1rem 2rem;
+            background: white;
+            border-bottom: 2px solid var(--navy);
+            margin-top: 35px; /* offset for marquee */
+        }
+
+        .header-logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .header-address-section {
+            text-align: right;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--navy);
+        }
 
         /* --- AMBIENT CANVAS --- */
         #ambient-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; opacity: 0.6; }
@@ -59,7 +102,7 @@
         @keyframes pulseShadow { 0% { box-shadow: 0 0 0 0 rgba(255, 153, 51, 0.6); } 70% { box-shadow: 0 0 0 15px rgba(255, 153, 51, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 153, 51, 0); } }
 
         /* --- MARQUEE --- */
-        .marquee-wrapper { background: rgba(255, 255, 255, 0.95); border-bottom: 1px solid rgba(0, 0, 0, 0.1); position: fixed; top: 0; width: 100%; z-index: 50; overflow: hidden; display: flex; align-items: center; height: 35px; }
+        .marquee-wrapper { background: rgba(255, 255, 255, 0.95); border-bottom: 1px solid rgba(0, 0, 0, 0.1); position: fixed; top: 0; width: 100%; z-index: 60; overflow: hidden; display: flex; align-items: center; height: 35px; }
         .marquee-track { display: flex; white-space: nowrap; animation: marquee 25s linear infinite; }
         .marquee-wrapper:hover .marquee-track { animation-play-state: paused; }
         @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
@@ -87,16 +130,30 @@
         </div>
     </div>
 
-    <!-- Main Navigation -->
-    <nav class="fixed w-full top-8 md:top-10 z-50 px-4 md:px-8 py-4 flex justify-between items-center bg-[rgba(255,255,255,0.9)] backdrop-blur-xl border-b border-[rgba(0,0,0,0.05)] shadow-sm">
-        
-        <!-- Updated Logo -->
-        <a href="index.html" class="text-xl md:text-2xl font-bold tracking-tighter cursor-pointer text-[var(--navy)] hover:opacity-80 transition z-50 flex flex-col">
-            <div class="flex items-center gap-2">
-                <span class="text-2xl md:text-3xl">✏️</span>
-                <span>EASY</span> <span class="neon-text-tricolor">LEARNING</span>
+    <!-- Official Letterhead Header -->
+    <header class="header-top-bar relative z-50">
+        <div class="header-logo-section">
+            <img src="easy-learning-pencil-icon.png" alt="Easy Learning Logo" class="h-16 w-auto">
+            <div class="flex flex-col">
+                <div class="text-3xl font-bold tracking-tighter text-[var(--navy)] flex items-center gap-3">
+                    EASY LEARNING
+                    <span class="text-sm font-normal text-gray-600 tracking-normal mt-1">(Going to be registered as a unit of a charity Trust)</span>
+                </div>
+                <div class="text-lg text-[var(--green)] font-semibold italic">Let's walk hand in hand.</div>
+                <div class="text-xs text-gray-500 font-bold mt-1">80G Registration No: [Pending Details]</div>
             </div>
-            <span class="text-[10px] text-gray-500 tracking-normal normal-case leading-none mt-1">easywaytolearn.online</span>
+        </div>
+        <div class="header-address-section">
+            <p>5, Chetla Road</p>
+            <p>Kolkata-27</p>
+        </div>
+    </header>
+
+    <!-- Main Navigation -->
+    <nav class="sticky top-[35px] z-40 w-full px-4 md:px-8 py-4 flex justify-between items-center bg-[rgba(255,255,255,0.9)] backdrop-blur-xl border-b border-[rgba(0,0,0,0.05)] shadow-sm">
+        
+        <a href="index.html" class="edwardian-font font-bold text-[var(--navy)] hover:opacity-80 transition z-50 text-3xl">
+            Easy English
         </a>
         
         <div class="hidden lg:flex gap-8 font-bold text-xs uppercase tracking-widest text-gray-600">
@@ -129,154 +186,101 @@
     </div>
 
     <!-- HERO SECTION -->
-    <header class="pt-40 pb-16 md:pt-48 md:pb-20 px-6 md:px-20 relative z-10 flex flex-col justify-center items-center text-center min-h-[60vh]">
+    <section class="pt-20 pb-16 md:pt-24 md:pb-20 px-6 md:px-20 relative z-10 flex flex-col justify-center items-center text-center min-h-[50vh]">
         <div class="max-w-5xl mx-auto w-full">
             <h2 class="text-[var(--saffron)] font-bold tracking-[0.2em] md:tracking-[0.3em] uppercase text-xs md:text-sm mb-4 md:mb-6 reveal-up">Your Global Gateway</h2>
-            <h1 class="text-5xl md:text-8xl font-bold mb-6 md:mb-8 leading-tight reveal-up text-[var(--navy)]" style="animation-delay: 0.1s;">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 md:mb-8 leading-tight reveal-up text-[var(--navy)]" style="animation-delay: 0.1s;">
                 Master English. <br class="hidden md:block"><span class="neon-text-tricolor">Conquer the World.</span>
             </h1>
-            <p class="text-lg md:text-2xl text-gray-600 mb-10 max-w-3xl mx-auto leading-relaxed reveal-up font-semibold" style="animation-delay: 0.2s;">
+            <p class="text-xl md:text-2xl text-[var(--body-text-color)] mb-10 max-w-3xl mx-auto leading-relaxed reveal-up font-semibold" style="animation-delay: 0.2s;">
                 Proficiency in English is the ultimate key to international academia. Whether you are aiming for the UK, USA, Canada, or Australia, our premium frameworks ensure you pass standardized exams with absolute confidence.
             </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center reveal-up w-full px-4" style="animation-delay: 0.3s;">
-                <a href="#exams" class="bg-[var(--navy)] text-white w-full sm:w-auto px-8 py-4 rounded-full font-bold hover:scale-105 transition shadow-lg pulse-btn text-sm md:text-base">View Exam Frameworks</a>
-            </div>
-        </div>
-    </header>
-
-    <!-- CORE PHILOSOPHY -->
-    <section class="py-16 md:py-24 px-4 md:px-20 relative z-10 border-t border-[rgba(0,0,0,0.05)] bg-gray-50">
-        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-10 md:gap-16 items-center">
-            <div class="w-full lg:w-5/12 reveal-left">
-                <div class="glass-panel p-8 md:p-12 bg-[var(--navy)] text-white h-full flex flex-col justify-center border-b-8 border-b-[var(--saffron)]">
-                    <div class="text-5xl md:text-6xl mb-6 shadow-sm inline-block rounded-full w-16 md:w-20 h-16 md:h-20 flex items-center justify-center bg-[rgba(255,255,255,0.1)]">🌍</div>
-                    <h3 class="text-3xl md:text-4xl font-bold mb-4">The Global Advantage</h3>
-                    <p class="text-gray-300 leading-relaxed font-medium">
-                        Studying abroad is not just about boarding a flight; it is about seamless integration into a new academic and cultural ecosystem. 
-                        The Easy Learning English model breaks down linguistic barriers, allowing you to absorb complex global curricula without hesitation.
-                    </p>
-                </div>
-            </div>
-            
-            <div class="w-full lg:w-7/12 reveal-right">
-                <h2 class="text-3xl md:text-5xl font-bold mb-6 md:mb-8 text-[var(--navy)]">Beyond Basic Translation.</h2>
-                <div class="space-y-4 md:space-y-6 text-gray-700 text-base md:text-lg leading-relaxed font-medium">
-                    <p>
-                        International universities demand more than conversational fluency. They require academic comprehension, critical analytical writing, and the ability to articulate complex scientific or literary thoughts in real-time.
-                    </p>
-                    <p>
-                        Our Premium Models are engineered specifically for this. By bridging the gap between foundational grammar and advanced academic articulation, we prepare our students to not just survive, but to excel in top-tier universities across the globe.
-                    </p>
-                    <ul class="mt-6 space-y-3">
-                        <li class="flex items-center gap-3"><span class="text-[var(--green)] text-xl font-bold">✓</span> Advanced Academic Writing Prep</li>
-                        <li class="flex items-center gap-3"><span class="text-[var(--green)] text-xl font-bold">✓</span> Real-time Cognitive Translation Avoidance</li>
-                        <li class="flex items-center gap-3"><span class="text-[var(--green)] text-xl font-bold">✓</span> Cultural & Nuance Integration</li>
-                    </ul>
-                </div>
-            </div>
         </div>
     </section>
 
-    <!-- STANDARDIZED EXAMS -->
-    <section id="exams" class="py-16 md:py-24 px-4 md:px-20 relative z-10 bg-white border-t border-gray-200">
+    <!-- INSTRUCTION & METHODOLOGY SECTION -->
+    <section class="py-16 md:py-24 px-4 md:px-20 relative z-10 border-t border-[rgba(0,0,0,0.05)] bg-white">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-12 md:mb-16 reveal-up">
-                <h2 class="text-xs md:text-sm font-bold tracking-[0.2em] text-[var(--green)] uppercase mb-4">Standardized Testing</h2>
-                <h3 class="text-3xl md:text-5xl font-bold text-[var(--navy)]">Mastering <span class="neon-text-tricolor">IELTS & TOEFL</span></h3>
-                <p class="text-sm md:text-base text-gray-600 mt-4 font-semibold max-w-2xl mx-auto px-2">High scores on standardized English proficiency tests are non-negotiable for premier international institutions. We engineer your success.</p>
+                <h3 class="text-4xl md:text-5xl font-bold text-[var(--navy)]">Easy Learning Framework</h3>
+                <p class="text-lg mt-4 font-semibold text-gray-600">Our Structured Methodology for Success</p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
-                <!-- IELTS -->
-                <div class="glass-panel p-6 md:p-10 reveal-left flex flex-col border-l-4 border-l-[var(--saffron)]">
-                    <h4 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6 text-[var(--navy)] flex justify-between items-center">
-                        IELTS Preparation
-                        <span class="bg-[rgba(255,153,51,0.1)] text-[var(--saffron)] text-xs px-3 py-1 rounded-full uppercase tracking-widest">Global</span>
-                    </h4>
-                    <p class="text-sm md:text-base text-gray-700 mb-6 font-medium">The International English Language Testing System requires strict adherence to format, timing, and specific vocabulary ranges. Our framework targets all four pillars:</p>
-                    <div class="grid grid-cols-2 gap-4 mt-auto">
-                        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 text-center">
-                            <span class="block text-[var(--navy)] font-bold mb-1">Reading</span>
-                            <span class="text-xs text-gray-500">Speed & Comprehension</span>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                <div class="glass-panel p-8 md:p-12 reveal-left border-l-4 border-[var(--saffron)]">
+                    <h4 class="text-2xl font-bold text-[var(--navy)] mb-6 uppercase tracking-wider border-b pb-4">Core Instructions</h4>
+                    <div class="space-y-6">
+                        <div class="flex flex-col md:flex-row gap-4 border-b border-gray-100 pb-4">
+                            <span class="font-bold text-[var(--navy)] min-w-[150px] uppercase">Pronunciation</span>
+                            <span class="font-medium text-lg">Download "Spell & Pronounce" etc. from Google</span>
                         </div>
-                        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 text-center">
-                            <span class="block text-[var(--navy)] font-bold mb-1">Writing</span>
-                            <span class="text-xs text-gray-500">Task 1 & 2 Structuring</span>
+                        <div class="flex flex-col md:flex-row gap-4 border-b border-gray-100 pb-4">
+                            <span class="font-bold text-[var(--navy)] min-w-[150px] uppercase">Videos</span>
+                            <span class="font-medium text-lg">Go through chronologically</span>
                         </div>
-                        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 text-center">
-                            <span class="block text-[var(--navy)] font-bold mb-1">Listening</span>
-                            <span class="text-xs text-gray-500">Accent Adaptation</span>
-                        </div>
-                        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 text-center">
-                            <span class="block text-[var(--navy)] font-bold mb-1">Speaking</span>
-                            <span class="text-xs text-gray-500">Fluency & Coherence</span>
+                        <div class="flex flex-col md:flex-row gap-4 border-b border-gray-100 pb-4">
+                            <span class="font-bold text-[var(--navy)] min-w-[150px] uppercase">Note</span>
+                            <span class="font-medium text-lg">Go through chronologically</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- TOEFL -->
-                <div class="glass-panel p-6 md:p-10 reveal-right flex flex-col border-l-4 border-l-[var(--navy)]">
-                    <h4 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6 text-[var(--navy)] flex justify-between items-center">
-                        TOEFL iBT Mastery
-                        <span class="bg-[rgba(0,0,128,0.1)] text-[var(--navy)] text-xs px-3 py-1 rounded-full uppercase tracking-widest">US/Canada</span>
-                    </h4>
-                    <p class="text-sm md:text-base text-gray-700 mb-6 font-medium">The Test of English as a Foreign Language is heavily utilized by North American universities. It requires high endurance and integration of skills (e.g., read, listen, then speak).</p>
-                    <ul class="space-y-4 text-gray-700 font-semibold text-sm md:text-base mt-auto">
-                        <li class="flex items-start gap-3">
-                            <span class="text-[var(--navy)] text-lg">✓</span>
-                            <span>Simulated digital testing environments to build stamina.</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <span class="text-[var(--navy)] text-lg">✓</span>
-                            <span>Integrated task practice (combining audio and text inputs).</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <span class="text-[var(--navy)] text-lg">✓</span>
-                            <span>Academic vocabulary expansion specific to university lectures.</span>
-                        </li>
+                <div class="glass-panel p-8 md:p-12 reveal-right border-l-4 border-[var(--green)]">
+                    <h4 class="text-2xl font-bold text-[var(--navy)] mb-6 uppercase tracking-wider border-b pb-4">Practice & Application</h4>
+                    <ul class="space-y-5 text-lg font-medium">
+                        <li class="flex gap-4"><span class="text-[var(--saffron)] text-2xl">►</span> Read each lesson 3 to 4 days at a stretch. Read aloud so that you could correct your pronunciation and prepare your ears.</li>
+                        <li class="flex gap-4"><span class="text-[var(--saffron)] text-2xl">►</span> Refer any English Composition Book for Article, Preposition, Appropriate Preposition etc. only after finishing this note very thoroughly.</li>
+                        <li class="flex gap-4"><span class="text-[var(--saffron)] text-2xl">►</span> Translate the English passages into your own mother language.</li>
+                        <li class="flex gap-4"><span class="text-[var(--saffron)] text-2xl">►</span> Translate the Bengali Biography of Acharya P.C.Roy into English and the English Biography into your own mother language.</li>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- GLOBAL DESTINATIONS -->
-    <section class="py-16 md:py-24 px-4 md:px-20 relative z-10 border-t border-gray-200 bg-gray-50">
+    <!-- ACHIEVEMENTS & CREDENTIALS SECTION -->
+    <section class="py-16 md:py-24 px-4 md:px-20 relative z-10 border-t border-[rgba(0,0,0,0.05)] bg-gray-50">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-12 md:mb-16 reveal-up">
-                <h3 class="text-3xl md:text-5xl font-bold text-[var(--navy)]">Top Academic <span class="text-[var(--saffron)]">Destinations</span></h3>
-                <p class="text-sm md:text-base text-gray-600 mt-4 font-semibold max-w-2xl mx-auto px-2">Where our foundational training can take you.</p>
+                <h3 class="text-3xl md:text-5xl font-bold text-[var(--navy)]">Academic Excellence & Recognition</h3>
+                <p class="text-lg mt-4 font-semibold text-gray-600">Guided by proven expertise and scholarly distinction</p>
             </div>
-
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-                <!-- UK -->
-                <div class="glass-panel overflow-hidden reveal-up group text-center p-6 bg-white border border-gray-200">
-                    <div class="text-6xl mb-4 transition duration-500 group-hover:scale-110">🇬🇧</div>
-                    <h4 class="font-bold text-[var(--navy)] text-lg mb-2">United Kingdom</h4>
-                    <p class="text-xs text-gray-500 font-medium">Home to historic universities and a gateway for research. IELTS is the primary standard.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Visva-Bharati -->
+                <div class="glass-panel p-8 text-center reveal-up hover:-translate-y-2 transition duration-300">
+                    <div class="text-5xl mb-4">🏛️</div>
+                    <h4 class="text-xl font-bold text-[var(--navy)] mb-2">Visva-Bharati University</h4>
+                    <p class="text-sm font-semibold text-[var(--saffron)] mb-4">2009</p>
+                    <p class="text-base text-gray-700 font-medium">Honored guest lecturer for the prestigious Leonard Elmhirst Memorial Lecture at the Rural Extension Centre.</p>
                 </div>
-                <!-- USA -->
-                <div class="glass-panel overflow-hidden reveal-up group text-center p-6 bg-white border border-gray-200" style="animation-delay: 0.1s;">
-                    <div class="text-6xl mb-4 transition duration-500 group-hover:scale-110">🇺🇸</div>
-                    <h4 class="font-bold text-[var(--navy)] text-lg mb-2">United States</h4>
-                    <p class="text-xs text-gray-500 font-medium">The hub of technological innovation and diverse academic ecosystems. TOEFL preferred.</p>
+                
+                <!-- Science Centre -->
+                <div class="glass-panel p-8 text-center reveal-up hover:-translate-y-2 transition duration-300" style="animation-delay: 0.1s;">
+                    <div class="text-5xl mb-4">🔬</div>
+                    <h4 class="text-xl font-bold text-[var(--navy)] mb-2">Bardhaman Science Centre</h4>
+                    <p class="text-sm font-semibold text-[var(--saffron)] mb-4">2017</p>
+                    <p class="text-base text-gray-700 font-medium">Invited by the Ministry of Culture, Govt. of India to deliver a Popular Science Lecture as Guest of Honour.</p>
                 </div>
-                <!-- Canada -->
-                <div class="glass-panel overflow-hidden reveal-up group text-center p-6 bg-white border border-gray-200" style="animation-delay: 0.2s;">
-                    <div class="text-6xl mb-4 transition duration-500 group-hover:scale-110">🇨🇦</div>
-                    <h4 class="font-bold text-[var(--navy)] text-lg mb-2">Canada</h4>
-                    <p class="text-xs text-gray-500 font-medium">Renowned for high quality of life and welcoming post-graduation work opportunities.</p>
-                </div>
-                <!-- Australia -->
-                <div class="glass-panel overflow-hidden reveal-up group text-center p-6 bg-white border border-gray-200" style="animation-delay: 0.3s;">
-                    <div class="text-6xl mb-4 transition duration-500 group-hover:scale-110">🇦🇺</div>
-                    <h4 class="font-bold text-[var(--navy)] text-lg mb-2">Australia</h4>
-                    <p class="text-xs text-gray-500 font-medium">World-class infrastructure focusing on practical and science-based curriculums.</p>
+                
+                <!-- Asiatic Society -->
+                <div class="glass-panel p-8 text-center reveal-up hover:-translate-y-2 transition duration-300" style="animation-delay: 0.2s;">
+                    <div class="text-5xl mb-4">📜</div>
+                    <h4 class="text-xl font-bold text-[var(--navy)] mb-2">The Asiatic Society</h4>
+                    <p class="text-sm font-semibold text-[var(--saffron)] mb-4">2018</p>
+                    <p class="text-base text-gray-700 font-medium">Presented research on the impacts of Sanskrit upon Indian Languages at the National Seminar in collaboration with ABILAC.</p>
                 </div>
             </div>
             
-            <div class="text-center mt-12 reveal-up" style="animation-delay: 0.4s;">
-                <a href="courses.html" class="inline-block bg-[var(--green)] text-white px-10 py-4 rounded-full font-bold text-sm md:text-lg shadow-xl hover:bg-green-700 transition pulse-btn">Start Your Preparation Today</a>
+            <div class="mt-16 reveal-up glass-panel p-8 bg-white max-w-3xl mx-auto flex flex-col md:flex-row items-center gap-8">
+                <div class="w-32 h-32 rounded-full overflow-hidden border-4 border-[var(--navy)] shrink-0 bg-gray-200 flex items-center justify-center">
+                    <span class="text-4xl text-gray-400">👤</span> <!-- Placeholder for Kalyan Sir's Photo -->
+                </div>
+                <div>
+                    <h4 class="text-2xl font-bold text-[var(--navy)]">Kalyan Bhattacharya</h4>
+                    <p class="text-lg font-bold text-[var(--green)]">M.Sc. (UK), Ex.CEO (UK)</p>
+                    <p class="text-base font-medium mt-2 text-gray-700">Contact E: easyenglish1948@gmail.com</p>
+                </div>
             </div>
         </div>
     </section>
@@ -285,30 +289,29 @@
     <footer class="border-t border-gray-200 py-12 md:py-16 px-6 md:px-20 relative z-10 bg-white">
         <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-12 text-center sm:text-left">
             <div>
-                <!-- Updated Footer Logo -->
                 <div class="flex items-center gap-2 justify-center sm:justify-start mb-4">
                     <span class="text-2xl md:text-3xl">✏️</span>
                     <span class="text-xl md:text-2xl font-bold tracking-tighter text-[var(--navy)]">EASY</span>
                     <span class="text-xl md:text-2xl font-bold tracking-tighter neon-text-tricolor">LEARNING</span>
                 </div>
-                <p class="text-gray-600 text-xs md:text-sm mb-4 leading-relaxed mx-auto sm:mx-0 max-w-[250px]">Premium Interactive Experience. Hosted on high-performance infrastructure for unparalleled speed and reliability.</p>
+                <p class="text-gray-600 text-sm mb-4 leading-relaxed mx-auto sm:mx-0 max-w-[250px] font-medium">Premium Interactive Experience. Hosted on high-performance infrastructure for unparalleled speed and reliability.</p>
             </div>
             <div>
-                <h4 class="text-base md:text-lg font-bold mb-4 md:mb-6 text-[var(--navy)]">Quick Links</h4>
-                <ul class="space-y-2 md:space-y-3 text-xs md:text-sm text-gray-600 font-semibold">
+                <h4 class="text-lg font-bold mb-4 md:mb-6 text-[var(--navy)]">Quick Links</h4>
+                <ul class="space-y-3 text-sm text-gray-600 font-semibold">
                     <li><a href="founder.html" class="hover:text-[var(--saffron)] transition">About the Founder</a></li>
                     <li><a href="wings.html" class="hover:text-[var(--saffron)] transition">Trust & Wings</a></li>
                     <li><a href="story.html" class="hover:text-[var(--saffron)] transition">Our Story Details</a></li>
                 </ul>
             </div>
             <div class="sm:col-span-2 lg:col-span-1">
-                <h4 class="text-base md:text-lg font-bold mb-2 md:mb-4 text-[var(--navy)]">Contact Us</h4>
-                <p class="text-xl md:text-2xl font-bold text-[var(--saffron)]">7596 909 888</p>
-                <p class="text-[10px] md:text-xs text-gray-500 mt-1 font-semibold mb-6">Call or WhatsApp</p>
+                <h4 class="text-lg font-bold mb-2 md:mb-4 text-[var(--navy)]">Contact Us</h4>
+                <p class="text-2xl font-bold text-[var(--saffron)]">7596 909 888</p>
+                <p class="text-xs text-gray-500 mt-1 font-semibold mb-6">Call or WhatsApp</p>
                 <a href="courses.html" class="bg-[var(--green)] text-white px-6 py-3 rounded-full font-bold text-sm shadow-md hover:bg-green-700 transition pulse-btn inline-block">Enroll Now</a>
             </div>
         </div>
-        <div class="max-w-7xl mx-auto mt-12 md:mt-16 pt-6 md:pt-8 border-t border-gray-300 text-center text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-widest">
+        <div class="max-w-7xl mx-auto mt-12 md:mt-16 pt-6 md:pt-8 border-t border-gray-300 text-center text-xs font-bold text-gray-400 uppercase tracking-widest">
             &copy; 2026 Easy Learning Trust. All rights reserved.
         </div>
     </footer>
@@ -324,12 +327,12 @@
                 <button onclick="toggleBot()" class="text-white hover:text-[var(--saffron)] transition text-xl font-bold">&times;</button>
             </div>
             <div class="flex-grow p-4 md:p-5 overflow-y-auto space-y-4 bg-gray-50" id="botHistory">
-                <div class="bg-white border border-gray-200 p-3 md:p-4 rounded-2xl rounded-tl-sm text-xs md:text-sm text-gray-800 shadow-md font-semibold">
+                <div class="bg-white border border-gray-200 p-3 md:p-4 rounded-2xl rounded-tl-sm text-sm text-[var(--body-text-color)] shadow-md font-semibold">
                     Greetings! 🤖 Do you have any questions about studying abroad, IELTS, or TOEFL preparation?
                 </div>
             </div>
             <div class="p-3 md:p-4 border-t border-gray-200 bg-white grid grid-cols-1 gap-2">
-                <button onclick="sendMsg('Do you help with IELTS?')" class="text-xs bg-gray-100 hover:bg-gray-200 border border-gray-300 py-2.5 md:py-3 px-4 rounded-xl transition text-left text-gray-700 font-semibold hover:text-[var(--navy)]">
+                <button onclick="sendMsg('Do you help with IELTS?')" class="text-sm bg-gray-100 hover:bg-gray-200 border border-gray-300 py-2.5 md:py-3 px-4 rounded-xl transition text-left text-gray-700 font-semibold hover:text-[var(--navy)]">
                     Do you help with IELTS?
                 </button>
             </div>
@@ -411,10 +414,10 @@
             else { botWindow.style.display = 'none'; }
         }
         function sendMsg(msg) {
-            botHistory.innerHTML += `<div class="bg-[var(--navy)] p-3 rounded-2xl rounded-tr-sm text-xs md:text-sm text-white ml-8 shadow-md border border-[rgba(0,0,128,0.2)]">${msg}</div>`;
+            botHistory.innerHTML += `<div class="bg-[var(--navy)] p-3 rounded-2xl rounded-tr-sm text-sm text-white ml-8 shadow-md border border-[rgba(0,0,128,0.2)]">${msg}</div>`;
             botHistory.scrollTop = botHistory.scrollHeight;
             const typingId = 'typing-' + Date.now();
-            botHistory.innerHTML += `<div id="${typingId}" class="text-[10px] md:text-xs text-gray-500 ml-2 mt-2 italic font-semibold">EazyBot is typing...</div>`;
+            botHistory.innerHTML += `<div id="${typingId}" class="text-xs text-gray-500 ml-2 mt-2 italic font-semibold">EazyBot is typing...</div>`;
             botHistory.scrollTop = botHistory.scrollHeight;
 
             setTimeout(() => {
@@ -425,7 +428,7 @@
                 
                 reply += `<br><br><a href="courses.html" class="inline-block bg-[var(--green)] text-white px-4 py-2 rounded-full font-bold text-xs shadow-md hover:bg-green-700 transition">Click here to Enroll &rarr;</a>`;
 
-                botHistory.innerHTML += `<div class="bg-white border border-gray-200 p-3 md:p-4 rounded-2xl rounded-tl-sm text-xs md:text-sm text-gray-800 mr-8 shadow-md font-semibold">🤖 ${reply}</div>`;
+                botHistory.innerHTML += `<div class="bg-white border border-gray-200 p-3 md:p-4 rounded-2xl rounded-tl-sm text-sm text-[var(--body-text-color)] mr-8 shadow-md font-semibold">🤖 ${reply}</div>`;
                 botHistory.scrollTop = botHistory.scrollHeight;
             }, 800);
         }
