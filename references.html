@@ -7,21 +7,64 @@
     <title>References & Accolades | Easy Learning</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap');
         
         :root {
             --saffron: #FF9933; --green: #138808; --navy: #000080;
             --bg-white: #FFFFFF; --text-main: #050505; --card-light: rgba(255, 255, 255, 0.85);
+            --body-text-color: #0b1120;
         }
 
-        body { font-family: 'Space Grotesk', sans-serif; background-color: var(--bg-white); color: var(--text-main); overflow-x: hidden; scroll-behavior: smooth; }
+        body { 
+            font-family: 'Space Grotesk', sans-serif; 
+            background-color: var(--bg-white); 
+            color: var(--body-text-color); 
+            overflow-x: hidden; 
+            scroll-behavior: smooth; 
+            font-size: 1.125rem;
+        }
+
+        p, li, span, div {
+            color: var(--body-text-color);
+            font-weight: 500;
+        }
+
+        .edwardian-font {
+            font-family: 'Pinyon Script', cursive;
+            font-size: 1.3em;
+        }
+
+        /* --- HEADER LAYOUT STYLES --- */
+        .header-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 1rem 2rem;
+            background: white;
+            border-bottom: 2px solid var(--navy);
+            margin-top: 35px;
+        }
+
+        .header-logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .header-address-section {
+            text-align: right;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--navy);
+        }
 
         /* --- AMBIENT CANVAS --- */
         #ambient-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; opacity: 0.6; }
 
         /* --- EXTREME 3D GLASSMORPHISM --- */
         .glass-panel {
-            background: var(--card-light); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border: 1px solid rgba(0, 0, 0, 0.08);
+            background: var(--card-light); backdrop-filter: blur(25px); border: 1px solid rgba(0, 0, 0, 0.08);
             border-radius: 1.5rem; position: relative; z-index: 10; box-shadow: 0 15px 35px rgba(0,0,0,0.05);
             transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1); transform-style: preserve-3d; perspective: 1000px; overflow: hidden;
         }
@@ -59,7 +102,7 @@
         @keyframes pulseShadow { 0% { box-shadow: 0 0 0 0 rgba(255, 153, 51, 0.6); } 70% { box-shadow: 0 0 0 15px rgba(255, 153, 51, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 153, 51, 0); } }
 
         /* --- MARQUEE --- */
-        .marquee-wrapper { background: rgba(255, 255, 255, 0.95); border-bottom: 1px solid rgba(0, 0, 0, 0.1); position: fixed; top: 0; width: 100%; z-index: 50; overflow: hidden; display: flex; align-items: center; height: 35px; }
+        .marquee-wrapper { background: rgba(255, 255, 255, 0.95); border-bottom: 1px solid rgba(0, 0, 0, 0.1); position: fixed; top: 0; width: 100%; z-index: 60; overflow: hidden; display: flex; align-items: center; height: 35px; }
         .marquee-track { display: flex; white-space: nowrap; animation: marquee 25s linear infinite; }
         .marquee-wrapper:hover .marquee-track { animation-play-state: paused; }
         @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
@@ -87,16 +130,30 @@
         </div>
     </div>
 
-    <!-- Main Navigation -->
-    <nav class="fixed w-full top-8 md:top-10 z-50 px-4 md:px-8 py-4 flex justify-between items-center bg-[rgba(255,255,255,0.9)] backdrop-blur-xl border-b border-[rgba(0,0,0,0.05)] shadow-sm">
-        
-        <!-- Updated Logo -->
-        <a href="index.html" class="text-xl md:text-2xl font-bold tracking-tighter cursor-pointer text-[var(--navy)] hover:opacity-80 transition z-50 flex flex-col">
-            <div class="flex items-center gap-2">
-                <span class="text-2xl md:text-3xl">✏️</span>
-                <span>EASY</span> <span class="neon-text-tricolor">LEARNING</span>
+    <!-- Official Letterhead Header -->
+    <header class="header-top-bar relative z-50">
+        <div class="header-logo-section">
+            <img src="easy-learning-pencil-icon.png" alt="Easy Learning Logo" class="h-16 w-auto">
+            <div class="flex flex-col">
+                <div class="text-3xl font-bold tracking-tighter text-[var(--navy)] flex items-center gap-3">
+                    EASY LEARNING
+                    <span class="text-sm font-normal text-gray-600 tracking-normal mt-1">(Going to be registered as a unit of a charity Trust)</span>
+                </div>
+                <div class="text-lg text-[var(--green)] font-semibold italic" style="color: var(--green);">Let's walk hand in hand.</div>
+                <div class="text-xs text-gray-500 font-bold mt-1">80G Registration No: [Pending Details]</div>
             </div>
-            <span class="text-[10px] text-gray-500 tracking-normal normal-case leading-none mt-1">easywaytolearn.online</span>
+        </div>
+        <div class="header-address-section">
+            <p style="color: var(--navy);">5, Chetla Road</p>
+            <p style="color: var(--navy);">Kolkata-27</p>
+        </div>
+    </header>
+
+    <!-- Main Navigation -->
+    <nav class="sticky top-[35px] z-40 w-full px-4 md:px-8 py-4 flex justify-between items-center bg-[rgba(255,255,255,0.9)] backdrop-blur-xl border-b border-[rgba(0,0,0,0.05)] shadow-sm">
+        
+        <a href="index.html" class="edwardian-font font-bold text-[var(--navy)] hover:opacity-80 transition z-50 text-3xl" style="color: var(--navy);">
+            Easy English
         </a>
         
         <div class="hidden lg:flex gap-8 font-bold text-xs uppercase tracking-widest text-gray-600">
@@ -108,7 +165,7 @@
             <a href="story.html" class="hover:text-[var(--navy)] transition">Our Story</a>
         </div>
         <div class="flex items-center gap-4 z-50">
-            <a href="courses.html" class="hidden md:inline-block bg-[var(--navy)] text-white px-6 py-2 rounded-full font-bold text-sm hover:scale-110 transition shadow-lg pulse-btn">Enroll</a>
+            <a href="courses.html" class="hidden md:inline-block bg-[var(--navy)] text-white px-6 py-2 rounded-full font-bold text-sm hover:scale-110 transition shadow-lg pulse-btn" style="color: white;">Enroll</a>
             <button id="menu-btn" class="lg:hidden text-[var(--navy)] focus:outline-none">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
             </button>
@@ -124,18 +181,18 @@
             <a href="references.html" class="text-[var(--navy)] border-b border-[var(--navy)] pb-2">References</a>
             <a href="abroad.html" class="border-b border-gray-200 pb-2">Study Abroad</a>
             <a href="story.html" class="border-b border-gray-200 pb-2">Our Story</a>
-            <a href="courses.html" class="bg-[var(--navy)] text-white px-8 py-4 rounded-full mt-4 mx-auto w-3/4 shadow-lg pulse-btn">Enroll Now</a>
+            <a href="courses.html" class="bg-[var(--navy)] text-white px-8 py-4 rounded-full mt-4 mx-auto w-3/4 shadow-lg pulse-btn" style="color: white;">Enroll Now</a>
         </div>
     </div>
 
     <!-- HERO SECTION -->
-    <header class="pt-40 pb-16 md:pt-48 md:pb-20 px-6 md:px-20 relative z-10 flex flex-col justify-center items-center text-center min-h-[60vh]">
+    <header class="pt-20 pb-16 md:pt-24 md:pb-20 px-6 md:px-20 relative z-10 flex flex-col justify-center items-center text-center min-h-[50vh]">
         <div class="max-w-5xl mx-auto w-full">
-            <h2 class="text-[var(--saffron)] font-bold tracking-[0.2em] md:tracking-[0.3em] uppercase text-xs md:text-sm mb-4 md:mb-6 reveal-up">Validation of Excellence</h2>
-            <h1 class="text-5xl md:text-8xl font-bold mb-6 md:mb-8 leading-tight reveal-up text-[var(--navy)]" style="animation-delay: 0.1s;">
+            <h2 class="text-[var(--saffron)] font-bold tracking-[0.2em] md:tracking-[0.3em] uppercase text-xs md:text-sm mb-4 md:mb-6 reveal-up" style="color: var(--saffron);">Validation of Excellence</h2>
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 md:mb-8 leading-tight reveal-up text-[var(--navy)]" style="animation-delay: 0.1s; color: var(--navy);">
                 Global <span class="neon-text-tricolor">Accolades</span> & References.
             </h1>
-            <p class="text-lg md:text-2xl text-gray-600 mb-10 max-w-3xl mx-auto leading-relaxed reveal-up font-semibold" style="animation-delay: 0.2s;">
+            <p class="text-xl md:text-2xl text-[var(--body-text-color)] mb-10 max-w-3xl mx-auto leading-relaxed reveal-up font-semibold" style="animation-delay: 0.2s;">
                 The Easy Learning methodology is not an experiment. It is a proven, globally validated framework endorsed by international scholars and presented at India's most historically significant academic institutions.
             </p>
         </div>
@@ -150,25 +207,25 @@
                 <div class="w-full lg:w-1/2">
                     <div class="glass-panel p-8 md:p-12 bg-white border-l-4 border-l-[var(--saffron)]">
                         <div class="text-6xl mb-6 shadow-sm inline-block rounded-full w-20 h-20 flex items-center justify-center bg-gray-50">🏛️</div>
-                        <h3 class="text-3xl md:text-4xl font-bold text-[var(--navy)] mb-4">The Asiatic Society</h3>
-                        <div class="text-[var(--saffron)] text-xs font-bold tracking-widest mb-6">PAPER PRESENTATION</div>
-                        <p class="text-gray-700 leading-relaxed font-medium mb-4">
+                        <h3 class="text-3xl md:text-4xl font-bold text-[var(--navy)] mb-4" style="color: var(--navy);">The Asiatic Society</h3>
+                        <div class="text-[var(--saffron)] text-xs font-bold tracking-widest mb-6" style="color: var(--saffron);">PAPER PRESENTATION</div>
+                        <p class="leading-relaxed font-medium mb-4 text-lg text-[var(--body-text-color)]">
                             Kalyan Bhattacharya’s research and innovative pedagogical frameworks were formally presented at <strong>The Asiatic Society</strong>. Founded in 1784 by the eminent philologist Sir William Jones, The Asiatic Society stands at 1 Park Street, Kolkata, as the premier institution for Oriental research and the preservation of rare manuscripts and antiquities.
                         </p>
-                        <p class="text-gray-700 leading-relaxed font-medium">
+                        <p class="leading-relaxed font-medium text-lg text-[var(--body-text-color)]">
                             To be invited to present a scholarly paper at an institution that has driven scientific and historical inquiry in Asia for over two centuries serves as an absolute testament to the profound academic weight underlying the Easy Learning modules.
                         </p>
                     </div>
                 </div>
                 <div class="w-full lg:w-1/2 p-6">
-                    <h4 class="text-2xl font-bold text-[var(--navy)] mb-4">Why This Matters:</h4>
-                    <ul class="space-y-4 text-gray-700 font-semibold text-lg">
+                    <h4 class="text-2xl font-bold text-[var(--navy)] mb-4" style="color: var(--navy);">Why This Matters:</h4>
+                    <ul class="space-y-4 font-semibold text-lg text-[var(--body-text-color)]">
                         <li class="flex items-start gap-4">
-                            <span class="text-[var(--saffron)] text-2xl">✓</span>
+                            <span class="text-[var(--saffron)] text-2xl" style="color: var(--saffron);">✓</span>
                             <span>Validates our study materials against the highest standards of Indian academia.</span>
                         </li>
                         <li class="flex items-start gap-4">
-                            <span class="text-[var(--saffron)] text-2xl">✓</span>
+                            <span class="text-[var(--saffron)] text-2xl" style="color: var(--saffron);">✓</span>
                             <span>Connects modern digital learning with a legacy of deep literary research.</span>
                         </li>
                     </ul>
@@ -180,26 +237,49 @@
                 <div class="w-full lg:w-1/2">
                     <div class="glass-panel p-8 md:p-12 bg-white border-l-4 border-l-[var(--green)]">
                         <div class="text-6xl mb-6 shadow-sm inline-block rounded-full w-20 h-20 flex items-center justify-center bg-gray-50">🔭</div>
-                        <h3 class="text-3xl md:text-4xl font-bold text-[var(--navy)] mb-4">Bardhaman Science Centre</h3>
-                        <div class="text-[var(--green)] text-xs font-bold tracking-widest mb-6">GUEST LECTURE & SEMINAR</div>
-                        <p class="text-gray-700 leading-relaxed font-medium mb-4">
+                        <h3 class="text-3xl md:text-4xl font-bold text-[var(--navy)] mb-4" style="color: var(--navy);">Bardhaman Science Centre</h3>
+                        <div class="text-[var(--green)] text-xs font-bold tracking-widest mb-6" style="color: var(--green);">GUEST LECTURE & SEMINAR</div>
+                        <p class="leading-relaxed font-medium mb-4 text-lg text-[var(--body-text-color)]">
                             Further establishing our commitment to analytical development, Kalyan Bhattacharya delivered a highly acclaimed lecture at the <strong>Bardhaman Science Centre</strong>. Operating under the National Council of Science Museums (NCSM), Ministry of Culture, Govt. of India, this district-level center has been communicating science since 1994.
                         </p>
-                        <p class="text-gray-700 leading-relaxed font-medium">
+                        <p class="leading-relaxed font-medium text-lg text-[var(--body-text-color)]">
                             The Science Club framework initiated by Easy Learning directly aligns with the center's mission of fostering hands-on practical experiments and preparing young innovators for advanced scientific pursuits.
                         </p>
                     </div>
                 </div>
                 <div class="w-full lg:w-1/2 p-6">
-                    <h4 class="text-2xl font-bold text-[var(--navy)] mb-4">The Science Club Connection:</h4>
-                    <ul class="space-y-4 text-gray-700 font-semibold text-lg">
+                    <h4 class="text-2xl font-bold text-[var(--navy)] mb-4" style="color: var(--navy);">The Science Club Connection:</h4>
+                    <ul class="space-y-4 font-semibold text-lg text-[var(--body-text-color)]">
                         <li class="flex items-start gap-4">
-                            <span class="text-[var(--green)] text-2xl">✓</span>
+                            <span class="text-[var(--green)] text-2xl" style="color: var(--green);">✓</span>
                             <span>Demonstrates a proven track record in practical physics, mathematics, and electronics education.</span>
                         </li>
                         <li class="flex items-start gap-4">
-                            <span class="text-[var(--green)] text-2xl">✓</span>
+                            <span class="text-[var(--green)] text-2xl" style="color: var(--green);">✓</span>
                             <span>Recognized by governmental-level science communicators.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Visva-Bharati (Added to match Achievements Section logic) -->
+            <div class="flex flex-col lg:flex-row gap-10 items-center reveal-left">
+                <div class="w-full lg:w-1/2">
+                    <div class="glass-panel p-8 md:p-12 bg-white border-l-4 border-l-[var(--navy)]">
+                        <div class="text-6xl mb-6 shadow-sm inline-block rounded-full w-20 h-20 flex items-center justify-center bg-gray-50">🏛️</div>
+                        <h3 class="text-3xl md:text-4xl font-bold text-[var(--navy)] mb-4" style="color: var(--navy);">Visva-Bharati University</h3>
+                        <div class="text-[var(--navy)] text-xs font-bold tracking-widest mb-6" style="color: var(--navy);">MEMORIAL LECTURE</div>
+                        <p class="leading-relaxed font-medium text-lg text-[var(--body-text-color)]">
+                            Kalyan Bhattacharya was honored as a guest lecturer for the prestigious Leonard Elmhirst Memorial Lecture at the Rural Extension Centre, Visva-Bharati University, in 2009.
+                        </p>
+                    </div>
+                </div>
+                <div class="w-full lg:w-1/2 p-6">
+                    <h4 class="text-2xl font-bold text-[var(--navy)] mb-4" style="color: var(--navy);">Institutional Heritage:</h4>
+                    <ul class="space-y-4 font-semibold text-lg text-[var(--body-text-color)]">
+                        <li class="flex items-start gap-4">
+                            <span class="text-[var(--navy)] text-2xl" style="color: var(--navy);">✓</span>
+                            <span>Endorsed by a foundational institution of Indian academia established by Rabindranath Tagore.</span>
                         </li>
                     </ul>
                 </div>
@@ -212,44 +292,43 @@
     <section class="py-16 md:py-24 px-4 md:px-20 relative z-10 bg-white">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-12 md:mb-16 reveal-up">
-                <h3 class="text-3xl md:text-5xl font-bold text-[var(--navy)]">Global <span class="text-[var(--saffron)]">Endorsements</span></h3>
-                <p class="text-sm md:text-base text-gray-600 mt-4 font-semibold max-w-2xl mx-auto px-2">Download and review the official references provided by international scholars and academic peers.</p>
+                <h3 class="text-3xl md:text-5xl font-bold text-[var(--navy)]" style="color: var(--navy);">Global <span class="text-[var(--saffron)]" style="color: var(--saffron);">Endorsements</span></h3>
+                <p class="text-lg mt-4 font-semibold max-w-2xl mx-auto px-2">Download and review the official references provided by international scholars and academic peers.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10">
                 
                 <!-- Scott Thurston Reference -->
-                <div class="glass-panel p-6 md:p-8 flex flex-col items-center text-center reveal-up border-t-4 border-t-[var(--navy)]">
-                    <div class="w-full h-32 bg-gray-100 rounded-lg mb-6 flex items-center justify-center border border-gray-300">
+                <div class="glass-panel p-6 md:p-8 flex flex-col items-center text-center reveal-up border-t-4 border-t-[var(--navy)] bg-gray-50">
+                    <div class="w-full h-32 bg-white rounded-lg mb-6 flex items-center justify-center border border-gray-300">
                         <span class="text-gray-400 text-xs font-bold uppercase">Scott Thurston Document</span>
                     </div>
-                    <div class="text-[var(--saffron)] text-[10px] md:text-xs font-bold tracking-widest mb-2">UK ACADEMIC</div>
-                    <h4 class="text-xl font-bold text-[var(--navy)] mb-3">Scott Thurston</h4>
-                    <p class="text-sm text-gray-600 mb-6 flex-grow">An official reference detailing the educational standards and international pedagogical impact achieved by Kalyan Bhattacharya.</p>
-                    <a href="Kalyan_Sir_Files/Reference_Scott Thurston.docx" target="_blank" class="w-full border-2 border-[var(--navy)] text-[var(--navy)] py-3 rounded-lg font-bold text-sm hover:bg-[rgba(0,0,128,0.05)] transition">Read Online</a>
+                    <div class="text-[var(--saffron)] text-xs font-bold tracking-widest mb-2" style="color: var(--saffron);">UK ACADEMIC</div>
+                    <h4 class="text-xl font-bold text-[var(--navy)] mb-3" style="color: var(--navy);">Scott Thurston</h4>
+                    <p class="text-sm font-medium mb-6 flex-grow">An official reference detailing the educational standards and international pedagogical impact achieved by Kalyan Bhattacharya.</p>
+                    <a href="Kalyan_Sir_Files/Reference_Scott Thurston.docx" target="_blank" class="w-full border-2 border-[var(--navy)] text-[var(--navy)] py-3 rounded-lg font-bold text-sm hover:bg-[rgba(0,0,128,0.05)] transition" style="color: var(--navy);">Read Online</a>
                 </div>
 
                 <!-- Debjani Reference -->
-                <div class="glass-panel p-6 md:p-8 flex flex-col items-center text-center reveal-up border-t-4 border-t-[var(--green)]" style="animation-delay: 0.1s;">
-                    <div class="w-full h-32 bg-gray-100 rounded-lg mb-6 flex items-center justify-center border border-gray-300">
+                <div class="glass-panel p-6 md:p-8 flex flex-col items-center text-center reveal-up border-t-4 border-t-[var(--green)] bg-gray-50" style="animation-delay: 0.1s;">
+                    <div class="w-full h-32 bg-white rounded-lg mb-6 flex items-center justify-center border border-gray-300">
                         <span class="text-gray-400 text-xs font-bold uppercase">Debjani Document</span>
                     </div>
-                    <div class="text-[var(--green)] text-[10px] md:text-xs font-bold tracking-widest mb-2">PEER ENDORSEMENT</div>
-                    <h4 class="text-xl font-bold text-[var(--navy)] mb-3">Debjani Reference</h4>
-                    <p class="text-sm text-gray-600 mb-6 flex-grow">A detailed peer review and reference verifying the execution and community impact of the educational trust programs.</p>
-                    <a href="Kalyan_Sir_Files/Debjani_Ref.docx" target="_blank" class="w-full border-2 border-[var(--navy)] text-[var(--navy)] py-3 rounded-lg font-bold text-sm hover:bg-[rgba(0,0,128,0.05)] transition">Read Online</a>
+                    <div class="text-[var(--green)] text-xs font-bold tracking-widest mb-2" style="color: var(--green);">PEER ENDORSEMENT</div>
+                    <h4 class="text-xl font-bold text-[var(--navy)] mb-3" style="color: var(--navy);">Debjani Reference</h4>
+                    <p class="text-sm font-medium mb-6 flex-grow">A detailed peer review and reference verifying the execution and community impact of the educational trust programs.</p>
+                    <a href="Kalyan_Sir_Files/Debjani_Ref.docx" target="_blank" class="w-full border-2 border-[var(--navy)] text-[var(--navy)] py-3 rounded-lg font-bold text-sm hover:bg-[rgba(0,0,128,0.05)] transition" style="color: var(--navy);">Read Online</a>
                 </div>
 
                 <!-- Pompa Kumar Reference -->
-                <div class="glass-panel p-6 md:p-8 flex flex-col items-center text-center reveal-up border-t-4 border-t-[var(--saffron)]" style="animation-delay: 0.2s;">
-                    <div class="w-full h-32 bg-gray-100 rounded-lg mb-6 flex items-center justify-center border border-gray-300">
+                <div class="glass-panel p-6 md:p-8 flex flex-col items-center text-center reveal-up border-t-4 border-t-[var(--saffron)] bg-gray-50" style="animation-delay: 0.2s;">
+                    <div class="w-full h-32 bg-white rounded-lg mb-6 flex items-center justify-center border border-gray-300">
                         <span class="text-gray-400 text-xs font-bold uppercase">Pompa Kumar Document</span>
                     </div>
-                    <div class="text-[var(--saffron)] text-[10px] md:text-xs font-bold tracking-widest mb-2">EDUCATOR ENDORSEMENT</div>
-                    <h4 class="text-xl font-bold text-[var(--navy)] mb-3">Pompa Kumar</h4>
-                    <p class="text-sm text-gray-600 mb-6 flex-grow">Verified testimonial affirming the effectiveness of the Easy Learning English models and structural foundations.</p>
-                    <!-- Adjust filename if it differs in your folder -->
-                    <a href="Kalyan_Sir_Files/Pampa-kumar.docx" target="_blank" class="w-full border-2 border-[var(--navy)] text-[var(--navy)] py-3 rounded-lg font-bold text-sm hover:bg-[rgba(0,0,128,0.05)] transition text-center inline-block">Read Online</a>
+                    <div class="text-[var(--saffron)] text-xs font-bold tracking-widest mb-2" style="color: var(--saffron);">EDUCATOR ENDORSEMENT</div>
+                    <h4 class="text-xl font-bold text-[var(--navy)] mb-3" style="color: var(--navy);">Pompa Kumar</h4>
+                    <p class="text-sm font-medium mb-6 flex-grow">Verified testimonial affirming the effectiveness of the Easy Learning English models and structural foundations.</p>
+                    <a href="Kalyan_Sir_Files/Pampa-kumar.docx" target="_blank" class="w-full border-2 border-[var(--navy)] text-[var(--navy)] py-3 rounded-lg font-bold text-sm hover:bg-[rgba(0,0,128,0.05)] transition text-center inline-block" style="color: var(--navy);">Read Online</a>
                 </div>
 
             </div>
@@ -259,36 +338,36 @@
     <!-- EXTERNAL AUTHORITY BACKLINKS -->
     <section class="py-16 md:py-24 px-4 md:px-20 relative z-10 border-t border-gray-200 bg-gray-50">
         <div class="max-w-7xl mx-auto">
-            <h3 class="text-2xl md:text-3xl font-bold mb-8 text-[var(--navy)] reveal-up">Similar References & Authority Domains</h3>
-            <p class="text-sm md:text-base text-gray-600 mb-10 reveal-up">Easy Learning operates at the intersection of modern digital ed-tech and traditional institutional excellence. Below are high-authority references and associated educational frameworks that align with our pedagogical standards.</p>
+            <h3 class="text-2xl md:text-3xl font-bold mb-8 text-[var(--navy)] reveal-up" style="color: var(--navy);">Similar References & Authority Domains</h3>
+            <p class="text-lg font-medium mb-10 reveal-up text-[var(--body-text-color)]">Easy Learning operates at the intersection of modern digital ed-tech and traditional institutional excellence. Below are high-authority references and associated educational frameworks that align with our pedagogical standards.</p>
             
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 reveal-up">
                 <a href="https://asiaticsociety.culture.gov.in/" target="_blank" class="glass-panel p-4 flex items-center gap-3 bg-white border border-gray-200 hover:border-[var(--saffron)] group">
                     <div class="text-2xl">🏛️</div>
                     <div>
-                        <p class="font-bold text-sm text-[var(--navy)] group-hover:text-[var(--saffron)] transition">The Asiatic Society</p>
-                        <p class="text-xs text-gray-500">Ministry of Culture, India</p>
+                        <p class="font-bold text-sm text-[var(--navy)] group-hover:text-[var(--saffron)] transition" style="color: var(--navy);">The Asiatic Society</p>
+                        <p class="text-xs text-gray-500 font-semibold">Ministry of Culture, India</p>
                     </div>
                 </a>
                 <a href="https://bardhamansciencecentre.org/" target="_blank" class="glass-panel p-4 flex items-center gap-3 bg-white border border-gray-200 hover:border-[var(--green)] group">
                     <div class="text-2xl">🔭</div>
                     <div>
-                        <p class="font-bold text-sm text-[var(--navy)] group-hover:text-[var(--green)] transition">Bardhaman Science Centre</p>
-                        <p class="text-xs text-gray-500">NCSM Network</p>
+                        <p class="font-bold text-sm text-[var(--navy)] group-hover:text-[var(--green)] transition" style="color: var(--navy);">Bardhaman Science Centre</p>
+                        <p class="text-xs text-gray-500 font-semibold">NCSM Network</p>
                     </div>
                 </a>
                 <a href="https://www.britishcouncil.in/" target="_blank" class="glass-panel p-4 flex items-center gap-3 bg-white border border-gray-200 hover:border-[var(--navy)] group">
                     <div class="text-2xl">🇬🇧</div>
                     <div>
-                        <p class="font-bold text-sm text-[var(--navy)]">British Council India</p>
-                        <p class="text-xs text-gray-500">English Learning Standards</p>
+                        <p class="font-bold text-sm text-[var(--navy)]" style="color: var(--navy);">British Council India</p>
+                        <p class="text-xs text-gray-500 font-semibold">English Learning Standards</p>
                     </div>
                 </a>
                 <a href="https://www.coursera.org/" target="_blank" class="glass-panel p-4 flex items-center gap-3 bg-white border border-gray-200 hover:border-[var(--saffron)] group">
                     <div class="text-2xl">💻</div>
                     <div>
-                        <p class="font-bold text-sm text-[var(--navy)] group-hover:text-[var(--saffron)] transition">Coursera</p>
-                        <p class="text-xs text-gray-500">Global Ed-Tech Benchmark</p>
+                        <p class="font-bold text-sm text-[var(--navy)] group-hover:text-[var(--saffron)] transition" style="color: var(--navy);">Coursera</p>
+                        <p class="text-xs text-gray-500 font-semibold">Global Ed-Tech Benchmark</p>
                     </div>
                 </a>
             </div>
@@ -299,30 +378,29 @@
     <footer class="border-t border-gray-200 py-12 md:py-16 px-6 md:px-20 relative z-10 bg-white">
         <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-12 text-center sm:text-left">
             <div>
-                <!-- Updated Footer Logo -->
                 <div class="flex items-center gap-2 justify-center sm:justify-start mb-4">
                     <span class="text-2xl md:text-3xl">✏️</span>
-                    <span class="text-xl md:text-2xl font-bold tracking-tighter text-[var(--navy)]">EASY</span>
+                    <span class="text-xl md:text-2xl font-bold tracking-tighter text-[var(--navy)]" style="color: var(--navy);">EASY</span>
                     <span class="text-xl md:text-2xl font-bold tracking-tighter neon-text-tricolor">LEARNING</span>
                 </div>
-                <p class="text-gray-600 text-xs md:text-sm mb-4 leading-relaxed mx-auto sm:mx-0 max-w-[250px]">Premium Interactive Experience. Hosted on high-performance infrastructure for unparalleled speed and reliability.</p>
+                <p class="text-sm mb-4 leading-relaxed mx-auto sm:mx-0 max-w-[250px] font-medium">Premium Interactive Experience. Hosted on high-performance infrastructure for unparalleled speed and reliability.</p>
             </div>
             <div>
-                <h4 class="text-base md:text-lg font-bold mb-4 md:mb-6 text-[var(--navy)]">Quick Links</h4>
-                <ul class="space-y-2 md:space-y-3 text-xs md:text-sm text-gray-600 font-semibold">
+                <h4 class="text-lg font-bold mb-4 md:mb-6 text-[var(--navy)]" style="color: var(--navy);">Quick Links</h4>
+                <ul class="space-y-3 text-sm text-gray-600 font-semibold">
                     <li><a href="founder.html" class="hover:text-[var(--saffron)] transition">About the Founder</a></li>
                     <li><a href="wings.html" class="hover:text-[var(--saffron)] transition">Trust & Wings</a></li>
                     <li><a href="story.html" class="hover:text-[var(--saffron)] transition">Our Story Details</a></li>
                 </ul>
             </div>
             <div class="sm:col-span-2 lg:col-span-1">
-                <h4 class="text-base md:text-lg font-bold mb-2 md:mb-4 text-[var(--navy)]">Contact Us</h4>
-                <p class="text-xl md:text-2xl font-bold text-[var(--saffron)]">7596 909 888</p>
-                <p class="text-[10px] md:text-xs text-gray-500 mt-1 font-semibold mb-6">Call or WhatsApp</p>
-                <a href="courses.html" class="bg-[var(--green)] text-white px-6 py-3 rounded-full font-bold text-sm shadow-md hover:bg-green-700 transition pulse-btn inline-block">Enroll Now</a>
+                <h4 class="text-lg font-bold mb-2 md:mb-4 text-[var(--navy)]" style="color: var(--navy);">Contact Us</h4>
+                <p class="text-2xl font-bold text-[var(--saffron)]" style="color: var(--saffron);">7596 909 888</p>
+                <p class="text-xs text-gray-500 mt-1 font-semibold mb-6">Call or WhatsApp</p>
+                <a href="courses.html" class="bg-[var(--green)] text-white px-6 py-3 rounded-full font-bold text-sm shadow-md hover:bg-green-700 transition pulse-btn inline-block" style="color: white;">Enroll Now</a>
             </div>
         </div>
-        <div class="max-w-7xl mx-auto mt-12 md:mt-16 pt-6 md:pt-8 border-t border-gray-300 text-center text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-widest">
+        <div class="max-w-7xl mx-auto mt-12 md:mt-16 pt-6 md:pt-8 border-t border-gray-300 text-center text-xs font-bold text-gray-400 uppercase tracking-widest">
             &copy; 2026 Easy Learning Trust. All rights reserved.
         </div>
     </footer>
@@ -338,12 +416,12 @@
                 <button onclick="toggleBot()" class="text-white hover:text-[var(--saffron)] transition text-xl font-bold">&times;</button>
             </div>
             <div class="flex-grow p-4 md:p-5 overflow-y-auto space-y-4 bg-gray-50" id="botHistory">
-                <div class="bg-white border border-gray-200 p-3 md:p-4 rounded-2xl rounded-tl-sm text-xs md:text-sm text-gray-800 shadow-md font-semibold">
+                <div class="bg-white border border-gray-200 p-3 md:p-4 rounded-2xl rounded-tl-sm text-sm text-[var(--body-text-color)] shadow-md font-semibold">
                     Greetings! 🤖 Do you have any questions regarding Kalyan Bhattacharya's global references or academic lectures?
                 </div>
             </div>
             <div class="p-3 md:p-4 border-t border-gray-200 bg-white grid grid-cols-1 gap-2">
-                <button onclick="sendMsg('What did he present at The Asiatic Society?')" class="text-xs bg-gray-100 hover:bg-gray-200 border border-gray-300 py-2.5 md:py-3 px-4 rounded-xl transition text-left text-gray-700 font-semibold hover:text-[var(--navy)]">
+                <button onclick="sendMsg('What did he present at The Asiatic Society?')" class="text-sm bg-gray-100 hover:bg-gray-200 border border-gray-300 py-2.5 md:py-3 px-4 rounded-xl transition text-left font-semibold hover:text-[var(--navy)] text-[var(--body-text-color)]">
                     What did he present at The Asiatic Society?
                 </button>
             </div>
@@ -425,10 +503,10 @@
             else { botWindow.style.display = 'none'; }
         }
         function sendMsg(msg) {
-            botHistory.innerHTML += `<div class="bg-[var(--navy)] p-3 rounded-2xl rounded-tr-sm text-xs md:text-sm text-white ml-8 shadow-md border border-[rgba(0,0,128,0.2)]">${msg}</div>`;
+            botHistory.innerHTML += `<div class="bg-[var(--navy)] p-3 rounded-2xl rounded-tr-sm text-sm text-white ml-8 shadow-md border border-[rgba(0,0,128,0.2)]">${msg}</div>`;
             botHistory.scrollTop = botHistory.scrollHeight;
             const typingId = 'typing-' + Date.now();
-            botHistory.innerHTML += `<div id="${typingId}" class="text-[10px] md:text-xs text-gray-500 ml-2 mt-2 italic font-semibold">EazyBot is typing...</div>`;
+            botHistory.innerHTML += `<div id="${typingId}" class="text-xs text-gray-500 ml-2 mt-2 italic font-semibold">EazyBot is typing...</div>`;
             botHistory.scrollTop = botHistory.scrollHeight;
 
             setTimeout(() => {
@@ -437,9 +515,9 @@
                     ? "Kalyan Bhattacharya presented a scholarly paper at The Asiatic Society, linking modern educational needs with historic pedagogy! 📜" 
                     : "You can download all our global certificates from the grid above!";
                 
-                reply += `<br><br><a href="courses.html" class="inline-block bg-[var(--green)] text-white px-4 py-2 rounded-full font-bold text-xs shadow-md hover:bg-green-700 transition">Click here to Enroll &rarr;</a>`;
+                reply += `<br><br><a href="courses.html" class="inline-block bg-[var(--green)] text-white px-4 py-2 rounded-full font-bold text-xs shadow-md hover:bg-green-700 transition" style="color: white;">Click here to Enroll &rarr;</a>`;
 
-                botHistory.innerHTML += `<div class="bg-white border border-gray-200 p-3 md:p-4 rounded-2xl rounded-tl-sm text-xs md:text-sm text-gray-800 mr-8 shadow-md font-semibold">🤖 ${reply}</div>`;
+                botHistory.innerHTML += `<div class="bg-white border border-gray-200 p-3 md:p-4 rounded-2xl rounded-tl-sm text-sm text-[var(--body-text-color)] mr-8 shadow-md font-semibold">🤖 ${reply}</div>`;
                 botHistory.scrollTop = botHistory.scrollHeight;
             }, 800);
         }
