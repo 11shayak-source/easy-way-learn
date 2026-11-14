@@ -7,24 +7,56 @@
     <title>Easy Learning | Premium Education Platform by Kalyan Bhattacharya</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap');
         
         :root {
-            --saffron: #FF9933;
-            --white: #FFFFFF;
-            --green: #138808;
-            --navy: #000080;
-            --bg-white: #FFFFFF;
-            --text-main: #050505;
-            --card-light: rgba(255, 255, 255, 0.85);
+            --saffron: #FF9933; --green: #138808; --navy: #000080;
+            --bg-white: #FFFFFF; --text-main: #050505; --card-light: rgba(255, 255, 255, 0.85);
+            --body-text-color: #0b1120;
         }
 
-        body {
-            font-family: 'Space Grotesk', sans-serif;
-            background-color: var(--bg-white);
-            color: var(--text-main);
-            overflow-x: hidden;
-            scroll-behavior: smooth;
+        body { 
+            font-family: 'Space Grotesk', sans-serif; 
+            background-color: var(--bg-white); 
+            color: var(--body-text-color); 
+            overflow-x: hidden; 
+            scroll-behavior: smooth; 
+            font-size: 1.125rem;
+        }
+
+        p, li, span, div {
+            color: var(--body-text-color);
+            font-weight: 500;
+        }
+
+        .edwardian-font {
+            font-family: 'Pinyon Script', cursive;
+            font-size: 1.3em;
+        }
+
+        /* --- HEADER LAYOUT STYLES --- */
+        .header-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 1rem 2rem;
+            background: white;
+            border-bottom: 2px solid var(--navy);
+            margin-top: 35px;
+        }
+
+        .header-logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .header-address-section {
+            text-align: right;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--navy);
         }
 
         /* --- INTENSIFIED AMBIENT CANVAS --- */
@@ -59,7 +91,6 @@
 
         .glass-panel:hover::before { left: 150%; }
 
-        /* 3D Tilt Hover Effect - Disabled on Mobile for UX */
         @media (min-width: 768px) {
             .glass-panel:hover {
                 transform: translateY(-12px) rotateX(4deg) rotateY(-4deg) scale(1.03);
@@ -97,7 +128,7 @@
         .marquee-wrapper {
             background: rgba(255, 255, 255, 0.95);
             border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            position: fixed; top: 0; width: 100%; z-index: 50;
+            position: fixed; top: 0; width: 100%; z-index: 60;
             overflow: hidden; display: flex; align-items: center; height: 35px;
         }
         .marquee-track { display: flex; white-space: nowrap; animation: marquee 20s linear infinite; }
@@ -110,7 +141,7 @@
             transform: translateY(-50%) rotate(-90deg) translateY(100%);
             transform-origin: bottom right;
             background: linear-gradient(90deg, var(--saffron), var(--green));
-            color: white; padding: 12px 24px; font-weight: 700;
+            color: white !important; padding: 12px 24px; font-weight: 700;
             letter-spacing: 1px; border-radius: 12px 12px 0 0;
             cursor: pointer; z-index: 60; box-shadow: 0 -5px 20px rgba(0,0,0,0.2);
             transition: all 0.3s ease;
@@ -166,16 +197,30 @@
         Talk to our advisor for free guidance
     </div>
 
-    <!-- Main Navigation (Mobile Optimized) -->
-    <nav class="fixed w-full top-8 md:top-10 z-50 px-4 md:px-8 py-4 flex justify-between items-center bg-[rgba(255,255,255,0.9)] backdrop-blur-xl border-b border-[rgba(0,0,0,0.05)] shadow-sm">
-        
-        <!-- Updated Logo -->
-        <a href="index.html" class="text-xl md:text-2xl font-bold tracking-tighter cursor-pointer text-[var(--navy)] hover:opacity-80 transition z-50 flex flex-col">
-            <div class="flex items-center gap-2">
-                <span class="text-2xl md:text-3xl">✏️</span>
-                <span>EASY</span> <span class="neon-text-tricolor">LEARNING</span>
+    <!-- Official Letterhead Header -->
+    <header class="header-top-bar relative z-50">
+        <div class="header-logo-section">
+            <img src="easy-learning-pencil-icon.png" alt="Easy Learning Logo" class="h-16 w-auto">
+            <div class="flex flex-col">
+                <div class="text-3xl font-bold tracking-tighter text-[var(--navy)] flex items-center gap-3">
+                    EASY LEARNING
+                    <span class="text-sm font-normal text-gray-600 tracking-normal mt-1">(Going to be registered as a unit of a charity Trust)</span>
+                </div>
+                <div class="text-lg text-[var(--green)] font-semibold italic" style="color: var(--green);">Let's walk hand in hand.</div>
+                <div class="text-xs text-gray-500 font-bold mt-1">80G Registration No: [Pending Details]</div>
             </div>
-            <span class="text-[10px] text-gray-500 tracking-normal normal-case leading-none mt-1">easywaytolearn.online</span>
+        </div>
+        <div class="header-address-section">
+            <p style="color: var(--navy);">5, Chetla Road</p>
+            <p style="color: var(--navy);">Kolkata-27</p>
+        </div>
+    </header>
+
+    <!-- Main Navigation (Mobile Optimized) -->
+    <nav class="sticky top-[35px] z-40 w-full px-4 md:px-8 py-4 flex justify-between items-center bg-[rgba(255,255,255,0.9)] backdrop-blur-xl border-b border-[rgba(0,0,0,0.05)] shadow-sm">
+        
+        <a href="index.html" class="edwardian-font font-bold text-[var(--navy)] hover:opacity-80 transition z-50 text-3xl" style="color: var(--navy);">
+            Easy English
         </a>
         
         <!-- Desktop Links -->
@@ -189,7 +234,7 @@
         </div>
 
         <div class="flex items-center gap-4 z-50">
-            <a href="courses.html" class="hidden md:inline-block bg-[var(--navy)] text-white px-6 py-2 rounded-full font-bold text-sm hover:scale-110 transition shadow-lg pulse-btn">
+            <a href="courses.html" class="hidden md:inline-block bg-[var(--navy)] text-white px-6 py-2 rounded-full font-bold text-sm hover:scale-110 transition shadow-lg pulse-btn" style="color: white;">
                 Enroll
             </a>
             <!-- Mobile Menu Toggle Button -->
@@ -208,26 +253,26 @@
             <a href="references.html" class="border-b border-gray-200 pb-2">References</a>
             <a href="abroad.html" class="border-b border-gray-200 pb-2">Study Abroad</a>
             <a href="story.html" class="border-b border-gray-200 pb-2">Our Story</a>
-            <a href="courses.html" class="bg-[var(--navy)] text-white px-8 py-4 rounded-full mt-4 mx-auto w-3/4 shadow-lg pulse-btn">Enroll Now</a>
+            <a href="courses.html" class="bg-[var(--navy)] text-white px-8 py-4 rounded-full mt-4 mx-auto w-3/4 shadow-lg pulse-btn" style="color: white;">Enroll Now</a>
         </div>
     </div>
 
     <!-- HERO SECTION WITH AUTO-PLAY YOUTUBE -->
-    <main class="min-h-[85vh] flex flex-col justify-center items-center text-center px-4 pt-32 md:pt-40 pb-16 md:pb-20 relative z-10">
+    <main class="min-h-[85vh] flex flex-col justify-center items-center text-center px-4 pt-20 md:pt-28 pb-16 md:pb-20 relative z-10">
         <div class="max-w-5xl mx-auto mt-6 md:mt-10 w-full">
-            <h2 class="text-[var(--saffron)] font-bold tracking-[0.2em] md:tracking-[0.3em] uppercase text-xs md:text-sm mb-4 md:mb-6 reveal-up">Welcome to India's Next-Gen Education Portal</h2>
-            <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 md:mb-8 leading-tight reveal-up text-[var(--navy)]" style="animation-delay: 0.1s;">
+            <h2 class="text-[var(--saffron)] font-bold tracking-[0.2em] md:tracking-[0.3em] uppercase text-xs md:text-sm mb-4 md:mb-6 reveal-up" style="color: var(--saffron);">Welcome to India's Next-Gen Education Portal</h2>
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 md:mb-8 leading-tight reveal-up text-[var(--navy)]" style="animation-delay: 0.1s; color: var(--navy);">
                 Master Knowledge.<br>
                 <span class="neon-text-tricolor">Redefine Your Future.</span>
             </h1>
             
-            <p class="text-base md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed reveal-up font-semibold px-2" style="animation-delay: 0.2s;">
+            <p class="text-lg md:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed reveal-up font-semibold px-2" style="animation-delay: 0.2s;">
                 Easy Learning is the ultimate convergence of advanced online education, cultural heritage, and deep scientific inquiry.
             </p>
 
             <div class="flex flex-col sm:flex-row gap-4 justify-center reveal-up w-full px-4 mb-10" style="animation-delay: 0.3s;">
-                <a href="courses.html" class="bg-[var(--navy)] text-white w-full sm:w-auto px-8 py-4 rounded-full font-bold text-sm md:text-lg hover:scale-105 transition shadow-lg pulse-btn">Explore Curriculum</a>
-                <a href="founder.html" class="border-2 border-[var(--navy)] text-[var(--navy)] w-full sm:w-auto px-8 py-4 rounded-full font-bold text-sm md:text-lg hover:bg-[rgba(0,0,128,0.05)] transition">Meet the Founder</a>
+                <a href="courses.html" class="bg-[var(--navy)] text-white w-full sm:w-auto px-8 py-4 rounded-full font-bold text-sm md:text-lg hover:scale-105 transition shadow-lg pulse-btn" style="color: white;">Explore Curriculum</a>
+                <a href="founder.html" class="border-2 border-[var(--navy)] text-[var(--navy)] w-full sm:w-auto px-8 py-4 rounded-full font-bold text-sm md:text-lg hover:bg-[rgba(0,0,128,0.05)] transition" style="color: var(--navy);">Meet the Founder</a>
             </div>
 
             <!-- YouTube AutoPlay Video -->
@@ -246,227 +291,148 @@
                     <div class="absolute inset-0 bg-[var(--navy)] opacity-10"></div>
                 </div>
                 
-                <div class="glass-panel p-6 border-l-4 border-l-[var(--saffron)]">
-                    <p class="font-bold text-base md:text-lg text-[var(--saffron)] mb-2">M.Sc. UK (Engineering), Ex. CEO, Board Member UK</p>
+                <div class="glass-panel p-6 border-l-4 border-l-[var(--saffron)] text-center lg:text-left">
+                    <h3 class="text-2xl font-bold text-[var(--navy)] mb-1" style="color: var(--navy);">Kalyan Bhattacharya</h3>
+                    <p class="font-bold text-base md:text-lg text-[var(--saffron)] mb-2" style="color: var(--saffron);">M.Sc. (UK), Ex.CEO (UK)</p>
                     <div class="h-px bg-gray-300 my-4"></div>
-                    <p class="font-bold text-[var(--navy)] mb-3">Active member of:</p>
-                    <ul class="space-y-2 text-xs md:text-sm text-gray-700 font-semibold">
-                        <li class="flex gap-2"><span class="text-[var(--green)]">✓</span> IPMA World</li>
-                        <li class="flex gap-2"><span class="text-[var(--green)]">✓</span> British Council Alumni UK</li>
-                        <li class="flex gap-2"><span class="text-[var(--green)]">✓</span> Commonwealth Foundation</li>
+                    <p class="font-bold text-[var(--navy)] mb-3" style="color: var(--navy);">Active member of:</p>
+                    <ul class="space-y-2 text-sm font-semibold">
+                        <li class="flex items-center justify-center lg:justify-start gap-2"><span class="text-[var(--green)]">✓</span> IPMA World</li>
+                        <li class="flex items-center justify-center lg:justify-start gap-2"><span class="text-[var(--green)]">✓</span> British Council Alumni UK</li>
+                        <li class="flex items-center justify-center lg:justify-start gap-2"><span class="text-[var(--green)]">✓</span> Asiatic Society</li>
+                        <li class="flex items-center justify-center lg:justify-start gap-2"><span class="text-[var(--green)]">✓</span> Commonwealth Foundation</li>
                     </ul>
                 </div>
             </div>
             
             <div class="w-full lg:w-7/12 reveal-up">
-                <h2 class="text-3xl md:text-5xl font-bold mb-6 md:mb-8 text-[var(--navy)]">Let me introduce myself. <br>I am <span class="text-[var(--saffron)]">Kalyan Bhattacharya.</span></h2>
-                <div class="space-y-4 md:space-y-6 text-gray-700 text-base md:text-lg leading-relaxed">
+                <h2 class="text-2xl md:text-3xl font-bold mb-6 md:mb-8 text-[var(--navy)]" style="color: var(--navy);">Let me introduce myself. <br>I am <span class="text-[var(--saffron)]" style="color: var(--saffron);">Kalyan Bhattacharya.</span></h2>
+                <div class="space-y-4 md:space-y-6 text-lg leading-relaxed">
                     <p>
                         Education is not merely the transfer of information; it is the ignition of potential. As the visionary behind Easy Learning, my goal has been to construct a platform that transcends the rigid boundaries of traditional academia. We have built an ecosystem designed specifically for the modern learner.
                     </p>
                     <p>
                         This platform represents a dedicated landing page highlighting my journey, achievements, and vision to build ultimate trust with our students and parents. From conceptualizing the 'Easy Learning English' framework to establishing our core trust wings, every element here is meticulously engineered.
                     </p>
-                    <p class="border-l-4 border-[var(--green)] pl-4 md:pl-6 italic text-gray-600 bg-white p-4 rounded-r-lg shadow-sm text-sm md:text-base">
+                    <p class="border-l-4 border-[var(--green)] pl-4 md:pl-6 italic bg-white p-4 rounded-r-lg shadow-sm text-base">
                         "Our guarantee is simple: Easy Learning is massively better than combined industry alternatives in terms of user-friendliness, modern aesthetic appeal, and targeted outcomes."
                     </p>
                     <div class="pt-4 md:pt-6">
-                        <p class="text-xs md:text-sm font-bold uppercase tracking-widest text-[var(--saffron)] mb-2">Connect Directly:</p>
-                        <p class="text-xl md:text-2xl font-bold text-[var(--navy)]">Call / WhatsApp: <a href="tel:7596909888" class="text-[var(--navy)] hover:text-[var(--green)] transition">7596 909 888</a></p>
+                        <p class="text-sm font-bold uppercase tracking-widest text-[var(--saffron)] mb-2" style="color: var(--saffron);">Connect Directly:</p>
+                        <p class="text-xl md:text-2xl font-bold text-[var(--navy)]" style="color: var(--navy);">Call / WhatsApp: <a href="tel:7596909888" class="text-[var(--navy)] hover:text-[var(--green)] transition" style="color: var(--navy);">7596 909 888</a></p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SCIENCE BRIEFING (Replaced 'The Trust: 2 Core Wings' section) -->
-    <section class="py-16 md:py-24 px-4 md:px-20 relative z-10 bg-white">
+    <!-- ACHIEVEMENTS & CREDENTIALS SECTION -->
+    <section class="py-16 md:py-24 px-4 md:px-20 relative z-10 border-t border-[rgba(0,0,0,0.05)] bg-white">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-12 md:mb-16 reveal-up">
-                <h2 class="text-xs md:text-sm font-bold tracking-[0.2em] text-[var(--green)] uppercase mb-4">Analytical Foundation</h2>
-                <h3 class="text-3xl md:text-5xl font-bold text-[var(--navy)]">Science <span class="neon-text-tricolor">Briefing</span></h3>
+                <h3 class="text-3xl md:text-5xl font-bold text-[var(--navy)]" style="color: var(--navy);">Academic Excellence & Recognition</h3>
+                <p class="text-lg mt-4 font-semibold">Guided by proven expertise and scholarly distinction</p>
             </div>
             
-            <div class="glass-panel p-8 md:p-12 reveal-up bg-gray-50 border-t-4 border-t-[var(--navy)] shadow-md">
-                <div class="text-center text-gray-700 leading-relaxed font-semibold text-sm md:text-lg italic">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Visva-Bharati -->
+                <div class="glass-panel p-8 text-center reveal-up hover:-translate-y-2 transition duration-300 bg-gray-50">
+                    <div class="text-5xl mb-4">🏛️</div>
+                    <h4 class="text-xl font-bold text-[var(--navy)] mb-2" style="color: var(--navy);">Visva-Bharati University</h4>
+                    <p class="text-sm font-bold text-[var(--saffron)] mb-4" style="color: var(--saffron);">2009</p>
+                    <p class="text-base font-medium">Honored guest lecturer for the prestigious Leonard Elmhirst Memorial Lecture at the Rural Extension Centre.</p>
+                </div>
+                
+                <!-- Science Centre -->
+                <div class="glass-panel p-8 text-center reveal-up hover:-translate-y-2 transition duration-300 bg-gray-50" style="animation-delay: 0.1s;">
+                    <div class="text-5xl mb-4">🔬</div>
+                    <h4 class="text-xl font-bold text-[var(--navy)] mb-2" style="color: var(--navy);">Bardhaman Science Centre</h4>
+                    <p class="text-sm font-bold text-[var(--saffron)] mb-4" style="color: var(--saffron);">2017</p>
+                    <p class="text-base font-medium">Invited by the Ministry of Culture, Govt. of India to deliver a Popular Science Lecture as Guest of Honour.</p>
+                </div>
+                
+                <!-- Asiatic Society -->
+                <div class="glass-panel p-8 text-center reveal-up hover:-translate-y-2 transition duration-300 bg-gray-50" style="animation-delay: 0.2s;">
+                    <div class="text-5xl mb-4">📜</div>
+                    <h4 class="text-xl font-bold text-[var(--navy)] mb-2" style="color: var(--navy);">The Asiatic Society</h4>
+                    <p class="text-sm font-bold text-[var(--saffron)] mb-4" style="color: var(--saffron);">2018</p>
+                    <p class="text-base font-medium">Presented research on the impacts of Sanskrit upon Indian Languages at the National Seminar in collaboration with ABILAC.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SCIENCE BRIEFING -->
+    <section class="py-16 md:py-24 px-4 md:px-20 relative z-10 bg-gray-50 border-t border-[rgba(0,0,0,0.05)]">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12 md:mb-16 reveal-up">
+                <h2 class="text-sm font-bold tracking-[0.2em] text-[var(--green)] uppercase mb-4" style="color: var(--green);">Analytical Foundation</h2>
+                <h3 class="text-3xl md:text-5xl font-bold text-[var(--navy)]" style="color: var(--navy);">Science <span class="neon-text-tricolor">Briefing</span></h3>
+            </div>
+            
+            <div class="glass-panel p-8 md:p-12 reveal-up bg-white border-t-4 border-t-[var(--navy)] shadow-md">
+                <div class="text-center leading-relaxed font-semibold text-lg italic">
                     [ Kalyan Sir: Please insert your provided Science Briefing text here. ]
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- IDEAL EDUCATION (New Section added as instructed) -->
-    <section class="py-16 md:py-24 px-4 md:px-20 relative z-10 border-t border-[rgba(0,0,0,0.05)] bg-gray-50">
+    <!-- IDEAL EDUCATION -->
+    <section class="py-16 md:py-24 px-4 md:px-20 relative z-10 border-t border-[rgba(0,0,0,0.05)] bg-white">
         <div class="max-w-5xl mx-auto">
             <div class="text-center mb-10 md:mb-14 reveal-up">
-                <h2 class="text-3xl md:text-5xl font-bold text-[var(--navy)]">Ideal <span class="text-[var(--saffron)]">Education</span></h2>
+                <h2 class="text-3xl md:text-5xl font-bold text-[var(--navy)]" style="color: var(--navy);">Ideal <span class="text-[var(--saffron)]" style="color: var(--saffron);">Education</span></h2>
             </div>
-            <div class="glass-panel p-8 md:p-12 reveal-up bg-white border-l-4 border-l-[var(--green)] shadow-lg">
-                <p class="text-base md:text-lg text-gray-700 leading-relaxed mb-6">
+            <div class="glass-panel p-8 md:p-12 reveal-up bg-gray-50 border-l-4 border-l-[var(--green)] shadow-lg">
+                <p class="text-lg leading-relaxed mb-6">
                     The world-wide ‘conventional education’ of today emphasizes upon memorizing the text through repetitive readings and superficial understanding. Because the ‘marks or the number’ is the ultimate goal of this education system. This system cannot afford to give more time for real understanding of the subject.
                 </p>
-                <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                <p class="text-lg leading-relaxed">
                     The structured tutoring of today no doubt succeeds in helping the students pass the examination in schools, colleges and competitive examinations with good marks to an extent, but prevents the students to go deeper into the subject and collect invaluable gems from the depth of the sea and enjoy the aesthetic pleasure. And consequently this teaching fails to create boundless joy in the minds and hearts of the students which in turn would have sparked true enlightenment and innovation.
                 </p>
             </div>
         </div>
     </section>
 
-    <!-- COURSE PORTFOLIO & PRICING -->
-    <section class="py-16 md:py-24 px-4 md:px-20 relative z-10 border-t border-gray-200 bg-white">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-12 md:mb-16 reveal-up">
-                <h2 class="text-xs md:text-sm font-bold tracking-[0.2em] text-[var(--saffron)] uppercase mb-4">Investment Packages</h2>
-                <h3 class="text-3xl md:text-5xl font-bold mb-4 md:mb-6 text-[var(--navy)]">Course Portfolio & <span class="neon-text-tricolor">Pricing</span></h3>
-                <p class="text-sm md:text-base text-gray-600 max-w-2xl mx-auto px-2">Full transactional setup allowing students to purchase courses directly on the site via UPI and secure banking transactions.</p>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Basic 299 -->
-                <div class="glass-panel p-6 md:p-8 flex flex-col reveal-up bg-white border-t-4 border-t-gray-300" style="animation-delay: 0.1s;">
-                    <div class="text-gray-500 text-[10px] md:text-xs font-bold tracking-widest mb-4">STARTER TIER</div>
-                    <h4 class="text-xl md:text-2xl font-bold mb-2 text-[var(--navy)]">Basic Model I</h4>
-                    <p class="text-xs md:text-sm text-gray-600 mb-6 flex-grow">Foundation level course designed specifically for Class 8 and 10 students looking to grasp essential concepts.</p>
-                    <div class="mb-6 md:mb-8 text-[var(--navy)]">
-                        <span class="text-3xl md:text-4xl font-bold">₹299</span>
-                    </div>
-                    <a href="courses.html" class="w-full block text-center bg-gray-200 text-gray-800 py-3 rounded-lg font-bold hover:bg-gray-300 transition text-sm">Enroll via UPI</a>
-                </div>
-
-                <!-- Basic 499 -->
-                <div class="glass-panel p-6 md:p-8 flex flex-col reveal-up bg-white border-t-4 border-t-gray-500" style="animation-delay: 0.2s;">
-                    <div class="text-gray-600 text-[10px] md:text-xs font-bold tracking-widest mb-4">INTERMEDIATE TIER</div>
-                    <h4 class="text-xl md:text-2xl font-bold mb-2 text-[var(--navy)]">Basic Model II</h4>
-                    <p class="text-xs md:text-sm text-gray-600 mb-6 flex-grow">Advanced fundamentals tailored for Class 12 students transitioning to higher academics.</p>
-                    <div class="mb-6 md:mb-8 text-[var(--navy)]">
-                        <span class="text-3xl md:text-4xl font-bold">₹499</span>
-                    </div>
-                    <a href="courses.html" class="w-full block text-center bg-gray-800 text-white py-3 rounded-lg font-bold hover:bg-black transition text-sm">Enroll via UPI</a>
-                </div>
-
-                <!-- Premium 2999 -->
-                <div class="glass-panel p-6 md:p-8 flex flex-col reveal-up bg-white border-t-4 border-t-[var(--saffron)] relative overflow-hidden" style="animation-delay: 0.3s;">
-                    <div class="absolute top-4 right-[-30px] bg-[var(--saffron)] text-black text-[10px] font-bold py-1 px-10 rotate-45 shadow-md">POPULAR</div>
-                    <div class="text-[var(--saffron)] text-[10px] md:text-xs font-bold tracking-widest mb-4">PRO TIER</div>
-                    <h4 class="text-xl md:text-2xl font-bold mb-2 text-[var(--navy)]">Premium Model I</h4>
-                    <p class="text-xs md:text-sm text-gray-600 mb-6 flex-grow">A robust, interactive platform designed for maximum conversion. Includes advanced animations and chatbot guidance.</p>
-                    <div class="mb-6 md:mb-8 text-[var(--saffron)]">
-                        <span class="text-3xl md:text-4xl font-bold">₹2,999</span>
-                    </div>
-                    <a href="courses.html" class="w-full block text-center bg-[var(--saffron)] text-white py-3 rounded-lg font-bold hover:brightness-110 transition text-sm shadow-md pulse-btn">Enroll via UPI</a>
-                </div>
-
-                <!-- Premium 5999 -->
-                <div class="glass-panel p-6 md:p-8 flex flex-col reveal-up bg-white border-t-4 border-t-[var(--green)] relative overflow-hidden" style="animation-delay: 0.4s;">
-                    <div class="absolute inset-0 bg-gradient-to-b from-[rgba(19,136,8,0.02)] to-transparent pointer-events-none"></div>
-                    <div class="text-[var(--green)] text-[10px] md:text-xs font-bold tracking-widest mb-4">ELITE TIER</div>
-                    <h4 class="text-xl md:text-2xl font-bold mb-2 text-[var(--navy)]">Premium Model II</h4>
-                    <p class="text-xs md:text-sm text-gray-600 mb-6 flex-grow">Dedicated pages for IITians, IPS/UPSC aspirants. Includes complete interactive experience and full e-commerce capabilities.</p>
-                    <div class="mb-6 md:mb-8 text-[var(--green)]">
-                        <span class="text-3xl md:text-4xl font-bold">₹5,999</span>
-                    </div>
-                    <a href="courses.html" class="w-full block text-center bg-[var(--green)] text-white py-3 rounded-lg font-bold hover:brightness-110 transition text-sm shadow-md pulse-btn">Enroll via UPI</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- REFERENCES WITH UPDATED LINKS -->
-    <section class="py-16 md:py-24 px-4 md:px-20 relative z-10 border-t border-gray-200 bg-gray-50">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-3xl md:text-5xl font-bold mb-10 md:mb-12 text-center reveal-up"><span class="neon-text-tricolor">REFERENCES</span></h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 auto-rows-fr">
-                <!-- Scott Thurston -->
-                <div class="glass-panel p-6 md:p-8 flex flex-col items-center text-center reveal-left border-t-4 border-t-[var(--navy)] bg-white">
-                    <div class="w-full h-32 bg-gray-100 rounded-lg mb-4 flex items-center justify-center border border-gray-300">
-                        <span class="text-gray-400 text-xs font-bold uppercase">Scott Thurston Document</span>
-                    </div>
-                    <h3 class="text-xl md:text-2xl font-bold text-[var(--saffron)] mb-2">Scott Thurston</h3>
-                    <p class="text-xs md:text-sm text-gray-600 mb-4 flex-grow">Official reference detailing educational standards and global impact.</p>
-                    <a href="Kalyan_Sir_Files/Reference_Scott Thurston.docx" target="_blank" class="w-full border-2 border-[var(--navy)] text-[var(--navy)] py-2 rounded-lg font-bold text-sm hover:bg-[rgba(0,0,128,0.05)] transition text-center">Read Online</a>
-                </div>
-
-                <!-- Pampa Kumar -->
-                <div class="glass-panel p-6 md:p-8 flex flex-col items-center text-center reveal-up border-t-4 border-t-[var(--saffron)] bg-white" style="animation-delay: 0.1s;">
-                    <div class="w-full h-32 bg-gray-100 rounded-lg mb-4 flex items-center justify-center border border-gray-300">
-                        <span class="text-gray-400 text-xs font-bold uppercase">Pampa Kumar Document</span>
-                    </div>
-                    <h3 class="text-xl md:text-2xl font-bold text-[var(--navy)] mb-2">Pampa Kumar</h3>
-                    <p class="text-xs md:text-sm text-gray-600 mb-4 flex-grow">Verified testimonial affirming the effectiveness of our models.</p>
-                    <a href="Kalyan_Sir_Files/Pampa-kumar.docx" target="_blank" class="w-full border-2 border-[var(--navy)] text-[var(--navy)] py-2 rounded-lg font-bold text-sm hover:bg-[rgba(0,0,128,0.05)] transition text-center">Read Online</a>
-                </div>
-
-                <!-- Bardhaman Science Center Lecture -->
-                <div class="glass-panel p-6 md:p-8 flex flex-col justify-center relative overflow-hidden reveal-left min-h-[180px] md:min-h-[200px] bg-white border border-gray-200">
-                    <div class="absolute top-0 right-0 w-24 md:w-32 h-24 md:h-32 bg-[var(--green)] filter blur-[60px] md:blur-[80px] opacity-10"></div>
-                    <div class="text-[var(--green)] text-[10px] md:text-xs font-bold tracking-widest mb-2">LECTURE</div>
-                    <h3 class="text-xl md:text-2xl font-bold mb-2 text-[var(--navy)]">Bardhaman Science Center Lecture</h3>
-                    <p class="text-gray-600 text-sm">Insights and educational discourse delivered directly at the Bardhaman Science Center.</p>
-                </div>
-
-                <!-- Asiatic Society Presentation -->
-                <div class="glass-panel p-6 md:p-8 flex flex-col justify-center reveal-up min-h-[180px] md:min-h-[200px] bg-white border border-gray-200" style="animation-delay: 0.2s;">
-                    <div class="absolute top-0 right-0 w-24 md:w-32 h-24 md:h-32 bg-[var(--saffron)] filter blur-[60px] md:blur-[80px] opacity-10"></div>
-                    <div class="text-[var(--saffron)] text-[10px] md:text-xs font-bold tracking-widest mb-2">ACADEMIC</div>
-                    <h3 class="text-xl md:text-2xl font-bold mb-2 text-[var(--navy)]">Presentation of Paper in Asiatic Society</h3>
-                    <p class="text-gray-600 text-sm">Formal presentation and scholarly contribution delivered at the esteemed Asiatic Society.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- COMPETITOR COMPARISON & STUDY ABROAD -->
-    <section class="py-16 md:py-24 px-4 md:px-20 relative z-10 border-t border-gray-200 bg-white">
+    <section class="py-16 md:py-24 px-4 md:px-20 relative z-10 border-t border-gray-200 bg-gray-50">
         <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-10 md:gap-16">
             <!-- Competitor Comparison -->
             <div class="w-full lg:w-1/2 reveal-left">
-                <h3 class="text-2xl md:text-3xl font-bold mb-6 md:mb-8 text-[var(--navy)]">Competitor <span class="text-[var(--saffron)]">Comparison</span></h3>
-                <p class="text-sm md:text-base text-gray-600 mb-6 md:mb-8">A data-backed review showing other brands' performance and demonstrating why Easy Learning is the superior choice.</p>
+                <h3 class="text-2xl md:text-3xl font-bold mb-6 md:mb-8 text-[var(--navy)]" style="color: var(--navy);">Competitor <span class="text-[var(--saffron)]" style="color: var(--saffron);">Comparison</span></h3>
+                <p class="text-base mb-6 md:mb-8">A data-backed review showing other brands' performance and demonstrating why Easy Learning is the superior choice.</p>
                 
                 <div class="space-y-3 md:space-y-4">
-                    <div class="glass-panel p-4 md:p-5 flex flex-col sm:flex-row justify-between items-start sm:items-center bg-gray-50 border border-gray-200 gap-2">
-                        <span class="font-bold text-sm md:text-base text-[var(--navy)]">The British Institutes</span>
-                        <span class="text-[var(--green)] text-xs md:text-sm font-bold bg-[rgba(19,136,8,0.1)] px-3 py-1 rounded-full w-fit">Outperformed by EL</span>
+                    <div class="glass-panel p-4 md:p-5 flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white border border-gray-200 gap-2">
+                        <span class="font-bold text-base text-[var(--navy)]" style="color: var(--navy);">The British Institutes</span>
+                        <span class="text-[var(--green)] text-sm font-bold bg-[rgba(19,136,8,0.1)] px-3 py-1 rounded-full w-fit" style="color: var(--green);">Outperformed by EL</span>
                     </div>
-                    <div class="glass-panel p-4 md:p-5 flex flex-col sm:flex-row justify-between items-start sm:items-center bg-gray-50 border border-gray-200 gap-2">
-                        <span class="font-bold text-sm md:text-base text-[var(--navy)]">Coursera</span>
-                        <span class="text-[var(--green)] text-xs md:text-sm font-bold bg-[rgba(19,136,8,0.1)] px-3 py-1 rounded-full w-fit">Outperformed by EL</span>
+                    <div class="glass-panel p-4 md:p-5 flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white border border-gray-200 gap-2">
+                        <span class="font-bold text-base text-[var(--navy)]" style="color: var(--navy);">Coursera</span>
+                        <span class="text-[var(--green)] text-sm font-bold bg-[rgba(19,136,8,0.1)] px-3 py-1 rounded-full w-fit" style="color: var(--green);">Outperformed by EL</span>
                     </div>
-                    <div class="glass-panel p-4 md:p-5 flex flex-col sm:flex-row justify-between items-start sm:items-center bg-gray-50 border border-gray-200 gap-2">
-                        <span class="font-bold text-sm md:text-base text-[var(--navy)]">British Council (Learn English)</span>
-                        <span class="text-[var(--green)] text-xs md:text-sm font-bold bg-[rgba(19,136,8,0.1)] px-3 py-1 rounded-full w-fit">Outperformed by EL</span>
+                    <div class="glass-panel p-4 md:p-5 flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white border border-gray-200 gap-2">
+                        <span class="font-bold text-base text-[var(--navy)]" style="color: var(--navy);">British Council (Learn English)</span>
+                        <span class="text-[var(--green)] text-sm font-bold bg-[rgba(19,136,8,0.1)] px-3 py-1 rounded-full w-fit" style="color: var(--green);">Outperformed by EL</span>
                     </div>
-                    <div class="glass-panel p-4 md:p-5 flex flex-col sm:flex-row justify-between items-start sm:items-center bg-gray-50 border border-gray-200 gap-2">
-                        <span class="font-bold text-sm md:text-base text-[var(--navy)]">Aksent / National Institute</span>
-                        <span class="text-[var(--green)] text-xs md:text-sm font-bold bg-[rgba(19,136,8,0.1)] px-3 py-1 rounded-full w-fit">Outperformed by EL</span>
+                    <div class="glass-panel p-4 md:p-5 flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white border border-gray-200 gap-2">
+                        <span class="font-bold text-base text-[var(--navy)]" style="color: var(--navy);">Aksent / National Institute</span>
+                        <span class="text-[var(--green)] text-sm font-bold bg-[rgba(19,136,8,0.1)] px-3 py-1 rounded-full w-fit" style="color: var(--green);">Outperformed by EL</span>
                     </div>
                 </div>
             </div>
 
             <!-- Study Abroad Guide -->
             <div class="w-full lg:w-1/2 reveal-up">
-                <h3 class="text-2xl md:text-3xl font-bold mb-6 md:mb-8 text-[var(--navy)]">Study <span class="text-[var(--green)]">Abroad Guide</span></h3>
-                <div class="glass-panel p-6 md:p-10 bg-gray-50 border-l-4 border-l-[var(--green)] h-full flex flex-col justify-center">
-                    <div class="text-4xl md:text-5xl mb-6 shadow-sm inline-block rounded-full w-14 md:w-16 h-14 md:h-16 flex items-center justify-center bg-white border border-gray-200">🌍</div>
-                    <p class="text-sm md:text-lg text-gray-700 leading-relaxed font-semibold">
+                <h3 class="text-2xl md:text-3xl font-bold mb-6 md:mb-8 text-[var(--navy)]" style="color: var(--navy);">Study <span class="text-[var(--green)]" style="color: var(--green);">Abroad Guide</span></h3>
+                <div class="glass-panel p-6 md:p-10 bg-white border-l-4 border-l-[var(--green)] h-full flex flex-col justify-center">
+                    <div class="text-4xl md:text-5xl mb-6 shadow-sm inline-block rounded-full w-14 md:w-16 h-14 md:h-16 flex items-center justify-center bg-gray-50 border border-gray-200">🌍</div>
+                    <p class="text-lg leading-relaxed font-semibold">
                         Proficiency in English opens the gateway to the entire world. It simplifies studying any course globally and allows you to easily pass standardized exams like IELTS and TOEFL with excellent scores, paving the way for a smooth and highly successful international academic journey.
                     </p>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- OUR STORY PAGE DETAILS -->
-    <section class="py-16 md:py-24 px-4 md:px-20 relative z-10 border-t border-gray-200 bg-gray-50">
-        <div class="max-w-5xl mx-auto text-center reveal-up">
-            <h2 class="text-3xl md:text-4xl font-bold mb-6 md:mb-8 text-[var(--navy)]">Story Page / <span class="text-[var(--saffron)]">Details</span></h2>
-            <p class="text-sm md:text-lg text-gray-700 leading-relaxed mb-6 md:mb-8 px-2">
-                The inception of Easy Learning was born from a singular vision by Kalyan Bhattacharya: to democratize elite education. Recognizing the gap between expensive metropolitan institutions and eager minds across districts, we established a hybrid model. Through the structural scaffolding of our "Basic Models" to the cutting-edge AI-assisted "Premium Models", our story is one of relentless innovation. By synergizing the logical rigor of our Science Club with the profound depth of our Education wing, we have built not just a website, but a movement. 
-            </p>
-            <p class="text-sm md:text-lg text-gray-700 leading-relaxed px-2">
-                As detailed in our Logo Trust Fund disclosures, our operational integrity is paramount. From empowering students starting from Class 8 up to any level with Easy Learning English, to guiding UPSC/IPS aspirants, every chapter of our story is written by the success of our alumni.
-            </p>
         </div>
     </section>
 
@@ -477,31 +443,31 @@
                 <!-- Updated Footer Logo -->
                 <div class="flex items-center gap-2 justify-center sm:justify-start mb-4">
                     <span class="text-2xl md:text-3xl">✏️</span>
-                    <span class="text-xl md:text-2xl font-bold tracking-tighter text-[var(--navy)]">EASY</span>
+                    <span class="text-xl md:text-2xl font-bold tracking-tighter text-[var(--navy)]" style="color: var(--navy);">EASY</span>
                     <span class="text-xl md:text-2xl font-bold tracking-tighter neon-text-tricolor">LEARNING</span>
                 </div>
-                <p class="text-gray-600 text-xs md:text-sm mb-4 leading-relaxed mx-auto sm:mx-0 max-w-[250px]">
+                <p class="text-sm mb-4 leading-relaxed mx-auto sm:mx-0 max-w-[250px] font-medium">
                     Premium Interactive Experience. Hosted on high-performance infrastructure for unparalleled speed and reliability.
                 </p>
                 <div class="glass-panel p-3 md:p-4 bg-gray-50 border border-gray-200 inline-block w-fit mx-auto sm:mx-0">
-                    <p class="text-[10px] md:text-xs font-bold text-[var(--navy)]">LOGO TRUST FUND DETAILS</p>
-                    <p class="text-[10px] md:text-xs text-gray-500 mt-1 font-semibold">Verified & Registered Entity</p>
+                    <p class="text-xs font-bold text-[var(--navy)]" style="color: var(--navy);">LOGO TRUST FUND DETAILS</p>
+                    <p class="text-xs mt-1 font-semibold">Verified & Registered Entity</p>
                 </div>
             </div>
 
             <div>
-                <h4 class="text-base md:text-lg font-bold mb-4 md:mb-6 text-[var(--navy)]">Course Fees</h4>
-                <ul class="space-y-2 md:space-y-3 text-xs md:text-sm text-gray-700 font-semibold max-w-[250px] mx-auto sm:mx-0">
-                    <li class="flex justify-between border-b border-gray-200 pb-2"><span>Basic Model I</span> <span class="text-[var(--navy)] font-bold">₹299</span></li>
-                    <li class="flex justify-between border-b border-gray-200 pb-2"><span>Basic Model II</span> <span class="text-[var(--navy)] font-bold">₹499</span></li>
-                    <li class="flex justify-between border-b border-gray-200 pb-2"><span>Premium Model I</span> <span class="text-[var(--saffron)] font-bold">₹2,999</span></li>
-                    <li class="flex justify-between"><span>Premium Model II</span> <span class="text-[var(--green)] font-bold">₹5,999</span></li>
+                <h4 class="text-lg font-bold mb-4 md:mb-6 text-[var(--navy)]" style="color: var(--navy);">Course Fees</h4>
+                <ul class="space-y-3 text-sm font-semibold max-w-[250px] mx-auto sm:mx-0">
+                    <li class="flex justify-between border-b border-gray-200 pb-2"><span>Basic Model I</span> <span class="text-[var(--navy)] font-bold" style="color: var(--navy);">₹299</span></li>
+                    <li class="flex justify-between border-b border-gray-200 pb-2"><span>Basic Model II</span> <span class="text-[var(--navy)] font-bold" style="color: var(--navy);">₹499</span></li>
+                    <li class="flex justify-between border-b border-gray-200 pb-2"><span>Premium Model I</span> <span class="text-[var(--saffron)] font-bold" style="color: var(--saffron);">₹2,999</span></li>
+                    <li class="flex justify-between"><span>Premium Model II</span> <span class="text-[var(--green)] font-bold" style="color: var(--green);">₹5,999</span></li>
                 </ul>
             </div>
 
             <div>
-                <h4 class="text-base md:text-lg font-bold mb-4 md:mb-6 text-[var(--navy)]">Quick Links</h4>
-                <ul class="space-y-2 md:space-y-3 text-xs md:text-sm text-gray-600 font-semibold">
+                <h4 class="text-lg font-bold mb-4 md:mb-6 text-[var(--navy)]" style="color: var(--navy);">Quick Links</h4>
+                <ul class="space-y-3 text-sm font-semibold">
                     <li><a href="founder.html" class="hover:text-[var(--saffron)] transition">About the Founder</a></li>
                     <li><a href="abroad.html" class="hover:text-[var(--saffron)] transition">Study Abroad Guide</a></li>
                     <li><a href="references.html" class="hover:text-[var(--saffron)] transition">References</a></li>
@@ -510,20 +476,19 @@
             </div>
 
             <div class="sm:col-span-2 lg:col-span-1">
-                <h4 class="text-base md:text-lg font-bold mb-4 md:mb-6 text-[var(--navy)]">Contact Us</h4>
-                <p class="text-xl md:text-2xl font-bold text-[var(--saffron)]">7596 909 888</p>
-                <p class="text-[10px] md:text-xs text-gray-500 mt-1 font-semibold mb-6">Call or WhatsApp</p>
-                <a href="courses.html" class="bg-[var(--green)] text-white px-6 py-3 rounded-full font-bold text-sm shadow-md hover:bg-green-700 transition pulse-btn inline-block">Enroll Now</a>
+                <h4 class="text-lg font-bold mb-4 md:mb-6 text-[var(--navy)]" style="color: var(--navy);">Contact Us</h4>
+                <p class="text-2xl font-bold text-[var(--saffron)]" style="color: var(--saffron);">7596 909 888</p>
+                <p class="text-xs mt-1 font-semibold mb-6">Call or WhatsApp</p>
+                <a href="courses.html" class="bg-[var(--green)] text-white px-6 py-3 rounded-full font-bold text-sm shadow-md hover:bg-green-700 transition pulse-btn inline-block" style="color: white;">Enroll Now</a>
             </div>
         </div>
-        <div class="max-w-7xl mx-auto mt-12 md:mt-16 pt-6 md:pt-8 border-t border-gray-300 text-center text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-widest">
+        <div class="max-w-7xl mx-auto mt-12 md:mt-16 pt-6 md:pt-8 border-t border-gray-300 text-center text-xs font-bold text-gray-400 uppercase tracking-widest">
             &copy; 2026 Easy Learning by Kalyan Bhattacharya. All rights reserved. E-Commerce Enabled via UPI.
         </div>
     </footer>
 
-    <!-- INTERACTIVE AI CHATBOT (Hidden on Load, Link injected) -->
+    <!-- INTERACTIVE AI CHATBOT -->
     <div class="bot-container">
-        <!-- Kept display none so it stays hidden on page load until triggered -->
         <div class="bot-window" id="botWindow" style="display: none;">
             <div class="bg-[var(--navy)] p-4 font-bold flex justify-between items-center shadow-md">
                 <div class="flex items-center gap-3">
@@ -537,16 +502,16 @@
             </div>
             
             <div class="flex-grow p-4 md:p-5 overflow-y-auto space-y-4 bg-gray-50" id="botHistory">
-                <div class="bg-white border border-gray-200 p-3 md:p-4 rounded-2xl rounded-tl-sm text-xs md:text-sm text-gray-800 shadow-md font-semibold">
+                <div class="bg-white border border-gray-200 p-3 md:p-4 rounded-2xl rounded-tl-sm text-sm shadow-md font-semibold">
                     Greetings! 🤖 I am the Easy Learning interactive AI chatbot. How can I assist you with Kalyan Bhattacharya's courses today?
                 </div>
             </div>
             
             <div class="p-3 md:p-4 border-t border-gray-200 bg-white grid grid-cols-1 gap-2">
-                <button onclick="sendMsg('What is the price for the course?')" class="text-xs bg-gray-100 hover:bg-gray-200 border border-gray-300 py-2.5 md:py-3 px-4 rounded-xl transition text-left text-gray-700 font-semibold hover:text-[var(--navy)]">
+                <button onclick="sendMsg('What is the price for the course?')" class="text-sm bg-gray-100 hover:bg-gray-200 border border-gray-300 py-2.5 md:py-3 px-4 rounded-xl transition text-left font-semibold hover:text-[var(--navy)]">
                     What is the price for the course?
                 </button>
-                <button onclick="sendMsg('When can we get started?')" class="text-xs bg-gray-100 hover:bg-gray-200 border border-gray-300 py-2.5 md:py-3 px-4 rounded-xl transition text-left text-gray-700 font-semibold hover:text-[var(--navy)]">
+                <button onclick="sendMsg('When can we get started?')" class="text-sm bg-gray-100 hover:bg-gray-200 border border-gray-300 py-2.5 md:py-3 px-4 rounded-xl transition text-left font-semibold hover:text-[var(--navy)]">
                     When can we get started?
                 </button>
             </div>
@@ -570,15 +535,14 @@
             if(menuOpen) {
                 mobileMenu.classList.remove('menu-closed');
                 mobileMenu.classList.add('menu-open');
-                menuIcon.setAttribute('d', 'M6 18L18 6M6 6l12 12'); // X icon
+                menuIcon.setAttribute('d', 'M6 18L18 6M6 6l12 12'); 
             } else {
                 mobileMenu.classList.remove('menu-open');
                 mobileMenu.classList.add('menu-closed');
-                menuIcon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Hamburger icon
+                menuIcon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); 
             }
         });
 
-        // Close menu when a link is clicked
         const mobileLinks = mobileMenu.querySelectorAll('a');
         mobileLinks.forEach(link => {
             link.addEventListener('click', () => {
@@ -589,14 +553,14 @@
             });
         });
 
-        // Extreme Bouncy Intersection Observer
+        // Intersection Observer
         const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active');
                 } else {
-                    entry.target.classList.remove('active'); // Replay animation on scroll
+                    entry.target.classList.remove('active'); 
                 }
             });
         }, observerOptions);
@@ -660,7 +624,7 @@
 
         function sendMsg(msg) {
             botHistory.innerHTML += `
-                <div class="bg-[var(--navy)] p-3 rounded-2xl rounded-tr-sm text-xs md:text-sm text-white ml-8 shadow-md border border-[rgba(0,0,128,0.2)]">
+                <div class="bg-[var(--navy)] p-3 rounded-2xl rounded-tr-sm text-sm text-white ml-8 shadow-md border border-[rgba(0,0,128,0.2)]">
                     ${msg}
                 </div>
             `;
@@ -668,7 +632,7 @@
 
             const typingId = 'typing-' + Date.now();
             botHistory.innerHTML += `
-                <div id="${typingId}" class="text-[10px] md:text-xs text-gray-500 ml-2 mt-2 italic font-semibold">EazyBot is typing...</div>
+                <div id="${typingId}" class="text-xs text-gray-500 ml-2 mt-2 italic font-semibold">EazyBot is typing...</div>
             `;
             botHistory.scrollTop = botHistory.scrollHeight;
 
@@ -684,11 +648,10 @@
                     reply = "I'm here to help! You can check our course fees or contact us directly at 7596 909 888.";
                 }
 
-                // Add direct enroll link after every bot response
                 reply += `<br><br><a href="courses.html" class="inline-block bg-[var(--green)] text-white px-4 py-2 rounded-full font-bold text-xs shadow-md hover:bg-green-700 transition">Click here to Enroll &rarr;</a>`;
 
                 botHistory.innerHTML += `
-                    <div class="bg-white border border-gray-200 p-3 md:p-4 rounded-2xl rounded-tl-sm text-xs md:text-sm text-gray-800 mr-8 shadow-md font-semibold">
+                    <div class="bg-white border border-gray-200 p-3 md:p-4 rounded-2xl rounded-tl-sm text-sm mr-8 shadow-md font-semibold">
                         🤖 ${reply}
                     </div>
                 `;
